@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 
 void main() {
   runApp(const SmartAuction());
@@ -19,6 +20,7 @@ class SmartAuction extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.kWhite,
         ),
+        home: const HomeView(),
       ),
     );
   }
