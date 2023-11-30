@@ -3,9 +3,9 @@ class AppImages {
   static const kAppleWatch = "assets/Images/AppleWatch.svg";
   static const kDefualt = "assets/Images/Defualt.svg";
   static const kIphone13 = "assets/Images/Iphone13.png";
-  static const kIphone15 = "assets/Images/Iphone15.svg";
+  static const kIphone15 = "assets/Images/Iphone15.png";
   static const kMacBook = "assets/Images/MacBook.svg";
-  static const kMacBookPro = "assets/Images/MacBookPro.svg";
+  static const kMacBookPro = "assets/Images/MacBookPro.png";
   static const kOnBoarding1 = "assets/Images/OnBoarding1.svg";
   static const kOnBoarding2 = "assets/Images/OnBoarding2.svg";
   static const kOnBoarding3 = "assets/Images/OnBoarding3.png";

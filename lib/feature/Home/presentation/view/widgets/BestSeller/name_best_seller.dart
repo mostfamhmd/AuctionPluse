@@ -12,7 +12,8 @@ class NameBestSeller extends StatelessWidget {
       width: 90.w,
       child: Text(
         "T800 Ultra Smart Watch 49mm - Wireless Charging - NFC",
-        maxLines: 6,
+        maxLines: 5,
+        overflow: TextOverflow.ellipsis,
         style: AppStyles.kPoppins700.copyWith(
           fontSize: 14.sp,
         ),

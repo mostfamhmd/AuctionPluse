@@ -24,4 +24,6 @@ class AppIcons {
   static const kSuccessful = "assets/Icons/Successful.svg";
   static const kUser = "assets/Icons/User.svg";
   static const kUserName = "assets/Icons/UserName.svg";
+  static const kPlus = "assets/Icons/Plus.svg";
+  static const kMinus = "assets/Icons/Minus.svg";
 }

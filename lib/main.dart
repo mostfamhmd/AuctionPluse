@@ -18,7 +18,7 @@ class SmartAuction extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.kWhite,
+          scaffoldBackgroundColor: AppColors.kWhite.withOpacity(0.98),
         ),
         home: const HomeView(),
       ),

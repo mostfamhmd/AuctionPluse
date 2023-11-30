@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -33,11 +34,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
             .copyWith(fontSize: 10.sp, color: AppColors.kGray),
         items: [
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppIcons.kHome,
-              colorFilter: ColorFilter.mode(
-                  _currentIndex == 0 ? AppColors.kLightBlue : AppColors.kGray,
-                  BlendMode.srcIn),
+            icon: InkWell(
+              onTap: () {
+                Navigator.pushReplacement<void, void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const HomeView(),
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                AppIcons.kHome,
+                colorFilter: ColorFilter.mode(
+                    _currentIndex == 0 ? AppColors.kLightBlue : AppColors.kGray,
+                    BlendMode.srcIn),
+              ),
             ),
             label: "Home",
           ),

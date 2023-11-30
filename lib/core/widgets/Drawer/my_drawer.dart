@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/Drawer/body_profile_drawer.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/Drawer/options_drawer.dart';
+import 'package:smart_auction/core/widgets/Drawer/body_profile_drawer.dart';
+import 'package:smart_auction/core/widgets/Drawer/options_drawer.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
