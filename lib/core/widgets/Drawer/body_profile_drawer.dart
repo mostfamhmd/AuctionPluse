@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/core/widgets/Drawer/profile_picture.dart';
 
 class BodyProfileDrawer extends StatelessWidget {
   const BodyProfileDrawer({super.key});
@@ -12,16 +12,7 @@ class BodyProfileDrawer extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Column(children: [
-        Container(
-          height: 180.h,
-          width: 180.w,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(AppImages.kEslamNasr),
-            ),
-          ),
-        ),
+        const ProfilePicture(),
         SizedBox(
           height: 20.h,
         ),
