@@ -11,7 +11,6 @@ class AddProductsView extends StatelessWidget {
     return Scaffold(
       appBar: myCustomAppBar(context, "Add a new product"),
       body: const AddProductBody(),
-      endDrawer: const MyDrawer(),
     );
   }
 }

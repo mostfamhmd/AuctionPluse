@@ -19,20 +19,6 @@ class OptionsDrawer extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            Navigator.pushReplacement<void, void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const HomeView(),
-              ),
-            );
-          },
-          child: Text(
-            "Home",
-            style: AppStyles.kInter600.copyWith(fontSize: 20.sp),
-          ),
-        ),
-        TextButton(
-          onPressed: () {
             Navigator.push<void>(
               context,
               MaterialPageRoute<void>(

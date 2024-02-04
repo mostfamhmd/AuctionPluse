@@ -11,7 +11,6 @@ class OrderManagementView extends StatelessWidget {
     return Scaffold(
       appBar: myCustomAppBar(context, "Manage all orders"),
       body: const OrderManagementBody(),
-      endDrawer: const MyDrawer(),
     );
   }
 }

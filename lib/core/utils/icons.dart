@@ -26,4 +26,16 @@ class AppIcons {
   static const kUserName = "assets/Icons/UserName.svg";
   static const kPlus = "assets/Icons/Plus.svg";
   static const kMinus = "assets/Icons/Minus.svg";
+  static const kAircategory = "assets/Icons/Air category.svg";
+  static const kAirPodsCategory = "assets/Icons/AirPods Category.svg";
+  static const kAppleWatchCategory = "assets/Icons/Apple Watch Category.svg";
+  static const kIphoneCategory = "assets/Icons/Iphone Category.svg";
+  static const kMacCategory = "assets/Icons/Mac Category.svg";
+  static const kRefrigeratorCategory = "assets/Icons/Refrigerator Category.svg";
+  static const kTVCategory = "assets/Icons/TV Category.svg";
+  static const kWashingMachineCategory =
+      "assets/Icons/Washing Machine Category.svg";
+  static const kStarRating = "assets/Icons/StarRating.svg";
+  static const kFilter = "assets/Icons/Filter.svg";
+  static const kSortBy = "assets/Icons/SortBy.svg";
 }

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Famous%20Brands/famous_brands_list.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/custom_more.dart';
 
+import '../../../../Famous Brands/presentation/view/famous_brand.dart';
+
 class FamousBrandsBody extends StatelessWidget {
   const FamousBrandsBody({super.key});
 
@@ -10,7 +12,14 @@ class FamousBrandsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomMore(type: "Famous Brands", typeMore: "See More"),
+        CustomMore(type: "Famous Brands", typeMore: "See More", onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const FamousBrandsPage(),
+            ),
+          );
+        },),
         SizedBox(
           height: 90.h,
           child: const FamousBrandsList(),

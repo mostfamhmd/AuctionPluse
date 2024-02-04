@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Categories/categories_list.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/custom_more.dart';
 
@@ -10,9 +11,17 @@ class CategoryBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomMore(
+        CustomMore(
           type: "Category",
           typeMore: "More Category",
+          onTap: (){
+            Navigator.push (
+              context,
+              MaterialPageRoute (
+                builder: (BuildContext context) => const CategoryPage(),
+              ),
+            );
+          },
         ),
         SizedBox(
           height: 30.h,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/feature/Best%20Seller/presentation/view/best_seller_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/best_seller_list.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/custom_more.dart';
 
@@ -10,7 +11,14 @@ class BestSellerBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomMore(type: "Best Seller", typeMore: "See More"),
+        CustomMore(type: "Best Seller", typeMore: "See More", onTap: (){
+          Navigator.push (
+            context,
+            MaterialPageRoute (
+              builder: (BuildContext context) => const BestSellerPage(),
+            ),
+          );
+        },),
         SizedBox(
           height: 30.h,
         ),

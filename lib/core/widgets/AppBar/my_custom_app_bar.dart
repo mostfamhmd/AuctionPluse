@@ -18,36 +18,10 @@ PreferredSizeWidget myCustomAppBar(BuildContext context, String nameView) {
         fit: BoxFit.none,
       ),
     ),
-    title: Row(
-      children: [
-        Text(
-          nameView,
-          style: AppStyles.kPoppins700.copyWith(fontSize: 16.sp),
-        ),
-        const Spacer(),
-        SvgPicture.asset(
-          AppIcons.kExplore,
-          fit: BoxFit.none,
-        ),
-      ],
+    title: Text(
+      nameView,
+      style: AppStyles.kPoppins700.copyWith(fontSize: 16.sp),
     ),
-    actions: [
-      Builder(builder: (BuildContext innerContext) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                Scaffold.of(innerContext).openEndDrawer();
-              },
-              child: SvgPicture.asset(AppIcons.kMore),
-            ),
-            SizedBox(
-              width: 20.w,
-            ),
-          ],
-        );
-      })
-    ],
+
   );
 }

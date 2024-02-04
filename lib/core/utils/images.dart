@@ -14,4 +14,6 @@ class AppImages {
   static const kTelevision = "assets/Images/Television.svg";
   static const kTUltraSmartWatch = "assets/Images/TUltraSmartWatch.png";
   static const kEslamNasr = "assets/Images/EslamNasr.png";
+  static const kAirPods = "assets/Images/AirPods.png";
+  static const kNetflix = "assets/Images/Netflix.png";
 }

@@ -11,7 +11,6 @@ class AddSubCategoryView extends StatelessWidget {
     return Scaffold(
       appBar: myCustomAppBar(context, "Add a new subcategory"),
       body: const AddSubCategoryBody(),
-      endDrawer: const MyDrawer(),
     );
   }
 }
