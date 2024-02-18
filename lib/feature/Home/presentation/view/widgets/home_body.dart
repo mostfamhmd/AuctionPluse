@@ -8,15 +8,22 @@ import 'package:smart_auction/feature/Home/presentation/view/widgets/slider_body
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 5.h),
+        padding: EdgeInsets.only(
+          left: 25.w,
+          right: 25.w,
+        ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
+              SizedBox(
+                height: 15.h,
+              ),
               const SliderBody(numberAds: 5),
               SizedBox(
                 height: 20.h,

@@ -54,15 +54,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              AppIcons.kExplore,
-              colorFilter: ColorFilter.mode(
-                  _currentIndex == 1 ? AppColors.kLightBlue : AppColors.kGray,
-                  BlendMode.srcIn),
-            ),
-            label: "Explore",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
               AppIcons.kCart,
               colorFilter: ColorFilter.mode(
                   _currentIndex == 2 ? AppColors.kLightBlue : AppColors.kGray,

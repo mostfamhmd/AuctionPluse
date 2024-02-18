@@ -23,7 +23,7 @@ class BestSellerBody extends StatelessWidget {
           height: 30.h,
         ),
         SizedBox(
-          height: 270.h,
+          height: 305.h,
           child: const BestSellerList(),
         ),
       ],

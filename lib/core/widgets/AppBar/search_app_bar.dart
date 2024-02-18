@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/AppBar/search_field.dart';
+import 'package:smart_auction/core/widgets/Components/search_field.dart';
 
-PreferredSizeWidget myAppBar() {
+PreferredSizeWidget searchAppBar() {
   return AppBar(
     elevation: 1,
     toolbarHeight: 90.h,
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.kWhite,
     leading: Padding(
       padding: EdgeInsets.only(left: 25.w, top: 10.h),
       child: SizedBox(

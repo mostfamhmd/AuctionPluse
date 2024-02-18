@@ -26,7 +26,7 @@ class GridViewItemsBuilder extends StatelessWidget {
               ),
               SizedBox(width: 10.w),
               Padding(
-                padding: EdgeInsets.only(top: 10.h),
+                padding: EdgeInsets.only(top: 5.h),
                 child: Image.asset(
                   AppImages.kNetflix,
                   height: 65.h,
@@ -36,7 +36,7 @@ class GridViewItemsBuilder extends StatelessWidget {
               SizedBox(width: 10.w),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10.h),
+                  padding: EdgeInsets.only(top: 5.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -62,7 +62,6 @@ class GridViewItemsBuilder extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5.h,),
           Divider(
             color: AppColors.kGray,
             thickness: 1.0.w,

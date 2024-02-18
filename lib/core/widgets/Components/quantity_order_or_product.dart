@@ -33,7 +33,6 @@ class QuantityProduct extends StatelessWidget {
         ),
         const Spacer(),
         SvgPicture.asset(AppIcons.kPlus),
-        const Spacer(),
       ],
     );
   }

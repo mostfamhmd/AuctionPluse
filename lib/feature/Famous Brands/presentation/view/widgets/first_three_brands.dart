@@ -28,9 +28,26 @@ class FirstThreeBrands extends StatelessWidget {
       children: [
         Container(
           height: 150.h,
+          width: 385.w,
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10.r)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.r),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.kGray.withOpacity(0.2),
+                blurStyle: BlurStyle.normal,
+                blurRadius: 10.r,
+                offset: const Offset(9, 9),
+              ),
+              BoxShadow(
+                blurRadius: 10.r,
+                color: AppColors.kGray.withOpacity(0.2),
+                blurStyle: BlurStyle.normal,
+                offset: const Offset(-9, -9),
+              ),
+            ],
+          ),
           child: Row(children: [
             Image.asset(imagePath),
             SizedBox(
@@ -65,3 +82,31 @@ class FirstThreeBrands extends StatelessWidget {
     );
   }
 }
+List<BoxShadow> middleBoxShadow = [
+  BoxShadow(
+    color: AppColors.kGray.withOpacity(0.9),
+    blurStyle: BlurStyle.normal,
+    offset: const Offset(2, 4),
+  ),
+  BoxShadow(
+    color: AppColors.kGray.withOpacity(0.9),
+    blurStyle: BlurStyle.normal,
+    offset: const Offset(-2, -4),
+  ),
+];
+List<BoxShadow> firstBoxShadow = [
+  BoxShadow(
+    color: AppColors.kGray.withOpacity(0.3),
+    blurRadius: 4,
+    blurStyle: BlurStyle.normal,
+    offset: const Offset(8, 0),
+  ),
+];
+List<BoxShadow> latestBoxShadow = [
+  BoxShadow(
+    color: AppColors.kGray.withOpacity(0.3),
+    blurRadius: 4,
+    blurStyle: BlurStyle.normal,
+    offset: const Offset(-8, 0),
+  ),
+];

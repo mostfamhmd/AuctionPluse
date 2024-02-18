@@ -12,10 +12,12 @@ class BodyFamousBrandsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 20.h),
+    return SingleChildScrollView(
       child: Column(
         children: [
+          SizedBox(
+            height: 20.h,
+          ),
           const FirstThreeBrands(
             imagePath: AppImages.kNetflix,
             brandName: "Netflix",
@@ -49,18 +51,18 @@ class BodyFamousBrandsPage extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 100.h,
-              ),
-              itemCount: 8,
-              itemBuilder: (context, index) {
-                return const GridViewItemsBuilder();
-              },
+          GridView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: 100.h,
             ),
-
+            itemCount: 8,
+            itemBuilder: (context, index) {
+              return const GridViewItemsBuilder();
+            },
           ),
         ],
       ),

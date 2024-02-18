@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/feature/Order%20Management/presentation/view/widget/orders_list.dart';
+import 'package:smart_auction/core/widgets/Components/list_of_orders_or_products.dart';
 
 class OrderManagementBody extends StatelessWidget {
   const OrderManagementBody({super.key});
@@ -9,11 +9,13 @@ class OrderManagementBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 5.h),
+        padding: EdgeInsets.only(top: 5.h,bottom: 5.h),
         child: const Column(
           children: [
             Expanded(
-              child: OrdersList(),
+              child: ListOfOrdersOrProducts(
+                isEdit: false,
+              ),
             ),
           ],
         ),

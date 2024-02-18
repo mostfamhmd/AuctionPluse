@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/feature/Filter%20Page/presentation/view/filter_page.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/AppBar/search_field.dart';
+import 'package:smart_auction/core/widgets/Components/search_field.dart';
 
-import '../../../../Sort Page/presentation/view/sort_page.dart';
+import '../../../feature/Sort Page/presentation/view/sort_page.dart';
 
-PreferredSizeWidget appBarSearchResult() {
+PreferredSizeWidget searchResultAppBar() {
   return AppBar(
     elevation: 1,
     toolbarHeight: 90.h,

@@ -5,7 +5,7 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
-import '../../../../../Search Result/presentation/view/search_result_page.dart';
+import '../../../feature/Search Result/presentation/view/search_result_page.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key, required this.textEditingController});

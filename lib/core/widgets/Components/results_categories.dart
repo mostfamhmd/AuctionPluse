@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/icons.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../utils/colors.dart';
+import '../../utils/icons.dart';
+import '../../utils/styles.dart';
 
 class ResultsAndCategories extends StatelessWidget {
   const ResultsAndCategories({super.key, required this.numResults});
@@ -16,7 +16,7 @@ class ResultsAndCategories extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "8 Result",
+          "$numResults Result",
           style: AppStyles.kPoppins700.copyWith(
             fontSize: 16.sp,
             color: AppColors.kGray,

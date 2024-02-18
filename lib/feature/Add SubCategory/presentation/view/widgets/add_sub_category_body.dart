@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/widgets/Custom%20Button/my_custom_button.dart';
-import 'package:smart_auction/core/widgets/Custom%20Field/my_custom_field.dart';
-import 'package:smart_auction/core/widgets/Custom%20Field/my_custom_suffix_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 
 class AddSubCategoryBody extends StatelessWidget {
   const AddSubCategoryBody({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/icons.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/AppBar/search_field.dart';
+import 'package:smart_auction/core/widgets/Components/search_field.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key, required this.textEditingController});

@@ -5,9 +5,9 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Custom%20Button/my_custom_button.dart';
-import 'package:smart_auction/core/widgets/Custom%20Field/my_custom_field.dart';
-import 'package:smart_auction/core/widgets/Custom%20Field/my_custom_suffix_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 
 class AddProductBody extends StatelessWidget {
   const AddProductBody({super.key});

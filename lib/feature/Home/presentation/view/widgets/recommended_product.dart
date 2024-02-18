@@ -22,12 +22,13 @@ class RecommendedProduct extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 50.h, left: 25.w),
+          padding: EdgeInsets.only(left: 25.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 70.h,
+                height: 80.h,
                 width: 190.w,
                 child: Text(
                   "Recomended Product",

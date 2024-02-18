@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_auction/core/widgets/AppBar/my_custom_app_bar.dart';
+import 'package:smart_auction/core/widgets/AppBar/basic_app_bar.dart';
 import 'package:smart_auction/feature/Add%20Brand/presentation/view/widgets/add_brand_body.dart';
+
+import '../../../../core/widgets/Drawer/my_drawer.dart';
+import '../../../../core/widgets/My Bottom Nav Bar/bottom_nav_bar.dart';
 
 class AddBrandView extends StatelessWidget {
   const AddBrandView({super.key});
@@ -8,8 +11,10 @@ class AddBrandView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myCustomAppBar(context, "Add a new brand"),
+      appBar: basicAppBar(context, "Add a new brand"),
       body: const AddBrandBody(),
+      endDrawer: const MyDrawer(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

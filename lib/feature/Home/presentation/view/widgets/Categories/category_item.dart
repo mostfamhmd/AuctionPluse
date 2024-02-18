@@ -12,24 +12,49 @@ class CategriesItem extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          height: 110.h,
+          height: 120.h,
           width: 70.w,
           child: Align(
             alignment: Alignment.center,
             child: Column(
               children: [
-                Image.asset(
-                  AppImages.kIphone13,
-                  fit: BoxFit.cover,
+                Container(
+                  height: 70.h,
+                  width: 65.h,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(2, 2),
+                        color: AppColors.kGray.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 2.r,
+                      ),
+                      BoxShadow(
+                        offset: const Offset(-2, -2),
+                        color: AppColors.kGray.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 2.r,
+                      ),
+                    ],
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    AppImages.kIphone13,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 10.h,
                 ),
                 Text(
                   "Iphone 13",
                   style: AppStyles.kPoppins500.copyWith(
                     color: AppColors.kBlack,
-                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11.sp,
                   ),
                 ),
               ],

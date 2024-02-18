@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/core/widgets/Components/rating_widget.dart';
 
 class PriceRatingProduct extends StatelessWidget {
-  const PriceRatingProduct({super.key});
-
+  const PriceRatingProduct({super.key, required this.productPrice, required this.rating});
+  final String productPrice;
+  final double rating;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text(
-          r"$930.00",
+          productPrice,
           style: AppStyles.kInter700
               .copyWith(fontSize: 22.sp, color: AppColors.kLightBlue),
         ),
         const Spacer(
-          flex: 50,
         ),
-        SvgPicture.asset(AppIcons.kStar),
-        const Spacer(),
-        SvgPicture.asset(AppIcons.kStar),
-        const Spacer(),
-        SvgPicture.asset(AppIcons.kStar),
-        const Spacer(),
-        SvgPicture.asset(AppIcons.kStar),
-        const Spacer(),
-        SvgPicture.asset(
-          AppIcons.kStar,
-          colorFilter: const ColorFilter.mode(AppColors.kGray, BlendMode.srcIn),
-        ),
+        RatingWidget(rating: rating,)
       ],
     );
   }

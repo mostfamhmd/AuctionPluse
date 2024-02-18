@@ -38,4 +38,5 @@ class AppIcons {
   static const kStarRating = "assets/Icons/StarRating.svg";
   static const kFilter = "assets/Icons/Filter.svg";
   static const kSortBy = "assets/Icons/SortBy.svg";
+  static const kDelete = "assets/Icons/Delete.svg";
 }

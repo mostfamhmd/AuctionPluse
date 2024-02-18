@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_auction/core/utils/colors.dart';
 
-import '../../../../../core/utils/icons.dart';
+import '../../utils/icons.dart';
 
-class RatingResults extends StatelessWidget {
-  RatingResults({super.key, required this.rating});
+class RatingWidget extends StatelessWidget {
+  RatingWidget({super.key, required this.rating});
+
   late double rating;
+
   @override
   Widget build(BuildContext context) {
     return RatingStars(
@@ -14,9 +17,12 @@ class RatingResults extends StatelessWidget {
       onValueChanged: (v) {
         rating = v;
       },
-      starBuilder: (index, color) => SvgPicture.asset(
+      starBuilder: (index, starColor) => SvgPicture.asset(
         AppIcons.kStar,
-        color: color,
+        colorFilter: ColorFilter.mode(
+          starColor!,
+          BlendMode.srcIn,
+        ),
       ),
       starCount: 5,
       starSize: 15,
@@ -24,7 +30,7 @@ class RatingResults extends StatelessWidget {
       starSpacing: 1,
       valueLabelVisibility: false,
       valueLabelMargin: EdgeInsets.zero,
-      starOffColor: const Color(0xffe7e8ea),
+      starOffColor:  AppColors.kGray,
       starColor: const Color(0xFFFFC833),
     );
   }

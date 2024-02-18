@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Custom%20Button/my_custom_button.dart';
-import 'package:smart_auction/core/widgets/Custom%20Field/my_custom_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 
 class AddCategoryBody extends StatelessWidget {
   const AddCategoryBody({super.key});
