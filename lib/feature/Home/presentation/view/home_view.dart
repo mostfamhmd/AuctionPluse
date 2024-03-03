@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_auction/core/widgets/AppBar/search_app_bar.dart';
+import 'package:smart_auction/core/widgets/AppBar/home_app_bar.dart';
 import 'package:smart_auction/core/widgets/My%20Bottom%20Nav%20Bar/bottom_nav_bar.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/home_body.dart';
 import 'package:smart_auction/core/widgets/Drawer/my_drawer.dart';
@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: searchAppBar(),
+      appBar: homeAppBar(context),
       endDrawer: const MyDrawer(),
       body: const HomeBody(),
       bottomNavigationBar: const BottomNavBar(),

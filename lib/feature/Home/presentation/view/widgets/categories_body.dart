@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Categories/categories_list.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/custom_more.dart';
+import 'package:smart_auction/core/widgets/Components/custom_more.dart';
 
 class CategoryBody extends StatelessWidget {
   const CategoryBody({super.key});

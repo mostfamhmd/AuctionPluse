@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/view/widgets/first_three_brands.dart';
 
 import '../../../../../core/utils/images.dart';

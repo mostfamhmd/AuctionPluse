@@ -3,21 +3,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
-import 'package:smart_auction/core/widgets/Components/search_field.dart';
 
-PreferredSizeWidget searchAppBar() {
+import '../../../feature/Favorite Page/presentation/view/favorite_page.dart';
+import '../Components/search_field.dart';
+
+PreferredSizeWidget searchAppBar(BuildContext context) {
   return AppBar(
-    elevation: 1,
-    toolbarHeight: 90.h,
+    elevation: 3,
     backgroundColor: AppColors.kWhite,
-    leading: Padding(
-      padding: EdgeInsets.only(left: 25.w, top: 10.h),
-      child: SizedBox(
-        width: 280.w,
-        child: SearchField(
-          textEditingController: TextEditingController(),
+    toolbarHeight: 80.h,
+    leading: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset(AppIcons.kArrowBack),
         ),
-      ),
+        SizedBox(
+          width: 270.w,
+          height: 55.h,
+          child: SearchField(
+            textEditingController: TextEditingController(),
+          ),
+        ),
+      ],
     ),
     leadingWidth: 310.w,
     actions: [
@@ -25,9 +36,19 @@ PreferredSizeWidget searchAppBar() {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(
-              AppIcons.kFavorite,
-              fit: BoxFit.none,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FavoritePage(),
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                AppIcons.kFavorite,
+                fit: BoxFit.none,
+              ),
             ),
             SizedBox(
               width: 20.w,

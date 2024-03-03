@@ -5,7 +5,7 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/my_custom_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 
@@ -134,7 +134,7 @@ class AddProductBody extends StatelessWidget {
             ),
             const Align(
               alignment: Alignment.topRight,
-              child: MyCustomButton(nameButton: "Add Product"),
+              child: MySmallBTN(nameButton: "Add Product"),
             ),
           ]),
         ),

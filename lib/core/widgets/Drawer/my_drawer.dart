@@ -11,15 +11,18 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+      ),
       width: 340.w,
       child: Padding(
-        padding: EdgeInsets.only(top: 40.h, left: 20.w),
+        padding: EdgeInsets.only(top: 30.h, left: 20.w, right: 20.w,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const BodyProfileDrawer(),
             SizedBox(
-              height: 25.h,
+              height: 20.h,
             ),
             Text(
               "Menu",
@@ -34,9 +37,6 @@ class MyDrawer extends StatelessWidget {
                 color: AppColors.kBlack,
                 thickness: 3.h,
               ),
-            ),
-            SizedBox(
-              height: 25.h,
             ),
             const OptionsDrawer(),
           ],

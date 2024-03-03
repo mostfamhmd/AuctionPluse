@@ -3,24 +3,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
-import 'package:smart_auction/feature/Filter%20Page/presentation/view/filter_page.dart';
 import 'package:smart_auction/core/widgets/Components/search_field.dart';
+import 'package:smart_auction/feature/Filter%20Page/presentation/view/filter_page.dart';
 
 import '../../../feature/Sort Page/presentation/view/sort_page.dart';
 
-PreferredSizeWidget searchResultAppBar() {
+PreferredSizeWidget searchResultAppBar(BuildContext context) {
   return AppBar(
-    elevation: 1,
-    toolbarHeight: 90.h,
-    backgroundColor: AppColors.kWhite.withOpacity(0.8),
-    leading: Padding(
-      padding: EdgeInsets.only(left: 25.w, top: 10.h),
-      child: SizedBox(
-        width: 280.w,
-        child: SearchField(
-          textEditingController: TextEditingController(),
+    elevation: 3,
+    toolbarHeight: 80.h,
+    backgroundColor: AppColors.kWhite,
+    leading: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset(AppIcons.kArrowBack),
         ),
-      ),
+        SizedBox(
+          width: 270.w,
+          height: 55.h,
+          child: SearchField(
+            textEditingController: TextEditingController(),
+          ),
+        ),
+      ],
     ),
     leadingWidth: 310.w,
     actions: [
@@ -46,15 +55,16 @@ PreferredSizeWidget searchResultAppBar() {
               width: 20.w,
             ),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FilterPage(),
-                    ),
-                  );
-                },
-                child: SvgPicture.asset(AppIcons.kFilter)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FilterPage(),
+                  ),
+                );
+              },
+              child: SvgPicture.asset(AppIcons.kFilter),
+            ),
             SizedBox(
               width: 20.w,
             ),

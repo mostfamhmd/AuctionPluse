@@ -6,8 +6,8 @@ import 'package:smart_auction/core/utils/styles.dart';
 
 PreferredSizeWidget backAppBar(BuildContext context, String nameView) {
   return AppBar(
-    elevation: 1,
-    toolbarHeight: 90.h,
+    elevation: 3,
+    toolbarHeight: 80.h,
     backgroundColor: Colors.white,
     leading: InkWell(
       onTap: () {

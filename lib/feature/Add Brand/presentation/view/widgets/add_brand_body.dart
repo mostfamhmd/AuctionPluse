@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/my_custom_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 
 class AddBrandBody extends StatelessWidget {
@@ -44,7 +44,7 @@ class AddBrandBody extends StatelessWidget {
             SizedBox(
               height: 30.h,
             ),
-            const MyCustomButton(
+            const MySmallBTN(
               nameButton: "Add Brand",
             ),
           ],

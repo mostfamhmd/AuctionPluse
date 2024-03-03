@@ -18,7 +18,6 @@ class HomeBody extends StatelessWidget {
           right: 25.w,
         ),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(

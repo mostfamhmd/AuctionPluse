@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,7 +32,7 @@ class RatingWidget extends StatelessWidget {
       starSpacing: 1,
       valueLabelVisibility: false,
       valueLabelMargin: EdgeInsets.zero,
-      starOffColor:  AppColors.kGray,
+      starOffColor:AppColors.kGray,
       starColor: const Color(0xFFFFC833),
     );
   }

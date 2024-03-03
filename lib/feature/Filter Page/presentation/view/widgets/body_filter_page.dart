@@ -1,8 +1,11 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/feature/Filter%20Page/data/model/BuyingFormat/buying_format.dart';
 import 'package:smart_auction/feature/Filter%20Page/data/model/ItemLocation/item_location.dart';
 import 'package:smart_auction/feature/Filter%20Page/data/model/ShowOnly/show_only.dart';
@@ -239,24 +242,7 @@ class _BodyFilterPageState extends State<BodyFilterPage> {
             SizedBox(
               height: 40.h,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                height: 50.h,
-                color: AppColors.kLightBlue,
-                child: Center(
-                  child: Text(
-                    "Apply",
-                    style: AppStyles.kPoppins700.copyWith(
-                      fontSize: 14.sp,
-                      color: AppColors.kBlack,
-                    ),
-                  ),
-                ),
-              ),
-            )
+            const MyBigBTN(nameBTN: "Apply"),
           ],
         ),
       ),

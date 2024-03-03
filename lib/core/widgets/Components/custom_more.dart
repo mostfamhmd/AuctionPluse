@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 
 class CustomMore extends StatelessWidget {
   const CustomMore({super.key, required this.type, required this.typeMore, this.onTap});

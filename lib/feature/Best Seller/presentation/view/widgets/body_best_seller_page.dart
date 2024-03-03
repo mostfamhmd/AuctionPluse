@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/widgets/Components/results_categories.dart';
 
 import '../../../../../core/utils/images.dart';
-import '../../../../../core/widgets/Components/grid_view_for_view_product.dart';
 import '../../../../../core/widgets/Components/body_view_product.dart';
+import '../../../../../core/widgets/Components/grid_view_for_view_product.dart';
+import '../../../../Details Product/presentation/view/details_product.dart';
 
 class BodyBestSellerPage extends StatelessWidget {
   const BodyBestSellerPage({super.key});
@@ -38,5 +38,3 @@ class BodyBestSellerPage extends StatelessWidget {
     );
   }
 }
-
-

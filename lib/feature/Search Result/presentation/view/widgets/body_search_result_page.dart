@@ -23,7 +23,7 @@ class BodySearchResultPage extends StatelessWidget {
           ),
           GridViewForViewProduct(
             widget: BodyViewProduct(
-              isDelete: true,
+              isDelete: false,
               imageUrl: AppImages.kAirPods,
               nameProduct: 'Airpods',
               overPrice: r'$299,43',

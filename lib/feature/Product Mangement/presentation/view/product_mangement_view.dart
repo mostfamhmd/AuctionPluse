@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_auction/core/widgets/AppBar/back_app_bar.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/view/widgets/product_management_body.dart';
 
 import '../../../../core/widgets/AppBar/basic_app_bar.dart';

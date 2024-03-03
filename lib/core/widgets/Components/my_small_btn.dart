@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
-class MyCustomButton extends StatelessWidget {
-  const MyCustomButton({super.key, required this.nameButton});
+class MySmallBTN extends StatelessWidget {
+  const MySmallBTN({super.key, required this.nameButton});
   final String nameButton;
   @override
   Widget build(BuildContext context) {
