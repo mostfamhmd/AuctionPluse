@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/Slider/background_slider.dart';
+import 'package:smart_auction/core/widgets/Components/background_slider.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Slider/dots.dart';
 
 class SliderBody extends StatefulWidget {

@@ -10,10 +10,12 @@ class MyCustomSuffixField extends StatelessWidget {
       {super.key,
       required this.myController,
       required this.textAlign,
-      required this.hintText});
+      required this.hintText, this.isIcon = true, this.widget});
   final TextEditingController myController;
   final TextAlign textAlign;
   final String hintText;
+  final bool isIcon;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,10 @@ class MyCustomSuffixField extends StatelessWidget {
       textAlign: textAlign,
       cursorColor: AppColors.kGray,
       decoration: InputDecoration(
-        suffixIcon: SvgPicture.asset(
+        suffixIcon: isIcon == true? SvgPicture.asset(
           AppIcons.kArrowMenu,
           fit: BoxFit.none,
-        ),
+        ) : widget,
         hintText: hintText,
         hintStyle: AppStyles.kPoppins400
             .copyWith(fontSize: 14.sp, color: AppColors.kGray),

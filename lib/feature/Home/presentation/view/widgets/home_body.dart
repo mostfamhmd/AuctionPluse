@@ -4,7 +4,10 @@ import 'package:smart_auction/feature/Home/presentation/view/widgets/best_seller
 import 'package:smart_auction/feature/Home/presentation/view/widgets/categories_body.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/famous_brands_body.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/recommended_product.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/slider_body.dart';
+import 'package:smart_auction/feature/Home/presentation/view/widgets/slider_banners.dart';
+import 'package:smart_auction/feature/Super%20Flash%20Sale%20Page/Presentation/view/super_flash_sale_page.dart';
+
+import 'live_auction.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -23,7 +26,24 @@ class HomeBody extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              const SliderBody(numberAds: 5),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SuperFlashSalePage(),
+                    ),
+                  );
+                },
+                child: const SliderBanners(),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              LiveAuction(
+                seeAll: () {},
+                viewShows: () {},
+              ),
               SizedBox(
                 height: 20.h,
               ),

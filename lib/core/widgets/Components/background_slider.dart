@@ -11,13 +11,14 @@ class BackgroundSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200.h,
-      width: 400.w,
+      width: MediaQuery.sizeOf(context).width,
+      margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         image: const DecorationImage(
           image: AssetImage(AppImages.kPromotionSlider),
           fit: BoxFit.fill,
         ),
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(10.r),
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 35.h, left: 25.w),

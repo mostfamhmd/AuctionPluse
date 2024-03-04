@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
+import 'package:smart_auction/core/widgets/AppBar/home_app_bar.dart';
+
+import 'name_and_icon_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -18,67 +20,54 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        onTap: (value) {
-          setState(() {
-            _currentIndex = value;
-          });
-        },
-        currentIndex: _currentIndex,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedItemColor: AppColors.kLightBlue,
-        unselectedItemColor: AppColors.kGray,
-        selectedLabelStyle: AppStyles.kPoppins700
-            .copyWith(fontSize: 10.sp, color: AppColors.kLightBlue),
-        unselectedLabelStyle: AppStyles.kPoppins400
-            .copyWith(fontSize: 10.sp, color: AppColors.kGray),
-        items: [
-          BottomNavigationBarItem(
-            icon: InkWell(
-              onTap: () {
-                Navigator.pushReplacement<void, void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const HomeView(),
-                  ),
-                );
-              },
-              child: SvgPicture.asset(
-                AppIcons.kHome,
-                colorFilter: ColorFilter.mode(
-                    _currentIndex == 0 ? AppColors.kLightBlue : AppColors.kGray,
-                    BlendMode.srcIn),
-              ),
-            ),
-            label: "Home",
+      backgroundColor: AppColors.kWhite,
+      elevation: 3,
+      onTap: (value) {
+        setState(() {
+          _currentIndex = value;
+        });
+      },
+      currentIndex: _currentIndex,
+
+      items: [
+        BottomNavigationBarItem(
+          icon: NameAndIconPage(
+            currentIndex: _currentIndex,
+            myIndex: 0,
+            pageIcon: AppIcons.kHome,
+            pageName: "Home",
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppIcons.kCart,
-              colorFilter: ColorFilter.mode(
-                  _currentIndex == 2 ? AppColors.kLightBlue : AppColors.kGray,
-                  BlendMode.srcIn),
-            ),
-            label: "Cart",
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: NameAndIconPage(
+            currentIndex: _currentIndex,
+            myIndex: 1,
+            pageIcon: AppIcons.kCart,
+            pageName: "Cart",
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppIcons.kOffer,
-              colorFilter: ColorFilter.mode(
-                  _currentIndex == 3 ? AppColors.kLightBlue : AppColors.kGray,
-                  BlendMode.srcIn),
-            ),
-            label: "Offer",
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: NameAndIconPage(
+            currentIndex: _currentIndex,
+            myIndex: 2,
+            pageIcon: AppIcons.kOffer,
+            pageName: "Offer",
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppIcons.kUser,
-              colorFilter: ColorFilter.mode(
-                  _currentIndex == 4 ? AppColors.kLightBlue : AppColors.kGray,
-                  BlendMode.srcIn),
-            ),
-            label: "Account",
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: NameAndIconPage(
+            currentIndex: _currentIndex,
+            myIndex: 3,
+            pageIcon: AppIcons.kUser,
+            pageName: "Account",
           ),
-        ]);
+          label: "",
+        ),
+      ],
+    );
   }
 }
+

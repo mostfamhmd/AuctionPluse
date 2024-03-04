@@ -40,4 +40,5 @@ class AppIcons {
   static const kSortBy = "assets/Icons/SortBy.svg";
   static const kDelete = "assets/Icons/Delete.svg";
   static const kRotatedLogo = "assets/Icons/Rotated Logo.svg";
+  static const kLiveAuction = "assets/Icons/LiveAuction.svg";
 }

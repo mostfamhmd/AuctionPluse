@@ -8,16 +8,12 @@ class SaleSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70.h,
-      width: 230.w,
-      child: Text(
-        "Super Flash Sale 50% Off",
-        maxLines: 2,
-        style: AppStyles.kPoppins700.copyWith(
-          fontSize: 24.sp,
-          color: AppColors.kWhite,
-        ),
+    return Text(
+      "Super Flash Sale\n 50% Off",
+      maxLines: 2,
+      style: AppStyles.kPoppins700.copyWith(
+        fontSize: 24.sp,
+        color: AppColors.kWhite,
       ),
     );
   }

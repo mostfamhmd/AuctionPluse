@@ -4,13 +4,14 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/custom_more.dart';
+import 'package:smart_auction/feature/Cart%20Page/presentation/view/cart_page.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/select_color.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/slider_widgets.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/specifications.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/reviews_page.dart';
 
-import '../../../../../core/widgets/Components/rating_widget.dart';
 import '../../../../../core/widgets/Components/my_big_btn.dart';
+import '../../../../../core/widgets/Components/rating_widget.dart';
 import 'list_view_comments.dart';
 import 'name_product_favorite.dart';
 
@@ -104,7 +105,14 @@ class BodyDetailsProductPage extends StatelessWidget {
             ),
             MyBigBTN(
               nameBTN: "Add To Cart",
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CartPage(),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 10.h,

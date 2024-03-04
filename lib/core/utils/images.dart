@@ -19,4 +19,7 @@ class AppImages {
   static const kContactUs = "assets/Images/Contact Us.png";
   static const kPlus = "assets/Images/Plus.png";
   static const kAuction = "assets/Images/A U C T I O N.png";
+  static const kAdvs1 = "assets/Images/Advs1.png";
+  static const kAdvs2 = "assets/Images/Advs2.png";
+  static const kAdvs3 = "assets/Images/Advs3.png";
 }
