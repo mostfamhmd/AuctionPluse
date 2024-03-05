@@ -14,7 +14,6 @@ class AddBrandView extends StatelessWidget {
       appBar: basicAppBar(context, "Add a new brand"),
       body: const AddBrandBody(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

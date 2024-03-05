@@ -13,13 +13,10 @@ class CategoryItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SvgPicture.asset(categoryPageModel.cateUrlIcon),
-        const Spacer(),
+        SizedBox(width: 30.w,),
         Text(
           categoryPageModel.cateName,
           style: AppStyles.kInter700.copyWith(fontSize: 16.sp),
-        ),
-        const Spacer(
-          flex: 6,
         ),
       ],
     );

@@ -20,7 +20,7 @@ class SmartAuction extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.kWhite,
         ),
-        home: const HomeView(),
+        home: HomeView(),
       ),
     );
   }

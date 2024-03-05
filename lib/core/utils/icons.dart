@@ -41,4 +41,12 @@ class AppIcons {
   static const kDelete = "assets/Icons/Delete.svg";
   static const kRotatedLogo = "assets/Icons/Rotated Logo.svg";
   static const kLiveAuction = "assets/Icons/LiveAuction.svg";
+  static const kPaypal = "assets/Icons/Paypal.svg";
+  static const kCreditCard = "assets/Icons/Credit Card.svg";
+  static const kBank = "assets/Icons/Bank.svg";
+  static const kCardLogo = "assets/Icons/Card Icon.svg";
+  static const kMasterCardLogo = "assets/Icons/Master Card Logo.svg";
+  static const kHint = "assets/Icons/Hint.svg";
+  static const kLock = "assets/Icons/Lock.svg";
+  static const kSuccessPayment = "assets/Icons/SuccessPayment.svg";
 }

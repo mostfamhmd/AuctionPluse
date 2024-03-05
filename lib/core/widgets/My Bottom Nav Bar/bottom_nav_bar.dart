@@ -6,33 +6,60 @@ import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/AppBar/home_app_bar.dart';
 
+import '../../../feature/Cart Page/presentation/view/widgets/body_cart_page.dart';
+import '../../../feature/Home/presentation/view/widgets/home_body.dart';
+import '../../../feature/Super Flash Sale Page/Presentation/view/widgets/body_super_flash_sale_page.dart';
+import '../AppBar/name_app_bar.dart';
+import '../Drawer/my_drawer.dart';
 import 'name_and_icon_page.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
+  BottomNavBar({super.key, required this.currentIndex});
+late int currentIndex;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> body = const [
+      HomeBody(),
+      BodyCartPage(),
+      BodySuperFlashSalePage(),
+      Center(
+        child: Text("Account Page"),
+      ),
+    ];
+    List<PreferredSizeWidget> appBar = [
+      homeAppBar(context),
+      nameAppBar(
+        context,
+        "Your Cart",
+      ),
+      nameAppBar(
+        context,
+        "Super Flash Sale",
+      ),
+      nameAppBar(
+        context,
+        "Account",
+      ),
+    ];
     return BottomNavigationBar(
       backgroundColor: AppColors.kWhite,
       elevation: 3,
       onTap: (value) {
         setState(() {
-          _currentIndex = value;
+          widget.currentIndex = value;
         });
       },
-      currentIndex: _currentIndex,
-
+      currentIndex: widget.currentIndex,
       items: [
         BottomNavigationBarItem(
           icon: NameAndIconPage(
-            currentIndex: _currentIndex,
+            currentIndex: widget.currentIndex,
             myIndex: 0,
             pageIcon: AppIcons.kHome,
             pageName: "Home",
@@ -41,7 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: NameAndIconPage(
-            currentIndex: _currentIndex,
+            currentIndex: widget.currentIndex,
             myIndex: 1,
             pageIcon: AppIcons.kCart,
             pageName: "Cart",
@@ -50,7 +77,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: NameAndIconPage(
-            currentIndex: _currentIndex,
+            currentIndex: widget.currentIndex,
             myIndex: 2,
             pageIcon: AppIcons.kOffer,
             pageName: "Offer",
@@ -59,7 +86,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: NameAndIconPage(
-            currentIndex: _currentIndex,
+            currentIndex: widget.currentIndex,
             myIndex: 3,
             pageIcon: AppIcons.kUser,
             pageName: "Account",

@@ -14,7 +14,6 @@ class AddCategoryView extends StatelessWidget {
       appBar: basicAppBar(context, "Add a new category"),
       body: const AddCategoryBody(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

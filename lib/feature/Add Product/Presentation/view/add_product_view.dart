@@ -14,7 +14,7 @@ class AddProductsView extends StatelessWidget {
       appBar: basicAppBar(context, "Add a new product"),
       body: const AddProductBody(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
+
     );
   }
 }

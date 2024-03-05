@@ -8,6 +8,7 @@ import 'package:smart_auction/feature/Cart%20Page/presentation/view/cart_page.da
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/select_color.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/slider_widgets.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/specifications.dart';
+import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/reviews_page.dart';
 
 import '../../../../../core/widgets/Components/my_big_btn.dart';
@@ -109,7 +110,7 @@ class BodyDetailsProductPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CartPage(),
+                    builder: (context) => HomeView(currentIndex: 1,),
                   ),
                 );
               },

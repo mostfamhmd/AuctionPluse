@@ -12,7 +12,6 @@ class WriteCommentsPage extends StatelessWidget {
     return Scaffold(
       appBar: backAppBar(context, " Write Review"),
       body: const BodyWriteCommentsPage(),
-      bottomNavigationBar: const BottomNavBar(),
       resizeToAvoidBottomInset: false,
     );
   }

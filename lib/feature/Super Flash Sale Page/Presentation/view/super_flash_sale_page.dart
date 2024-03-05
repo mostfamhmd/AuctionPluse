@@ -14,7 +14,9 @@ class SuperFlashSalePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: const BodySuperFlashSalePage(),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 2,
+      ),
       appBar: backWidgetAppBar(
         context,
         "Super Flash Sale",

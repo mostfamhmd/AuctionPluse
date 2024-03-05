@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/best_seller_body.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/categories_body.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/famous_brands_body.dart';
@@ -31,7 +32,7 @@ class HomeBody extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SuperFlashSalePage(),
+                      builder: (context) => HomeView(currentIndex: 2,),
                     ),
                   );
                 },

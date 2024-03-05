@@ -14,7 +14,7 @@ class BestSellerPage extends StatelessWidget {
       appBar: basicAppBar(context, "Best Seller"),
       body: const BodyBestSellerPage(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
+
     );
   }
 }

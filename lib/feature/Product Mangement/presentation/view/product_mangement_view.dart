@@ -14,7 +14,6 @@ class ProductManagementView extends StatelessWidget {
       appBar: basicAppBar(context, "Manage all products"),
       body: const ProductManagementBody(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

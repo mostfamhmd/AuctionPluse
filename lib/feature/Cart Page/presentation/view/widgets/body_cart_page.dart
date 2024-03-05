@@ -4,6 +4,7 @@ import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/swipe_to_delete.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/total_price.dart';
+import 'package:smart_auction/feature/Payment%20Page/presentation/view/payment_page.dart';
 
 import 'apply_btn.dart';
 
@@ -47,7 +48,14 @@ class BodyCartPage extends StatelessWidget {
             ),
             MyBigBTN(
               nameBTN: "Check Out",
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PaymentPage(),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 30.h,

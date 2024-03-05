@@ -14,7 +14,7 @@ class FamousBrandsPage extends StatelessWidget {
       appBar: basicAppBar(context, "Famous Brand"),
       body: const BodyFamousBrandsPage(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
+
     );
   }
 }

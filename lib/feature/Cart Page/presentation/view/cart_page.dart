@@ -18,7 +18,9 @@ class CartPage extends StatelessWidget {
         null,
         null,
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 0,
+      ),
     );
   }
 }

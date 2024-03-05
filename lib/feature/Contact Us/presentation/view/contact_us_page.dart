@@ -9,8 +9,7 @@ class ContactUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: BodyContactUsPage(),
-      bottomNavigationBar: BottomNavBar(),
+      body:  BodyContactUsPage(),
       resizeToAvoidBottomInset: false,
     );
   }

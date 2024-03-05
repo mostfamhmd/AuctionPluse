@@ -14,7 +14,6 @@ class OrderManagementView extends StatelessWidget {
       appBar: basicAppBar(context, "Manage all orders"),
       body: const OrderManagementBody(),
       endDrawer: const MyDrawer(),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
