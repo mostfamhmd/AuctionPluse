@@ -8,9 +8,9 @@ import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/Components/rating_widget.dart';
 
 class ListViewComments extends StatelessWidget {
-  const ListViewComments({super.key,});
-
-
+  const ListViewComments({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,8 @@ class ListViewComments extends StatelessWidget {
           IntrinsicWidth(
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: const AssetImage(AppImages.kEslamNasr),
+                const CircleAvatar(
+                  backgroundImage: AssetImage(AppImages.kEslamNasr),
                 ),
                 SizedBox(
                   width: 10.w,

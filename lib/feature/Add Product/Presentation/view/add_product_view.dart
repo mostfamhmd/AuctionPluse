@@ -3,7 +3,6 @@ import 'package:smart_auction/feature/Add%20Product/Presentation/view/widgets/ad
 
 import '../../../../core/widgets/AppBar/basic_app_bar.dart';
 import '../../../../core/widgets/Drawer/my_drawer.dart';
-import '../../../../core/widgets/My Bottom Nav Bar/bottom_nav_bar.dart';
 
 class AddProductsView extends StatelessWidget {
   const AddProductsView({super.key});
@@ -14,7 +13,6 @@ class AddProductsView extends StatelessWidget {
       appBar: basicAppBar(context, "Add a new product"),
       body: const AddProductBody(),
       endDrawer: const MyDrawer(),
-
     );
   }
 }

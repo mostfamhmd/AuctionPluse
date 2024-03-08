@@ -34,7 +34,7 @@ class _NameProductFavoriteState extends State<NameProductFavorite> {
             return GestureDetector(
               onTap: () {
                 isFavorite = !isFavorite;
-                (context).read<IsFavoriteCubit>().emit(IsFavoriteInitial());
+                context.read<IsFavoriteCubit>().emit(IsFavoriteInitial());
               },
               child: Icon(
                 Icons.favorite,

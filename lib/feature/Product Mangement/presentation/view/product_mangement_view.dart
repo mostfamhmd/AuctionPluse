@@ -3,7 +3,6 @@ import 'package:smart_auction/feature/Product%20Mangement/presentation/view/widg
 
 import '../../../../core/widgets/AppBar/basic_app_bar.dart';
 import '../../../../core/widgets/Drawer/my_drawer.dart';
-import '../../../../core/widgets/My Bottom Nav Bar/bottom_nav_bar.dart';
 
 class ProductManagementView extends StatelessWidget {
   const ProductManagementView({super.key});
