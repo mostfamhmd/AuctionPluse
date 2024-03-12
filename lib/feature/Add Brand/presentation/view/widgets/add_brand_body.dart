@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 
 class AddBrandBody extends StatelessWidget {
@@ -44,9 +43,23 @@ class AddBrandBody extends StatelessWidget {
             SizedBox(
               height: 30.h,
             ),
-            const MySmallBTN(
-              nameButton: "Add Brand",
-            ),
+            InkWell(
+              onTap: () async {},
+              child: Container(
+                height: 45.h,
+                width: 180.w,
+                decoration: BoxDecoration(
+                  color: AppColors.kLightBlue,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Center(
+                    child: Text(
+                  "Add Brand",
+                  style: AppStyles.kPoppins500
+                      .copyWith(fontSize: 18.sp, color: AppColors.kBlack),
+                )),
+              ),
+            )
           ],
         ),
       ),

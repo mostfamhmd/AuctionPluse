@@ -27,7 +27,7 @@ PreferredSizeWidget homeAppBar(BuildContext context) {
         padding: EdgeInsets.symmetric(
           horizontal: 15.w,
         ),
-        margin: EdgeInsets.only(left: 25.w, bottom: 10.h),
+        margin: EdgeInsets.only(left: 25.w, top: 10.h),
         decoration: BoxDecoration(
           color: AppColors.kWhite,
           border: Border.all(width: 1.w, color: AppColors.kGray),

@@ -23,10 +23,12 @@ class MyCustomField extends StatelessWidget {
       controller: myController,
       textAlign: textAlign,
       cursorColor: AppColors.kGray,
+      style:
+          AppStyles.kPoppins400.copyWith(fontSize: 14.sp, color: Colors.black),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppStyles.kPoppins400
-            .copyWith(fontSize: 14.sp, color: AppColors.kGray),
+            .copyWith(fontSize: 14.sp, color: Colors.black),
         border: buildBorder(),
         focusedBorder: buildBorder(),
         enabledBorder: buildBorder(),
