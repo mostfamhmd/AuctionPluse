@@ -8,16 +8,14 @@ import '../../../../../core/utils/styles.dart';
 class FirstThreeBrands extends StatelessWidget {
   const FirstThreeBrands(
       {super.key,
-      required this.imagePath,
+      required this.imageURL,
       required this.brandName,
-      required this.brandDescription,
       required this.rankColor,
       required this.rankNum,
       required this.topCard});
 
-  final String imagePath;
+  final String imageURL;
   final String brandName;
-  final String brandDescription;
   final int rankColor;
   final int rankNum;
   final double topCard;
@@ -49,7 +47,12 @@ class FirstThreeBrands extends StatelessWidget {
             ],
           ),
           child: Row(children: [
-            Image.asset(imagePath),
+            Image.network(
+              imageURL,
+              height: 100.h,
+              width: 100.w,
+              fit: BoxFit.fill,
+            ),
             SizedBox(
               width: 30.w,
             ),
@@ -65,13 +68,6 @@ class FirstThreeBrands extends StatelessWidget {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text(
-                    brandDescription,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        AppStyles.kPoppins400.copyWith(color: AppColors.kBlack),
-                  ),
                 ],
               ),
             )
@@ -82,6 +78,7 @@ class FirstThreeBrands extends StatelessWidget {
     );
   }
 }
+
 List<BoxShadow> middleBoxShadow = [
   BoxShadow(
     color: AppColors.kGray.withOpacity(0.9),

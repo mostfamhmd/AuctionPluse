@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/images.dart';
 import '../../../../../core/utils/styles.dart';
 
 class GridViewItemsBuilder extends StatelessWidget {
-  const GridViewItemsBuilder({super.key});
+  const GridViewItemsBuilder(
+      {super.key,
+      required this.rank,
+      required this.imageURL,
+      required this.name});
+  final int rank;
+  final String imageURL;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class GridViewItemsBuilder extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "4",
+                rank.toString(),
                 style: AppStyles.kPoppins700.copyWith(
                   fontSize: 20.sp,
                   color: AppColors.kBlack,
@@ -27,10 +33,11 @@ class GridViewItemsBuilder extends StatelessWidget {
               SizedBox(width: 10.w),
               Padding(
                 padding: EdgeInsets.only(top: 5.h),
-                child: Image.asset(
-                  AppImages.kNetflix,
+                child: Image.network(
+                  imageURL,
                   height: 65.h,
                   width: 65.w,
+                  fit: BoxFit.fill,
                 ),
               ),
               SizedBox(width: 10.w),
@@ -41,20 +48,11 @@ class GridViewItemsBuilder extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Netflix",
+                        name,
                         style: AppStyles.kPoppins700.copyWith(
                           fontSize: 14.sp,
                           color: AppColors.kBlack,
                         ),
-                      ),
-                      Text(
-                        "Los Gatos, CA",
-                        style: AppStyles.kPoppins400.copyWith(
-                          fontSize: 13.sp,
-                          color: AppColors.kBlack,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.visible,
                       ),
                     ],
                   ),
