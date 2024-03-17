@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/styles.dart';
@@ -32,14 +33,19 @@ class GridViewItemsBuilder extends StatelessWidget {
               ),
               SizedBox(width: 10.w),
               Padding(
-                padding: EdgeInsets.only(top: 5.h),
-                child: Image.network(
+                  padding: EdgeInsets.only(top: 5.h),
+                  child: ImageComponent(
+                      urlImage: imageURL,
+                      height: 65.h,
+                      width: 65.w,
+                      radius: 5.r)
+                  /*Image.network(
                   imageURL,
                   height: 65.h,
                   width: 65.w,
                   fit: BoxFit.fill,
-                ),
-              ),
+                ),*/
+                  ),
               SizedBox(width: 10.w),
               Expanded(
                 child: Padding(

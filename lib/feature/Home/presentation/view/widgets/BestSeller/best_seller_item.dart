@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/name_best_seller.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/price_rating_best_seller.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/sale_best_seller.dart';
@@ -14,7 +15,8 @@ class BestSellerItem extends StatelessWidget {
       required this.productRating,
       required this.productRealPrice,
       required this.productOfferPrice,
-      required this.productOfferPercentage, required this.length});
+      required this.productOfferPercentage,
+      required this.length});
 
   final int index;
   final String urlLinkImage;
@@ -28,16 +30,21 @@ class BestSellerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 305.h,
       width: 150.w,
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
-        boxShadow: index == 0? firstBoxShadow : index < length-1? middleBoxShadow : latestBoxShadow,
+        boxShadow: index == 0
+            ? firstBoxShadow
+            : index < length - 1
+                ? middleBoxShadow
+                : latestBoxShadow,
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w,),
+        padding: EdgeInsets.symmetric(
+          horizontal: 15.w,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,29 +52,27 @@ class BestSellerItem extends StatelessWidget {
               height: 10.h,
             ),
             Center(
-              child: Image.asset(urlLinkImage),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Flexible(
-              fit: FlexFit.tight,
-              flex: 2,
-              child: NameBestSeller(
-                productName: productName,
-              ),
+                child: ImageComponent(
+              urlImage: urlLinkImage,
+              height: 120.h,
+              width: 150.w,
+              radius: 5.r,
+            )),
+            const Spacer(),
+            NameBestSeller(
+              productName: productName,
             ),
             const Spacer(),
             PriceAndRatingBestSeller(
               productOfferPrice: productOfferPrice,
-              productRating: productRating,
+              productRating: productRating == "null" ? "0.0" : productRating,
             ),
-            SizedBox(height: 5.h,),
+            const Spacer(),
             SaleBestSeller(
               productRealPrice: productRealPrice,
               productOfferPercentage: productOfferPercentage,
             ),
-            SizedBox(height: 5.h,),
+            const Spacer(),
           ],
         ),
       ),

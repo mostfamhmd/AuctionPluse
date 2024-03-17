@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/feature/Categories%20Page/data/Model/category_model.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Categories/categories_list.dart';
 import 'package:smart_auction/core/widgets/Components/custom_more.dart';
 
 class CategoryBody extends StatelessWidget {
-  const CategoryBody({super.key});
-
+  const CategoryBody({super.key, required this.categories});
+  final List<Category> categories;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,10 +15,10 @@ class CategoryBody extends StatelessWidget {
         CustomMore(
           type: "Category",
           typeMore: "More Category",
-          onTap: (){
-            Navigator.push (
+          onTap: () {
+            Navigator.push(
               context,
-              MaterialPageRoute (
+              MaterialPageRoute(
                 builder: (BuildContext context) => const CategoryPage(),
               ),
             );
@@ -28,7 +29,9 @@ class CategoryBody extends StatelessWidget {
         ),
         SizedBox(
           height: 120.h,
-          child: const CategriesList(),
+          child: CategriesList(
+            categories: categories,
+          ),
         ),
       ],
     );

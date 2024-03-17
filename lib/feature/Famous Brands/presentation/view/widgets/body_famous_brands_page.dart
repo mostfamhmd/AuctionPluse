@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
@@ -48,8 +49,7 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
                           rankColor: color[index],
                           rankNum: index + 1,
                           topCard: 0,
-                          imageURL: state.getBrandsModel.data![index].image ??
-                              "https://t4.ftcdn.net/jpg/03/15/18/09/240_F_315180932_rhiXFrJN27zXCCdrgx8V5GWbLd9zTHHA.jpg",
+                          imageURL: state.getBrandsModel.data![index].image!,
                         ),
                         SizedBox(
                           height: 20.h,
@@ -69,8 +69,11 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
                     ),
                   );
                 } else if (state is GetBrandsLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: SpinKitThreeBounce(
+                      color: Colors.black,
+                      size: 24.w,
+                    ),
                   );
                 } else {
                   return Center(
@@ -92,9 +95,7 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
             BlocBuilder<GetBrandsCubit, GetBrandsState>(
               builder: (context, state) {
                 if (state is GetBrandsLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const Center();
                 } else if (state is GetBrandsSuccess) {
                   List<Brands> remainingBrands =
                       state.getBrandsModel.data!.sublist(3);
@@ -111,8 +112,7 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
                       itemBuilder: (context, index) {
                         return GridViewItemsBuilder(
                           name: remainingBrands[index].name!,
-                          imageURL: remainingBrands[index].image ??
-                              "https://t4.ftcdn.net/jpg/03/15/18/09/240_F_315180932_rhiXFrJN27zXCCdrgx8V5GWbLd9zTHHA.jpg",
+                          imageURL: remainingBrands[index].image!,
                           rank: index + 4,
                         );
                       },

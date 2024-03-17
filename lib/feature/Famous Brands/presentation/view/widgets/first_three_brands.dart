@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/view/widgets/position_card_number.dart';
 
 import '../../../../../core/utils/colors.dart';
@@ -47,11 +48,11 @@ class FirstThreeBrands extends StatelessWidget {
             ],
           ),
           child: Row(children: [
-            Image.network(
-              imageURL,
+            ImageComponent(
+              urlImage: imageURL,
               height: 100.h,
               width: 100.w,
-              fit: BoxFit.fill,
+              radius: 10.r,
             ),
             SizedBox(
               width: 30.w,

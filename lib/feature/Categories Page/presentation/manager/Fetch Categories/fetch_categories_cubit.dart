@@ -8,7 +8,6 @@ part 'fetch_categories_state.dart';
 
 class FetchCategoriesCubit extends Cubit<FetchCategoriesState> {
   FetchCategoriesCubit() : super(FetchCategoriesLoading());
-  List<Category> category = [];
   Future<void> getCategories() async {
     emit(FetchCategoriesLoading());
     Either<ServerFailure, CategoriesModel> result =
@@ -22,7 +21,6 @@ class FetchCategoriesCubit extends Cubit<FetchCategoriesState> {
         );
       },
       (categoriesModel) {
-        category = categoriesModel.data!;
         emit(
           FetchCategoriesSuccess(
             getCategories: categoriesModel,
