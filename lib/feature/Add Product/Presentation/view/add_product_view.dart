@@ -4,9 +4,14 @@ import 'package:smart_auction/feature/Add%20Product/Presentation/view/widgets/ad
 import '../../../../core/widgets/AppBar/basic_app_bar.dart';
 import '../../../../core/widgets/Drawer/my_drawer.dart';
 
-class AddProductsView extends StatelessWidget {
+class AddProductsView extends StatefulWidget {
   const AddProductsView({super.key});
 
+  @override
+  State<AddProductsView> createState() => _AddProductsViewState();
+}
+
+class _AddProductsViewState extends State<AddProductsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

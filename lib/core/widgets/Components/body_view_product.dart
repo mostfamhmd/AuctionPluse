@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/core/widgets/Components/rating_widget.dart';
 
 import '../../utils/colors.dart';
@@ -10,7 +11,7 @@ import '../../utils/icons.dart';
 import '../../utils/styles.dart';
 
 class BodyViewProduct extends StatelessWidget {
-  BodyViewProduct(
+  const BodyViewProduct(
       {super.key,
       required this.imageUrl,
       required this.nameProduct,
@@ -25,7 +26,7 @@ class BodyViewProduct extends StatelessWidget {
   final String overPrice;
   final String productPrice;
   final String percentageOver;
-  late double rating;
+  final dynamic rating;
   final bool isDelete;
 
   @override
@@ -37,7 +38,11 @@ class BodyViewProduct extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.center,
-            child: Image.asset(imageUrl),
+            child: ImageComponent(
+                urlImage: imageUrl,
+                height: 150.h,
+                width: MediaQuery.sizeOf(context).width,
+                radius: 5.r),
           ),
           Flexible(
             fit: FlexFit.tight,
@@ -49,7 +54,10 @@ class BodyViewProduct extends StatelessWidget {
           SizedBox(
             height: 5.h,
           ),
-          Flexible(fit: FlexFit.tight, child: RatingWidget(rating: rating)),
+          Flexible(
+            fit: FlexFit.tight,
+            child: RatingWidget(rating: rating),
+          ),
           SizedBox(
             height: 5.h,
           ),

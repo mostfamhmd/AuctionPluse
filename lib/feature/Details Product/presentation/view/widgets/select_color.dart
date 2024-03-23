@@ -10,10 +10,6 @@ class SelectColor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        CircleAvatar(
-          backgroundColor: Colors.red,
-          radius: 15.r,
-        ),
         SizedBox(
           width: 20.w,
         ),

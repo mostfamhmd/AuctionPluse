@@ -20,7 +20,8 @@ class FamousBrandsBody extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => const FamousBrandsPage(),
+                builder: (BuildContext context) =>
+                    FamousBrandsPage(brands: brands),
               ),
             );
           },

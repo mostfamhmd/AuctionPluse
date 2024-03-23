@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/custom_more.dart';
-import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/select_color.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/manager/Selected%20Color%20Cubit/selected_color_cubit.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/rating_and_favorite.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/slider_widgets.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/specifications.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/reviews_page.dart';
 
 import '../../../../../core/widgets/Components/my_big_btn.dart';
-import '../../../../../core/widgets/Components/rating_widget.dart';
 import 'list_view_comments.dart';
-import 'name_product_favorite.dart';
+import 'name_product.dart';
 
-class BodyDetailsProductPage extends StatelessWidget {
-  const BodyDetailsProductPage({super.key});
+class BodyDetailsProductPage extends StatefulWidget {
+  const BodyDetailsProductPage({super.key, required this.product});
+  final ProductInfo product;
+
+  @override
+  State<BodyDetailsProductPage> createState() => _BodyDetailsProductPageState();
+}
+
+class _BodyDetailsProductPageState extends State<BodyDetailsProductPage> {
+  List<Color> colors = [];
+  @override
+  void initState() {
+    for (int i = 0; i < widget.product.colors!.length; i++) {
+      String hexColor = widget.product.colors![i];
+      int colorValue = int.parse(hexColor.substring(1), radix: 16);
+      int finalColorValue = 0xFF000000 + colorValue;
+      Color color = Color(finalColorValue);
+      colors.add(color);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +52,24 @@ class BodyDetailsProductPage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const SliderWidget(),
+            SliderWidget(
+              images: widget.product.images!,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            const NameProductFavorite(),
+            NameProduct(
+              productName: widget.product.name!,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            RatingWidget(
-              rating: 4,
-            ),
+            RatingAndFavorite(rating: widget.product.ratingsAverage),
             SizedBox(
               height: 10.h,
             ),
             Text(
-              "87,000 EGP",
+              "${widget.product.price! - widget.product.discountedPrice!}",
               style: AppStyles.kPoppins700.copyWith(
                 color: AppColors.kLightBlue,
                 fontFamily: AppFonts.kPoppins700,
@@ -66,7 +89,37 @@ class BodyDetailsProductPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const SelectColor(),
+            BlocBuilder<ColorCubit, Color>(
+              builder: (context, selectedColor) {
+                return Wrap(
+                  children: List.generate(
+                    colors.length,
+                    (index) => Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          context.read<ColorCubit>().selectColor(colors[index]);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: colors[index],
+                          radius: 15.r,
+                          child: selectedColor == colors[index]
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -80,7 +133,9 @@ class BodyDetailsProductPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const Specification(),
+            Specification(
+              specification: widget.product.description!,
+            ),
             SizedBox(
               height: 10.sp,
             ),

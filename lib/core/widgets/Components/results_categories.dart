@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../utils/colors.dart';
-import '../../utils/icons.dart';
 import '../../utils/styles.dart';
 
 class ResultsAndCategories extends StatelessWidget {
-  const ResultsAndCategories({super.key, required this.numResults});
+  const ResultsAndCategories(
+      {super.key, required this.numResults, required this.widget});
 
   final int numResults;
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           "$numResults Result",
@@ -22,26 +23,20 @@ class ResultsAndCategories extends StatelessWidget {
             color: AppColors.kGray,
           ),
         ),
-        const Spacer(
-          flex: 15,
-        ),
-        Text(
+      ],
+    );
+  }
+}
+/*Text(
           "Category",
           style: AppStyles.kPoppins700.copyWith(
             fontSize: 13.sp,
             color: AppColors.kDarkBlue,
           ),
-        ),
-        const Spacer(
-          flex: 1,
-        ),
-        RotatedBox(
+        ),*/
+        /*RotatedBox(
           quarterTurns: 0,
           child: SvgPicture.asset(
             AppIcons.kArrowMenu,
           ),
-        )
-      ],
-    );
-  }
-}
+        ),*/

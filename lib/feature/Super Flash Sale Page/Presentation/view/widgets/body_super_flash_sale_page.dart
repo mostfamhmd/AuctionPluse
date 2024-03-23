@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/feature/Details%20Product/presentation/view/details_product.dart';
-
 import '../../../../../core/utils/images.dart';
 import '../../../../../core/widgets/Components/background_slider.dart';
 import '../../../../../core/widgets/Components/container_ads.dart';
@@ -18,12 +16,12 @@ class BodySuperFlashSalePage extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const DetailsProductPage(),
                   ),
-                );
+                );*/
               },
               child: const BackgroundSlider(),
             ),
@@ -33,12 +31,12 @@ class BodySuperFlashSalePage extends StatelessWidget {
             ContainerAds(
               pathImageAds: AppImages.kAdvs1,
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const DetailsProductPage(),
                   ),
-                );
+                );*/
               },
             ),
             SizedBox(
@@ -47,12 +45,12 @@ class BodySuperFlashSalePage extends StatelessWidget {
             ContainerAds(
               pathImageAds: AppImages.kAdvs2,
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const DetailsProductPage(),
                   ),
-                );
+                );*/
               },
             ),
             SizedBox(
@@ -61,12 +59,12 @@ class BodySuperFlashSalePage extends StatelessWidget {
             ContainerAds(
               pathImageAds: AppImages.kAdvs3,
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const DetailsProductPage(),
                   ),
-                );
+                );*/
               },
             ),
             SizedBox(

@@ -19,7 +19,10 @@ class BodySearchResultPage extends StatelessWidget {
               horizontal: 20.w,
               vertical: 20.h,
             ),
-            child: const ResultsAndCategories(numResults: 8),
+            child: const ResultsAndCategories(
+              numResults: 8,
+              widget: Text("data"),
+            ),
           ),
           GridViewForViewProduct(
             widget: BodyViewProduct(
@@ -29,7 +32,7 @@ class BodySearchResultPage extends StatelessWidget {
               overPrice: r'$299,43',
               productPrice: r'$534,33',
               percentageOver: '24',
-              rating: 3.5,
+              rating: 3,
             ),
           ),
         ],

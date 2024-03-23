@@ -13,7 +13,7 @@ class CategriesList extends StatelessWidget {
       height: 120.h,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: 6,
+        itemCount: categories.length >= 6 ? 6 : categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((context, index) => InkWell(
               onTap: () {
@@ -28,6 +28,8 @@ class CategriesList extends StatelessWidget {
                 );
               },
               child: CategriesItem(
+                length: categories.length,
+                index: index + 1,
                 categoryName: categories[index].name!,
                 categoryImage: categories[index].image!,
               ),

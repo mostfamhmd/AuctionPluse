@@ -10,12 +10,12 @@ import '../../utils/icons.dart';
 class RatingWidget extends StatelessWidget {
   RatingWidget({super.key, required this.rating});
 
-  late double rating;
+  num rating;
 
   @override
   Widget build(BuildContext context) {
     return RatingStars(
-      value: rating,
+      value: rating.toDouble(),
       onValueChanged: (v) {
         rating = v;
       },
@@ -32,7 +32,7 @@ class RatingWidget extends StatelessWidget {
       starSpacing: 1,
       valueLabelVisibility: false,
       valueLabelMargin: EdgeInsets.zero,
-      starOffColor:AppColors.kGray,
+      starOffColor: AppColors.kGray,
       starColor: const Color(0xFFFFC833),
     );
   }

@@ -1,20 +1,24 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/widgets/Components/rating_widget.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/manager/Is%20Favorite/is_favorite_cubit.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/fonts.dart';
-import '../../../../../core/utils/styles.dart';
-import '../../manager/Is Favorite/is_favorite_cubit.dart';
+class RatingAndFavorite extends StatefulWidget {
+  const RatingAndFavorite({
+    super.key,
+    required this.rating,
+  });
 
-class NameProductFavorite extends StatefulWidget {
-  const NameProductFavorite({super.key});
+  final num? rating;
 
   @override
-  State<NameProductFavorite> createState() => _NameProductFavoriteState();
+  State<RatingAndFavorite> createState() => _RatingAndFavoriteState();
 }
 
-class _NameProductFavoriteState extends State<NameProductFavorite> {
+class _RatingAndFavoriteState extends State<RatingAndFavorite> {
   bool isFavorite = false;
 
   @override
@@ -22,19 +26,14 @@ class _NameProductFavoriteState extends State<NameProductFavorite> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "iPhone 15 pro Max",
-          style: AppStyles.kPoppins700.copyWith(
-            fontSize: 16.sp,
-            fontFamily: AppFonts.kPoppins700,
-          ),
+        RatingWidget(
+          rating: widget.rating ?? 0,
         ),
         BlocBuilder<IsFavoriteCubit, IsFavoriteState>(
           builder: (context, state) {
             return GestureDetector(
               onTap: () {
                 isFavorite = !isFavorite;
-                // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                 context.read<IsFavoriteCubit>().emit(IsFavoriteInitial());
               },
               child: Icon(

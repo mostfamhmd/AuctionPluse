@@ -11,14 +11,16 @@ class BestSellerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 6,
+      itemCount: products.length >= 6 ? 6 : products.length,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const DetailsProductPage(),
+                builder: (context) => DetailsProductPage(
+                  product: products[index],
+                ),
               ),
             );
           },
@@ -29,7 +31,8 @@ class BestSellerList extends StatelessWidget {
             productOfferPrice:
                 "${products[index].price! - products[index].discountedPrice!}",
             productRealPrice: "${products[index].price}",
-            productRating: "${products[index].ratingsAverage}",
+            productRating:
+                "${products[index].ratingsAverage?.toStringAsFixed(1)}",
             productOfferPercentage: "${products[index].discountedPrice}",
             length: 6,
           ),

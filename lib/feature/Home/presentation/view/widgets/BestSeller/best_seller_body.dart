@@ -25,7 +25,9 @@ class _BestSellerBodyState extends State<BestSellerBody> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => const BestSellerPage(),
+                builder: (BuildContext context) => BestSellerPage(
+                  productInfoList: widget.products,
+                ),
               ),
             );
           },

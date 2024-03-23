@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, unused_element
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
@@ -8,8 +10,10 @@ part 'get_products_state.dart';
 
 class GetProductsCubit extends Cubit<GetProductsState> {
   GetProductsCubit() : super(GetProductsInitial());
-
-  Future<void> getAllProducts({String? sort, String? limit}) async {
+  Future<void> getAllProducts({
+    String? sort,
+    String? limit,
+  }) async {
     emit(
       GetProductsLoading(),
     );

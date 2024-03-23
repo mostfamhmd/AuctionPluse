@@ -1,12 +1,13 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 
 import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/images.dart';
 
 class SliderWidget extends StatelessWidget {
-  const SliderWidget({super.key});
+  const SliderWidget({super.key, required this.images});
+  final List<String> images;
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +17,14 @@ class SliderWidget extends StatelessWidget {
         height: 230.h,
         animation: false,
         activeColor: AppColors.kLightBlue,
-        customizedBanners: [
-          Image.asset(
-            AppImages.kIphone15,
-          ),
-          Image.asset(
-            AppImages.kIphone15,
-          ),
-          Image.asset(
-            AppImages.kIphone15,
-          ),
-          Image.asset(
-            AppImages.kIphone15,
-          ),
-          Image.asset(
-            AppImages.kIphone15,
-          ),
-        ],
+        customizedBanners: List.generate(
+          images.length,
+          (index) => ImageComponent(
+              urlImage: images[index],
+              height: 100.h,
+              width: MediaQuery.sizeOf(context).width,
+              radius: 0),
+        ),
       ),
     );
   }
