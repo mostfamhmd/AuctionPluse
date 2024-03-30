@@ -1,48 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/drop_down_component.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Add%20Product/Presentation/view/widgets/drop_down_list_sub_category.dart';
 
-class ChooseSubCategory extends StatelessWidget {
+class ChooseSubCategory extends StatefulWidget {
   const ChooseSubCategory(
       {super.key,
       required this.subCategoryName,
-      this.valSubCat,
-      this.onChanged,
-      this.idCatSelected});
+      this.idCatSelected,
+      this.selectedItems,
+      this.onChanged});
   final ValueNotifier<List<String>> subCategoryName;
-  final String? valSubCat;
-  final void Function(String?)? onChanged;
   final String? idCatSelected;
+  final List<String>? selectedItems;
+  final void Function(String?)? onChanged;
+
+  @override
+  State<ChooseSubCategory> createState() => _ChooseSubCategoryState();
+}
+
+class _ChooseSubCategoryState extends State<ChooseSubCategory> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: subCategoryName,
+      valueListenable: widget.subCategoryName,
       builder: (BuildContext context, value, Widget? child) => value.isNotEmpty
-          ? DropDownComponent(
-              value: valSubCat,
-              onChanged: onChanged,
-              hint: 'Select Sub Category',
-              items: value
-                  .map(
-                    (String item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: AppStyles.kPoppins400.copyWith(
-                          fontSize: 14.sp,
-                          color: Colors.black,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  )
-                  .toList(),
+          ? DropDownListSubCategory(
+              onChanged: widget.onChanged,
+              subCategoryName: widget.subCategoryName,
+              selectedItems: widget.selectedItems,
             )
-          : value.isEmpty && idCatSelected != null
+          : value.isEmpty && widget.idCatSelected != null
               ? const FailureState(error: "create new sub category first")
-              : value.isEmpty
+              : value.isEmpty && widget.idCatSelected == null
                   ? const Center()
                   : const LoadingState(),
     );

@@ -12,6 +12,7 @@ import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Add%20Category/presentation/manager/AddCategoryCubit/add_category_cubit.dart';
 
 class AddCategoryBody extends StatefulWidget {
@@ -141,11 +142,7 @@ class _AddCategoryBodyState extends State<AddCategoryBody> {
                     builder:
                         (BuildContext context, bool value, Widget? child) =>
                             value
-                                ? Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
-                                  )
+                                ? LoadingState()
                                 : Center(
                                     child: Text(
                                       "Add Category",

@@ -11,11 +11,13 @@ class MyCustomField extends StatelessWidget {
       required this.myController,
       required this.textAlign,
       required this.hintText,
-      this.maxLines = 1});
+      this.maxLines = 1,
+      this.keyboardType});
   final TextEditingController myController;
   final TextAlign textAlign;
   final String hintText;
   int? maxLines;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -23,6 +25,7 @@ class MyCustomField extends StatelessWidget {
       controller: myController,
       textAlign: textAlign,
       cursorColor: AppColors.kGray,
+      keyboardType: keyboardType,
       style:
           AppStyles.kPoppins400.copyWith(fontSize: 14.sp, color: Colors.black),
       decoration: InputDecoration(
