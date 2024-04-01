@@ -4,24 +4,28 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
 class SaleBestSeller extends StatelessWidget {
-  const SaleBestSeller({super.key, required this.productRealPrice, required this.productOfferPercentage});
-final String productRealPrice;
-final String productOfferPercentage;
+  const SaleBestSeller(
+      {super.key,
+      required this.productRealPrice,
+      required this.productOfferPercentage});
+  final String productRealPrice;
+  final String productOfferPercentage;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           productRealPrice,
           style: AppStyles.kInter400.copyWith(
-              fontSize: 13.sp,
-              color: AppColors.kGray,
-              decoration: TextDecoration.lineThrough,
+            fontSize: 13.sp,
+            color: AppColors.kGray,
+            decoration: TextDecoration.lineThrough,
             fontWeight: FontWeight.w700,
           ),
         ),
         SizedBox(
-          width: 10.w,
+          width: 10.h,
         ),
         Text(
           "$productOfferPercentage Off",
