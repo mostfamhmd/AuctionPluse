@@ -5,16 +5,15 @@ import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/custom_more.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/manager/Review%20Cubit/review_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Selected%20Color%20Cubit/selected_color_cubit.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/commnet_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/rating_and_favorite.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/slider_widgets.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/specifications.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
-import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/reviews_page.dart';
 
 import '../../../../../core/widgets/Components/my_big_btn.dart';
-import 'list_view_comments.dart';
 import 'name_product.dart';
 
 class BodyDetailsProductPage extends StatefulWidget {
@@ -36,6 +35,7 @@ class _BodyDetailsProductPageState extends State<BodyDetailsProductPage> {
       Color color = Color(finalColorValue);
       colors.add(color);
     }
+    context.read<ReviewCubit>().getAllReviews();
     super.initState();
   }
 
@@ -137,24 +137,9 @@ class _BodyDetailsProductPageState extends State<BodyDetailsProductPage> {
               specification: widget.product.description!,
             ),
             SizedBox(
-              height: 10.sp,
-            ),
-            CustomMore(
-              type: "Review Product",
-              typeMore: "See More",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ReviewsPage(),
-                  ),
-                );
-              },
-            ),
-            SizedBox(
               height: 10.h,
             ),
-            const ListViewComments(),
+            CommentsCubit(idProduct: widget.product.id!),
             SizedBox(
               height: 10.h,
             ),

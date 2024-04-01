@@ -4,6 +4,7 @@ import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/widgets/AppBar/basic_app_bar.dart';
 import 'package:smart_auction/core/widgets/Drawer/my_drawer.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Is%20Favorite/is_favorite_cubit.dart';
+import 'package:smart_auction/feature/Details%20Product/presentation/manager/Review%20Cubit/review_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Selected%20Color%20Cubit/selected_color_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/body_details_product.dart';
 
@@ -19,6 +20,9 @@ class DetailsProductPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ColorCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ReviewCubit(),
         ),
       ],
       child: Scaffold(
