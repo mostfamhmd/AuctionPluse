@@ -5,29 +5,30 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
-import '../../../feature/Search Result/presentation/view/search_result_page.dart';
-
 class SearchField extends StatelessWidget {
-  const SearchField({super.key, required this.textEditingController});
+  const SearchField(
+      {super.key,
+      this.textEditingController,
+      this.onTap,
+      this.onChanged,
+      this.onFieldSubmitted});
 
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
+  final void Function()? onTap;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
       cursorColor: AppColors.kGray,
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
       style: AppStyles.kPoppins500,
       decoration: InputDecoration(
         prefixIcon: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => const SearchResultPage()),
-              ),
-            );
-          },
+          onTap: onTap,
           child: SvgPicture.asset(
             AppIcons.kSearch,
             fit: BoxFit.none,

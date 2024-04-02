@@ -5,11 +5,9 @@ import '../../utils/colors.dart';
 import '../../utils/styles.dart';
 
 class ResultsAndCategories extends StatelessWidget {
-  const ResultsAndCategories(
-      {super.key, required this.numResults, required this.widget});
+  const ResultsAndCategories({super.key, required this.numResults});
 
   final int numResults;
-  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +25,3 @@ class ResultsAndCategories extends StatelessWidget {
     );
   }
 }
-/*Text(
-          "Category",
-          style: AppStyles.kPoppins700.copyWith(
-            fontSize: 13.sp,
-            color: AppColors.kDarkBlue,
-          ),
-        ),*/
-        /*RotatedBox(
-          quarterTurns: 0,
-          child: SvgPicture.asset(
-            AppIcons.kArrowMenu,
-          ),
-        ),*/
