@@ -5,8 +5,9 @@ import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%20Brands%20Cubit/get_brands_cubit.dart';
-import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
+import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
+import 'package:smart_auction/feature/onBoarding/presentation/view/onBoarding_page.dart';
 
 void main() {
   runApp(const SmartAuction());
@@ -30,6 +31,9 @@ class SmartAuction extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FetchSubCategoriesCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AppCubit(),
         )
       ],
       child: ScreenUtilInit(
@@ -40,7 +44,7 @@ class SmartAuction extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.kWhite,
           ),
-          home: HomeView(),
+          home: OnBoardingScreen(),
         ),
       ),
     );

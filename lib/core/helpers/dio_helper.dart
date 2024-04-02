@@ -64,6 +64,33 @@ class DioHelper {
     return response.data;
   }
 
+  ///http put request
+  Future<Map<String, dynamic>> putRequest({
+    required Object body,
+    required String endPoint,
+    Map<String, dynamic>? queryParameters,
+    String? token,
+  }) async {
+    Map<String, dynamic> headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token != null) {
+      headers.addAll({'Authorization': 'Bearer $token'});
+    }
+
+    Response response = await _dio.put(
+      endPoint,
+      data: body,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
+
+    return response.data;
+  }
+
   ///http delete request
   Future<Map<String, dynamic>> deleteRequest({
     required String endPoint,

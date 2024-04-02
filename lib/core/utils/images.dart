@@ -6,8 +6,8 @@ class AppImages {
   static const kIphone15 = "assets/Images/Iphone15.png";
   static const kMacBook = "assets/Images/MacBook.svg";
   static const kMacBookPro = "assets/Images/MacBookPro.png";
-  static const kOnBoarding1 = "assets/Images/OnBoarding1.svg";
-  static const kOnBoarding2 = "assets/Images/OnBoarding2.svg";
+  static const kOnBoarding1 = "assets/Images/OnBoarding1.jpeg";
+  static const kOnBoarding2 = "assets/Images/OnBoarding2.jpeg";
   static const kOnBoarding3 = "assets/Images/OnBoarding3.png";
   static const kPromotionSlider = "assets/Images/PromotionSlider.png";
   static const kRecommendedProduct = "assets/Images/RecommendedProduct.png";
@@ -22,4 +22,6 @@ class AppImages {
   static const kAdvs1 = "assets/Images/Advs1.png";
   static const kAdvs2 = "assets/Images/Advs2.png";
   static const kAdvs3 = "assets/Images/Advs3.png";
+  static const kVerified = "assets/Images/Verified.jpeg";
+  static const kAppLogo = "assets/Images/AppLogo.png";
 }
