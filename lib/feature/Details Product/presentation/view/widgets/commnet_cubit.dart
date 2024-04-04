@@ -21,6 +21,7 @@ class CommentsCubit extends StatelessWidget {
           }
           if (listProductReviews.isNotEmpty) {
             return CommentBody(
+              productId: idProduct,
               listProductReviews: listProductReviews,
             );
           } else {

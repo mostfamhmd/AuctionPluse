@@ -4,6 +4,8 @@ class InitialStates extends AppStates {}
 
 class ChangePasswordVisibilityState extends AppStates {}
 
+class ChangeConfirmPasswordVisibilityState extends AppStates {}
+
 class ChangeCheckConditionState extends AppStates {}
 
 class SignUpLoadingState extends AppStates {}

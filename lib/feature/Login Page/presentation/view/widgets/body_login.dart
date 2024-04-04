@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/widgets/Components/app_logo.dart';
 import 'package:smart_auction/core/widgets/Components/app_title.dart';
 import 'package:smart_auction/core/widgets/Components/elevated_button.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_state.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/email_login.dart';
@@ -77,7 +78,7 @@ class _BodyLoginState extends State<BodyLogin> {
                           ),
                         ),
                         fallback: (context) => const Center(
-                          child: CircularProgressIndicator(),
+                          child: LoadingState(),
                         ),
                       ),
 

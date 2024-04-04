@@ -11,6 +11,7 @@ import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Add%20Brand/presentation/manager/Add%20Brand%20Cubit/add_brand_cubit.dart';
 
 class AddBrandBody extends StatefulWidget {
@@ -132,11 +133,7 @@ class _AddBrandBodyState extends State<AddBrandBody> {
                   valueListenable: isLoading,
                   builder: (BuildContext context, bool value, Widget? child) =>
                       value
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.black,
-                              ),
-                            )
+                          ? const Center(child: LoadingState())
                           : Center(
                               child: Text(
                                 "Add Category",

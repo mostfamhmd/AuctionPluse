@@ -21,7 +21,9 @@ class AppCubit extends Cubit<AppStates> {
 
   // ------( change password visibility )------
   bool visibilityPassword = true;
+  bool visibilityConfirmPassword = true;
   IconData suffix = Icons.visibility_outlined;
+  IconData suffixConfirm = Icons.visibility_outlined;
 
   void changePasswordVisibility() {
     visibilityPassword = !visibilityPassword;
@@ -31,6 +33,16 @@ class AppCubit extends Cubit<AppStates> {
         : Icons.visibility_off_outlined;
 
     emit(ChangePasswordVisibilityState());
+  }
+
+  void changeConfirmPasswordVisibility() {
+    visibilityConfirmPassword = !visibilityConfirmPassword;
+
+    suffixConfirm = visibilityConfirmPassword
+        ? Icons.visibility_outlined
+        : Icons.visibility_off_outlined;
+
+    emit(ChangeConfirmPasswordVisibilityState());
   }
 
   // ------( check condition )------

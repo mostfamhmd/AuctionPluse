@@ -4,13 +4,16 @@ import 'package:smart_auction/feature/Details%20Product/data/model/review_model.
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/widgets/body_reviews_page.dart';
 
 class ReviewsPage extends StatelessWidget {
-  const ReviewsPage({super.key, required this.listProductReviews});
+  const ReviewsPage(
+      {super.key, required this.listProductReviews, required this.productId});
   final List<Review> listProductReviews;
+  final String productId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BodyReviewsPage(
         listProductReviews: listProductReviews,
+        productId: productId,
       ),
       appBar: backAppBar(context, "${listProductReviews.length} Reviews"),
     );

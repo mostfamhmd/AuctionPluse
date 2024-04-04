@@ -1,0 +1,43 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:smart_auction/core/errors/server_failure.dart';
+import 'package:smart_auction/core/helpers/dio_helper.dart';
+import 'package:smart_auction/core/utils/consts.dart';
+import 'package:smart_auction/feature/Write%20Comments/data/Model/my_review_model.dart';
+
+class AddReviewService {
+  DioHelper dioHelper = DioHelper();
+  Future<Either<ServerFailure, MyReview>> addNewComment(
+      {required String title,
+      required String product,
+      required String user,
+      required num ratings}) async {
+    MyReview myReview = MyReview();
+    try {
+      Map<String, dynamic> data = await dioHelper.postRequest(
+        endPoint: "reviews",
+        body: {
+          "ratings": ratings,
+          "title": title,
+          "product": product,
+          "user": "65e6672c48277f413a9032c3",
+        },
+        token: AppConsts.kToken,
+      );
+      myReview = MyReview.fromJson(data);
+      return right(myReview);
+    } on DioException catch (dioException) {
+      return left(
+        ServerFailure.fromDioException(
+          dioException: dioException,
+        ),
+      );
+    } catch (error) {
+      return left(
+        ServerFailure(
+          errMessage: error.toString(),
+        ),
+      );
+    }
+  }
+}

@@ -6,8 +6,10 @@ import 'package:smart_auction/feature/Details%20Product/presentation/view/widget
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/reviews_page.dart';
 
 class CommentBody extends StatelessWidget {
-  const CommentBody({super.key, required this.listProductReviews});
+  const CommentBody(
+      {super.key, required this.listProductReviews, required this.productId});
   final List<Review> listProductReviews;
+  final String productId;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,6 +24,7 @@ class CommentBody extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => ReviewsPage(
                     listProductReviews: listProductReviews,
+                    productId: productId,
                   ),
                 ),
               );

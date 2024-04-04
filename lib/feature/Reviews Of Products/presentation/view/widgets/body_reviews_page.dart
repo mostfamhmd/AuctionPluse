@@ -7,8 +7,10 @@ import '../../../../Write Comments/presentation/view/write_comments_page.dart';
 import 'comments_body.dart';
 
 class BodyReviewsPage extends StatelessWidget {
-  const BodyReviewsPage({super.key, required this.listProductReviews});
+  const BodyReviewsPage(
+      {super.key, required this.listProductReviews, required this.productId});
   final List<Review> listProductReviews;
+  final String productId;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +27,9 @@ class BodyReviewsPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WriteCommentsPage(),
+                    builder: (context) => WriteCommentsPage(
+                      productId: productId,
+                    ),
                   ),
                 );
               },

@@ -44,7 +44,7 @@ class SmartAuction extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.kWhite,
           ),
-          home: OnBoardingScreen(),
+          home: const OnBoardingScreen(),
         ),
       ),
     );

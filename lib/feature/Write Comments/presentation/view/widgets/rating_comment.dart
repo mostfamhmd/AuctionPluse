@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_auction/feature/Write%20Comments/presentation/manager/Add%20Comment%20Cubit/add_comment_cubit.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/fonts.dart';
@@ -15,21 +17,16 @@ class RatingComment extends StatefulWidget {
 }
 
 class _RatingCommentState extends State<RatingComment> {
-  double value = 0;
-  int val = 0;
-
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         RatingStars(
-          value: value,
+          value: context.read<AddCommentCubit>().ratings.toDouble(),
           onValueChanged: (v) {
-            setState(() {
-              value = v;
-              val = v.toInt();
-            });
+            context.read<AddCommentCubit>().ratings = v;
+            setState(() {});
           },
           starBuilder: (index, starColor) => SvgPicture.asset(
             AppIcons.kStar,
@@ -50,7 +47,7 @@ class _RatingCommentState extends State<RatingComment> {
           width: 25.w,
         ),
         Text(
-          "$val / 5",
+          "${context.read<AddCommentCubit>().ratings} / 5.0",
           style: TextStyle(
             fontSize: 16.sp,
             fontFamily: AppFonts.kPoppins700,
