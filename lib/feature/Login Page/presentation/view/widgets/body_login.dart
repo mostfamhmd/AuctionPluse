@@ -13,6 +13,7 @@ import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/for
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/password_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/register_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/sign_in_to.dart';
+import 'package:smart_auction/feature/shared_pref.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({super.key});
@@ -26,7 +27,12 @@ class _BodyLoginState extends State<BodyLogin> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SignInSuccessState) {
+          CacheHelper().setData("userId", state.loginData.data!.sId!);
+          CacheHelper().setData("userToken", state.loginData.token!);
+        }
+      },
       builder: (context, state) {
         AppCubit appCubit = AppCubit.get(context);
         return SafeArea(

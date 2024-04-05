@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_auction/core/helpers/dio_helper.dart';
 import 'package:smart_auction/feature/Authy%20Verification%20Screen/presentation/view/auth_verification_screen.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
+import 'package:smart_auction/feature/Login%20Page/data/login_model.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_state.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/login_page.dart';
 import 'package:smart_auction/feature/Set%20New%20Password/presentation/view/set_new_password_page.dart';
@@ -83,9 +84,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   // ------( sign in )------
-  void signIn(BuildContext context) {
+  void signIn(BuildContext context) async {
     emit(SignInLoadingState());
-
     DioHelper dioHelper = DioHelper();
     dioHelper.postRequest(
       body: {
@@ -102,7 +102,7 @@ class AppCubit extends Cubit<AppStates> {
           ),
           (route) => false,
         );
-        emit(SignInSuccessState());
+        emit(SignInSuccessState(loginData: LoginData.fromJson(value)));
       },
     ).catchError(
       (error) {

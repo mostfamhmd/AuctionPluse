@@ -23,12 +23,12 @@ class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
   ValueNotifier<bool> isLoading = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddCommentCubit, AddCommentState>(
+    return BlocConsumer<AddCommentCubit, AddCommentState>(
       listener: (context, state) {
         if (state is AddCommentSuccess) {
-          Navigator.pop(context);
-          Navigator.pop(context);
           isLoading.value = false;
+          Navigator.pop(context);
+          Navigator.pop(context);
         } else if (state is AddCommentLoading) {
           isLoading.value = true;
         } else if (state is AddCommentFailure) {
@@ -43,83 +43,86 @@ class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
           isLoading.value = false;
         }
       },
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Text(
-                "Please write Overall level of satisfaction with your shipping / Delivery Service",
-                style: TextStyle(
-                  color: AppColors.kDarkBlue,
-                  fontFamily: AppFonts.kPoppins700,
-                  fontSize: 14.sp,
+      builder: (BuildContext context, AddCommentState state) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              const RatingComment(),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Write Your Review",
-                style: TextStyle(
-                  color: AppColors.kDarkBlue,
-                  fontFamily: AppFonts.kPoppins700,
-                  fontSize: 14.sp,
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              MyCustomField(
-                hintText: "Write your review here",
-                myController: myController,
-                textAlign: TextAlign.start,
-                maxLines: null,
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Center(
-                child: MySmallBTN(
-                  onTap: () {
-                    context.read<AddCommentCubit>().product = widget.productId;
-                    context.read<AddCommentCubit>().title = myController.text;
-                    context
-                        .read<AddCommentCubit>()
-                        .addNewComment(context: context);
-                  },
-                  nameButton: "",
-                  child: ValueListenableBuilder(
-                    valueListenable: isLoading,
-                    builder:
-                        (BuildContext context, bool value, Widget? child) =>
-                            value
-                                ? const Center(
-                                    child: LoadingState(),
-                                  )
-                                : Center(
-                                    child: Text(
-                                      "Add a comment",
-                                      style: AppStyles.kPoppins500.copyWith(
-                                          fontSize: 18.sp,
-                                          color: AppColors.kBlack),
-                                    ),
-                                  ),
+                Text(
+                  "Please write Overall level of satisfaction with your shipping / Delivery Service",
+                  style: TextStyle(
+                    color: AppColors.kDarkBlue,
+                    fontFamily: AppFonts.kPoppins700,
+                    fontSize: 14.sp,
                   ),
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 15.h,
+                ),
+                const RatingComment(),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Write Your Review",
+                  style: TextStyle(
+                    color: AppColors.kDarkBlue,
+                    fontFamily: AppFonts.kPoppins700,
+                    fontSize: 14.sp,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                MyCustomField(
+                  hintText: "Write your review here",
+                  myController: myController,
+                  textAlign: TextAlign.start,
+                  maxLines: null,
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Center(
+                  child: MySmallBTN(
+                    onTap: () {
+                      context.read<AddCommentCubit>().product =
+                          widget.productId;
+                      context.read<AddCommentCubit>().title = myController.text;
+                      context
+                          .read<AddCommentCubit>()
+                          .addNewComment(context: context);
+                    },
+                    nameButton: "",
+                    child: ValueListenableBuilder(
+                      valueListenable: isLoading,
+                      builder:
+                          (BuildContext context, bool value, Widget? child) =>
+                              value
+                                  ? const Center(
+                                      child: LoadingState(),
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        "Add a comment",
+                                        style: AppStyles.kPoppins500.copyWith(
+                                            fontSize: 18.sp,
+                                            color: AppColors.kBlack),
+                                      ),
+                                    ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

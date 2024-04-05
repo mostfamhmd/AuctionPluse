@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -25,7 +27,7 @@ class _RatingCommentState extends State<RatingComment> {
         RatingStars(
           value: context.read<AddCommentCubit>().ratings.toDouble(),
           onValueChanged: (v) {
-            context.read<AddCommentCubit>().ratings = v;
+            context.read<AddCommentCubit>().getRating(v);
             setState(() {});
           },
           starBuilder: (index, starColor) => SvgPicture.asset(
@@ -36,9 +38,7 @@ class _RatingCommentState extends State<RatingComment> {
             ),
           ),
           starCount: 5,
-          starSize: 25.sp,
-          maxValue: 5,
-          starSpacing: 15.w,
+          maxValue: 5.0,
           valueLabelVisibility: false,
           starOffColor: Colors.grey,
           starColor: const Color(0xFFFFC833),

@@ -7,9 +7,9 @@ final class AddCommentInitial extends AddCommentState {}
 final class AddCommentLoading extends AddCommentState {}
 
 final class AddCommentSuccess extends AddCommentState {
-  final MyReview myReview;
+  final MyReview? myReview;
 
-  AddCommentSuccess({required this.myReview});
+  AddCommentSuccess({this.myReview});
 }
 
 final class AddCommentFailure extends AddCommentState {

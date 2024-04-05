@@ -56,4 +56,9 @@ class AddCommentCubit extends Cubit<AddCommentState> {
       );
     }
   }
+
+  getRating(num rating) {
+    ratings = rating;
+    emit(AddCommentInitial());
+  }
 }

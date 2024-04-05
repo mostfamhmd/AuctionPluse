@@ -20,10 +20,11 @@ class AddReviewService {
           "ratings": ratings,
           "title": title,
           "product": product,
-          "user": "65e6672c48277f413a9032c3",
+          "user": user,
         },
         token: AppConsts.kToken,
       );
+
       myReview = MyReview.fromJson(data);
       return right(myReview);
     } on DioException catch (dioException) {

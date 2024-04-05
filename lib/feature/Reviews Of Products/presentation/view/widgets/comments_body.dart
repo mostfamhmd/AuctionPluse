@@ -34,7 +34,7 @@ class BodyComments extends StatelessWidget {
               height: 20.h,
             ),
             Text(
-              listProductReviews[index].user!.name!,
+              listProductReviews[index].title ?? "No Comment",
               style: TextStyle(
                 fontFamily: AppFonts.kPoppins400,
                 color: AppColors.kGray,

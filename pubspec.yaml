@@ -30,8 +30,10 @@ dependencies:
   http_parser: ^4.0.2
   image_picker: ^1.0.7
   intl: null
+  shared_preferences: ^2.2.2
   slide_countdown: ^1.3.5
   smooth_page_indicator: ^1.1.0
+  tuple: ^2.0.2
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

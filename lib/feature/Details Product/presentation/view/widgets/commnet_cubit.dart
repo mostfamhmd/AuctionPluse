@@ -4,6 +4,7 @@ import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Details%20Product/data/model/review_model.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Review%20Cubit/review_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/commnet_body.dart';
+import 'package:smart_auction/feature/Write%20Comments/presentation/view/write_comments_page.dart';
 
 class CommentsCubit extends StatelessWidget {
   const CommentsCubit({super.key, required this.idProduct});
@@ -25,7 +26,19 @@ class CommentsCubit extends StatelessWidget {
               listProductReviews: listProductReviews,
             );
           } else {
-            return const FailureState(error: "No Comments found");
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WriteCommentsPage(
+                      productId: idProduct,
+                    ),
+                  ),
+                );
+              },
+              child: const FailureState(error: "Write First Review"),
+            );
           }
         } else if (state is ReviewFailure) {
           return FailureState(error: state.errorMessage);
