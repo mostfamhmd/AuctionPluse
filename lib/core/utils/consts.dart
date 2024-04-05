@@ -1,5 +1,15 @@
+import 'package:smart_auction/core/helpers/cache_helper.dart';
+
 class AppConsts {
+  static const kUserId = "userId";
+  static const kUserToken = "userToken";
+  static const kUserName = "userName";
+  static const kUserEmail = "userEmail";
+  static const kUserRole = "userRole";
+  static const kUserWhichlist = "userWhichlist";
   static const kBaseurl = "https://graduation-api-qq1p.onrender.com/api/v1/";
-  static const kToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU2NjcyYzQ4Mjc3ZjQxM2E5MDMyYzMiLCJpYXQiOjE3MDk3NDcxOTYsImV4cCI6MTcxNzUyMzE5Nn0.vo5-hc8-2KTJ4b1uzA6q8VKK9BBSbjavFu25dyKHBwM";
+  static const kUserDataBox = "userdata";
+  static getData(String key) async {
+    return await CacheHelper.getData(key);
+  }
 }

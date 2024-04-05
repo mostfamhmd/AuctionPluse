@@ -9,11 +9,12 @@ class FetchAllCategories {
   DioHelper dio = DioHelper();
 
   Future<Either<ServerFailure, CategoriesModel>> fetchAllCategories() async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     CategoriesModel categoriesModel = CategoriesModel();
     try {
       Map<String, dynamic> data = await dio.getRequest(
         endPoint: "category",
-        token: AppConsts.kToken,
+        token: token,
       );
       categoriesModel = CategoriesModel.fromJson(data);
       return right(categoriesModel);

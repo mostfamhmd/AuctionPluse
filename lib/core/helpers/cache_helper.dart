@@ -8,13 +8,18 @@ class CacheHelper {
     await prefs.setString(key, value);
   }
 
+  Future<void> setListData(String key, List<String> value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(key, value);
+  }
+
   static dynamic getData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.get(key);
   }
 
-  static dynamic deleteData(String key) async {
+  static dynamic deleteData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.remove(key);
+    return prefs.clear();
   }
 }

@@ -16,6 +16,7 @@ class AddCategoryServices {
     required String name,
     required File photo,
   }) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     MultipartFile multiPart = await MultipartFile.fromFile(
       photo.path,
       contentType: MediaType('image', 'jpeg'),
@@ -30,7 +31,7 @@ class AddCategoryServices {
       Map<String, dynamic> response = await dioHelper.postRequest(
         body: formData,
         endPoint: "category",
-        token: AppConsts.kToken,
+        token: token,
       );
 
       AddCategoryModel addCategoryModel = AddCategoryModel.fromJson(response);

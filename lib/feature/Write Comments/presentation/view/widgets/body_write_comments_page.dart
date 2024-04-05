@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
@@ -21,6 +23,19 @@ class BodyWriteCommentsPage extends StatefulWidget {
 class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
   TextEditingController myController = TextEditingController();
   ValueNotifier<bool> isLoading = ValueNotifier(false);
+  var _box;
+  dynamic userData;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> getUserData() async {
+    _box = await Hive.openBox(AppConsts.kUserDataBox);
+    userData = _box.get(AppConsts.kUserDataBox);
+    print("my data is : $userData");
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddCommentCubit, AddCommentState>(
@@ -91,6 +106,7 @@ class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
                 Center(
                   child: MySmallBTN(
                     onTap: () {
+                      getUserData();
                       context.read<AddCommentCubit>().product =
                           widget.productId;
                       context.read<AddCommentCubit>().title = myController.text;

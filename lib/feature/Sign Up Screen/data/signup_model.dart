@@ -1,10 +1,10 @@
-class LoginData {
+class SignUpData {
   Data? data;
   String? token;
 
-  LoginData({this.data, this.token});
+  SignUpData({this.data, this.token});
 
-  LoginData.fromJson(Map<String, dynamic> json) {
+  SignUpData.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
   }
@@ -40,7 +40,6 @@ class Data {
       this.role,
       this.active,
       this.wishlist,
-      this.addresses,
       this.createdAt,
       this.updatedAt,
       this.iV});

@@ -9,11 +9,12 @@ class GetBrandsService {
   DioHelper dioHelper = DioHelper();
 
   Future<Either<ServerFailure, GetBrandsModel>> getBrandsService() async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     GetBrandsModel getBrandsModel = GetBrandsModel();
     try {
       Map<String, dynamic> data = await dioHelper.getRequest(
         endPoint: "brands",
-        token: AppConsts.kToken,
+        token: token,
       );
       getBrandsModel = GetBrandsModel.fromJson(data);
       return right(getBrandsModel);

@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/app_logo.dart';
 import 'package:smart_auction/core/widgets/Components/app_title.dart';
 import 'package:smart_auction/core/widgets/Components/elevated_button.dart';
@@ -13,7 +14,7 @@ import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/for
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/password_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/register_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/sign_in_to.dart';
-import 'package:smart_auction/feature/shared_pref.dart';
+import 'package:smart_auction/core/helpers/cache_helper.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({super.key});
@@ -24,13 +25,28 @@ class BodyLogin extends StatefulWidget {
 
 class _BodyLoginState extends State<BodyLogin> {
   var formKey = GlobalKey<FormState>();
+  dynamic userData;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          CacheHelper().setData("userId", state.loginData.data!.sId!);
-          CacheHelper().setData("userToken", state.loginData.token!);
+          CacheHelper().setData(AppConsts.kUserId, state.loginData.data!.sId!);
+          CacheHelper().setData(AppConsts.kUserToken, state.loginData.token!);
+          CacheHelper()
+              .setData(AppConsts.kUserEmail, state.loginData.data!.email!);
+          CacheHelper()
+              .setData(AppConsts.kUserName, state.loginData.data!.name!);
+          CacheHelper()
+              .setData(AppConsts.kUserRole, state.loginData.data!.role!);
+          CacheHelper().setListData(
+              AppConsts.kUserWhichlist, state.loginData.data!.wishlist ?? []);
         }
       },
       builder: (context, state) {

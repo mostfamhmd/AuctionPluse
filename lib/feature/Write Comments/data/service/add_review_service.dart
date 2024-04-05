@@ -7,22 +7,26 @@ import 'package:smart_auction/feature/Write%20Comments/data/Model/my_review_mode
 
 class AddReviewService {
   DioHelper dioHelper = DioHelper();
+
   Future<Either<ServerFailure, MyReview>> addNewComment(
       {required String title,
       required String product,
-      required String user,
       required num ratings}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
+    String userId = await AppConsts.getData(AppConsts.kUserId);
+
     MyReview myReview = MyReview();
     try {
+      print("user Data : $token + $userId");
       Map<String, dynamic> data = await dioHelper.postRequest(
         endPoint: "reviews",
         body: {
           "ratings": ratings,
           "title": title,
           "product": product,
-          "user": user,
+          "user": userId,
         },
-        token: AppConsts.kToken,
+        token: token,
       );
 
       myReview = MyReview.fromJson(data);

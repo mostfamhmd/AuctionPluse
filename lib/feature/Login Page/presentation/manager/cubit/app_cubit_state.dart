@@ -1,4 +1,5 @@
 import 'package:smart_auction/feature/Login%20Page/data/login_model.dart';
+import 'package:smart_auction/feature/Sign%20Up%20Screen/data/signup_model.dart';
 
 abstract class AppStates {}
 
@@ -12,7 +13,11 @@ class ChangeCheckConditionState extends AppStates {}
 
 class SignUpLoadingState extends AppStates {}
 
-class SignUpSuccessState extends AppStates {}
+class SignUpSuccessState extends AppStates {
+  final SignUpData signUpData;
+
+  SignUpSuccessState({required this.signUpData});
+}
 
 class SignUpErrorState extends AppStates {
   String error;

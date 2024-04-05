@@ -23,6 +23,7 @@ class AddProductServices {
       required String discountedPrice,
       required String quantity,
       required List<String> colors}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     MultipartFile imageCoverMultipart = await MultipartFile.fromFile(
       imageCover.path,
       contentType: MediaType('imageCover', 'jpeg'),
@@ -54,7 +55,7 @@ class AddProductServices {
       Map<String, dynamic> response = await dioHelper.postRequest(
         body: formData,
         endPoint: "products",
-        token: AppConsts.kToken,
+        token: token,
       );
 
       AddProductModel addProductModel = AddProductModel.fromJson(response);

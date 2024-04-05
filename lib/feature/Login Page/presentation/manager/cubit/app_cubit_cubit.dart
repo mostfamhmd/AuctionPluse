@@ -7,6 +7,7 @@ import 'package:smart_auction/feature/Login%20Page/data/login_model.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_state.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/login_page.dart';
 import 'package:smart_auction/feature/Set%20New%20Password/presentation/view/set_new_password_page.dart';
+import 'package:smart_auction/feature/Sign%20Up%20Screen/data/signup_model.dart';
 import 'package:smart_auction/feature/Success%20Screen/presentation/view/success_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -74,7 +75,7 @@ class AppCubit extends Cubit<AppStates> {
           ),
           (route) => false,
         );
-        emit(SignUpSuccessState());
+        emit(SignUpSuccessState(signUpData: SignUpData.fromJson(value)));
       },
     ).catchError(
       (error) {

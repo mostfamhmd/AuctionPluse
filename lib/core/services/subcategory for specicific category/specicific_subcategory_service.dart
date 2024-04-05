@@ -7,16 +7,14 @@ import 'package:smart_auction/core/utils/consts.dart';
 
 class SpecificSubCategoryService {
   DioHelper dioHelper = DioHelper();
-
   Future<Either<ServerFailure, SpecificSubCategoryModel>>
       getSpecificSubCategory({required String id}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     SpecificSubCategoryModel specificSubCategoryModel =
         SpecificSubCategoryModel();
     try {
       Map<String, dynamic> data = await dioHelper.getRequest(
-        endPoint: "category/$id/subcategories",
-        token: AppConsts.kToken,
-      );
+          endPoint: "category/$id/subcategories", token: token);
       specificSubCategoryModel = SpecificSubCategoryModel.fromJson(data);
       return right(specificSubCategoryModel);
     } on DioException catch (dioException) {

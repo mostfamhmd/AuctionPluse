@@ -13,6 +13,7 @@ class AddBrandService {
 
   Future<Either<ServerFailure, AddBrandModel>> addBrandServices(
       {required String name, required File photo}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     MultipartFile multipartFile = await MultipartFile.fromFile(
       photo.path,
       contentType: MediaType("image", "jpg"),
@@ -26,7 +27,7 @@ class AddBrandService {
 
     try {
       Map<String, dynamic> response = await dioHelper.postRequest(
-          body: formData, endPoint: "brands", token: AppConsts.kToken);
+          body: formData, endPoint: "brands", token: token);
       AddBrandModel addBrandModel = AddBrandModel.fromJson(response);
       return right(addBrandModel);
     } on DioException catch (e) {

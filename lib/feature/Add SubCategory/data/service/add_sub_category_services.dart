@@ -10,13 +10,14 @@ class AddSubCategoryServices {
 
   Future<Either<ServerFailure, AddSubCategoryModel>> addSubCategory(
       {required String subCategoryName, required String idCategory}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
     Map<String, dynamic> body = {
       "name": subCategoryName,
       "category": idCategory,
     };
     try {
       var response = await dioHelper.postRequest(
-          body: body, endPoint: "subcategory", token: AppConsts.kToken);
+          body: body, endPoint: "subcategory", token: token);
       AddSubCategoryModel addSubCategoryModel =
           AddSubCategoryModel.fromJson(response);
       return right(addSubCategoryModel);
