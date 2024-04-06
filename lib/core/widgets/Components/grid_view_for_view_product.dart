@@ -1,23 +1,33 @@
 // ignore_for_file: unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/widgets/Components/body_view_product.dart';
+import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/Delete%20Product%20WhichListCubit/delete_favorite_product_cubit.dart';
 
 import '../../../feature/Details Product/presentation/view/details_product.dart';
 import '../../utils/colors.dart';
 
-class GridViewForViewProduct extends StatelessWidget {
+class GridViewForViewProduct extends StatefulWidget {
   const GridViewForViewProduct({
     super.key,
     this.widget,
     this.products,
+    this.isDelete,
   });
 
   final Widget? widget;
   final List<ProductInfo>? products;
+  final bool? isDelete;
 
+  @override
+  State<GridViewForViewProduct> createState() => _GridViewForViewProductState();
+}
+
+class _GridViewForViewProductState extends State<GridViewForViewProduct> {
+  int? _indx;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -30,7 +40,7 @@ class GridViewForViewProduct extends StatelessWidget {
         crossAxisSpacing: 15.w,
         mainAxisSpacing: 20.h,
       ),
-      itemCount: products?.length,
+      itemCount: widget.products?.length,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
@@ -38,42 +48,98 @@ class GridViewForViewProduct extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => DetailsProductPage(
-                  product: products![index],
+                  product: widget.products![index],
                 ),
               ),
             );
           },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              color: AppColors.kWhite,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(8, 8),
-                  color: AppColors.kGray.withOpacity(0.2),
-                  blurRadius: 15.r,
-                  blurStyle: BlurStyle.normal,
-                  spreadRadius: 2,
-                ),
-                BoxShadow(
-                  offset: const Offset(-8, -8),
-                  color: AppColors.kGray.withOpacity(0.2),
-                  blurRadius: 15.r,
-                  blurStyle: BlurStyle.normal,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: BodyViewProduct(
-              imageUrl: products![index].imageCover!,
-              nameProduct: products![index].name!,
-              overPrice:
-                  "${products![index].price! - products![index].discountedPrice!}",
-              productPrice: "${products![index].price!}",
-              percentageOver:
-                  "${(products![index].discountedPrice! / products![index].price! * 100).toStringAsPrecision(2)}",
-              rating: products![index].ratingsAverage ?? 0.0,
-              isDelete: false,
+          child: BlocListener<DeleteFavoriteProductCubit,
+              DeleteFavoriteProductState>(
+            listener: (context, state) {
+              if (state is DeleteProdWhichListLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text("Loading..."),
+                    duration: const Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'Close',
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                    ),
+                  ),
+                );
+              } else if (state is DeleteProductWhichListSuccess) {
+                widget.products!.remove(_indx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.deletedProductwhichListModel.message!),
+                    duration: const Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'Close',
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                    ),
+                  ),
+                );
+                setState(() {});
+              } else if (state is DeleteProductWhichListError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.error),
+                    duration: const Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'Close',
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                color: AppColors.kWhite,
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(8, 8),
+                    color: AppColors.kGray.withOpacity(0.2),
+                    blurRadius: 15.r,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 2,
+                  ),
+                  BoxShadow(
+                    offset: const Offset(-8, -8),
+                    color: AppColors.kGray.withOpacity(0.2),
+                    blurRadius: 15.r,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: BodyViewProduct(
+                imageUrl: widget.products![index].imageCover!,
+                nameProduct: widget.products![index].name!,
+                overPrice:
+                    "${widget.products![index].price! - widget.products![index].discountedPrice!}",
+                productPrice: "${widget.products![index].price!}",
+                percentageOver:
+                    "${(widget.products![index].discountedPrice! / widget.products![index].price! * 100).toStringAsPrecision(2)}",
+                rating: widget.products![index].ratingsAverage ?? 0.0,
+                isDelete: widget.isDelete ?? false,
+                onTap: widget.isDelete == true
+                    ? () {
+                        context
+                            .read<DeleteFavoriteProductCubit>()
+                            .deleteProductWhichList(
+                                productId: widget.products![index].id!);
+                        _indx = index;
+                      }
+                    : () {},
+              ),
             ),
           ),
         );

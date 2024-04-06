@@ -10,7 +10,6 @@ import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
 import 'package:smart_auction/feature/onBoarding/presentation/view/onBoarding_page.dart';
-import 'package:smart_auction/core/helpers/cache_helper.dart';
 
 void main() async {
   runApp(const SmartAuction());
@@ -24,15 +23,17 @@ class SmartAuction extends StatefulWidget {
 }
 
 class _SmartAuctionState extends State<SmartAuction> {
-  String userId = '';
+  String? _userId;
+  getUserId() async {
+    _userId = await AppConsts.getData(AppConsts.kUserId);
+    setState(() {});
+    print(_userId);
+  }
+
   @override
   void initState() {
     getUserId();
     super.initState();
-  }
-
-  getUserId() async {
-    userId = await CacheHelper.getData(AppConsts.kUserId);
   }
 
   @override
@@ -63,7 +64,7 @@ class _SmartAuctionState extends State<SmartAuction> {
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.kWhite,
           ),
-          home: userId.isEmpty ? const OnBoardingScreen() : HomeView(),
+          home: _userId == null ? const OnBoardingScreen() : HomeView(),
         ),
       ),
     );

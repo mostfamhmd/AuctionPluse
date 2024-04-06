@@ -19,7 +19,8 @@ class BodyViewProduct extends StatelessWidget {
       required this.productPrice,
       required this.percentageOver,
       required this.rating,
-      required this.isDelete});
+      required this.isDelete,
+      this.onTap});
 
   final String imageUrl;
   final String nameProduct;
@@ -28,6 +29,7 @@ class BodyViewProduct extends StatelessWidget {
   final String percentageOver;
   final dynamic rating;
   final bool isDelete;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,8 @@ class BodyViewProduct extends StatelessWidget {
                       .copyWith(color: AppColors.kRed, fontSize: 14.sp),
                 ),
                 isDelete == true
-                    ? SvgPicture.asset(AppIcons.kDelete)
+                    ? InkWell(
+                        onTap: onTap, child: SvgPicture.asset(AppIcons.kDelete))
                     : const Center(),
               ],
             ),
