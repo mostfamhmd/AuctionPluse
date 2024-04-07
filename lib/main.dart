@@ -7,6 +7,7 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%20Brands%20Cubit/get_brands_cubit.dart';
+import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/Delete%20Product%20WhichListCubit/delete_favorite_product_cubit.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
@@ -57,7 +58,10 @@ class _SmartAuctionState extends State<SmartAuction> {
         ),
         BlocProvider(
           create: (context) => AppCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => DeleteFavoriteProductCubit(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(430, 932),

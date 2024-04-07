@@ -64,7 +64,10 @@ class _BodyDetailsProductPageState extends State<BodyDetailsProductPage> {
             SizedBox(
               height: 10.h,
             ),
-            RatingAndFavorite(rating: widget.product.ratingsAverage),
+            RatingAndFavorite(
+              rating: widget.product.ratingsAverage,
+              productId: widget.product.sId!,
+            ),
             SizedBox(
               height: 10.h,
             ),
