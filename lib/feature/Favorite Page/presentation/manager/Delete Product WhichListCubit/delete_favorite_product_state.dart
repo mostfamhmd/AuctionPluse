@@ -1,6 +1,5 @@
 part of 'delete_favorite_product_cubit.dart';
 
-@immutable
 sealed class DeleteFavoriteProductState {}
 
 final class DeleteFavoriteProductInitial extends DeleteFavoriteProductState {}

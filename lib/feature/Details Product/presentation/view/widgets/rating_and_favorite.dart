@@ -13,24 +13,24 @@ class RatingAndFavorite extends StatefulWidget {
     super.key,
     required this.rating,
     required this.productId,
+    required this.isFavorite,
   });
 
   final num? rating;
   final String productId;
+  final ValueNotifier<bool> isFavorite;
 
   @override
   State<RatingAndFavorite> createState() => _RatingAndFavoriteState();
 }
 
 class _RatingAndFavoriteState extends State<RatingAndFavorite> {
-  ValueNotifier<bool> isFavorite = ValueNotifier(false);
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<IsFavoriteCubit, IsFavoriteState>(
       listener: (context, state) {
         if (state is IsFavoriteSuccess) {
-          isFavorite.value = true;
+          widget.isFavorite.value = true;
         } else if (state is IsFavoriteFailure) {
           mySnackBar(context, state.serverFailure);
         }
@@ -39,7 +39,7 @@ class _RatingAndFavoriteState extends State<RatingAndFavorite> {
           BlocListener<DeleteFavoriteProductCubit, DeleteFavoriteProductState>(
         listener: (context, state) {
           if (state is DeleteProductWhichListSuccess) {
-            isFavorite.value = false;
+            widget.isFavorite.value = false;
           } else if (state is DeleteProductWhichListError) {
             mySnackBar(context, state.error);
           }
@@ -51,7 +51,7 @@ class _RatingAndFavoriteState extends State<RatingAndFavorite> {
               rating: widget.rating ?? 0,
             ),
             ValueListenableBuilder(
-              valueListenable: isFavorite,
+              valueListenable: widget.isFavorite,
               builder: (BuildContext context, value, Widget? child) =>
                   value == false
                       ? GestureDetector(
