@@ -57,46 +57,55 @@ class _GridViewForViewProductState extends State<GridViewForViewProduct> {
               DeleteFavoriteProductState>(
             listener: (context, state) {
               if (state is DeleteProdWhichListLoading) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text("Loading..."),
-                    duration: const Duration(seconds: 2),
-                    action: SnackBarAction(
-                      label: 'Close',
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      },
+                if (_indx == index) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text("Loading..."),
+                      duration: const Duration(seconds: 2),
+                      action: SnackBarAction(
+                        label: 'Close',
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               } else if (state is DeleteProductWhichListSuccess) {
-                widget.products!.remove(_indx);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.deletedProductwhichListModel.message!),
-                    duration: const Duration(seconds: 2),
-                    action: SnackBarAction(
-                      label: 'Close',
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      },
+                if (_indx == index) {
+                  widget.products!.remove(widget.products![_indx!]);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content:
+                          Text(state.deletedProductwhichListModel.message!),
+                      duration: const Duration(seconds: 2),
+                      action: SnackBarAction(
+                        label: 'Close',
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
                     ),
-                  ),
-                );
+                  );
+                  setState(() {});
+                }
+
                 setState(() {});
               } else if (state is DeleteProductWhichListError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.error),
-                    duration: const Duration(seconds: 2),
-                    action: SnackBarAction(
-                      label: 'Close',
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      },
+                if (_indx == index) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.error),
+                      duration: const Duration(seconds: 2),
+                      action: SnackBarAction(
+                        label: 'Close',
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               }
             },
             child: Container(

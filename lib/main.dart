@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,9 @@ class _SmartAuctionState extends State<SmartAuction> {
   getUserId() async {
     _userId = await AppConsts.getData(AppConsts.kUserId);
     setState(() {});
-    print(_userId);
+    if (kDebugMode) {
+      print(_userId);
+    }
   }
 
   @override

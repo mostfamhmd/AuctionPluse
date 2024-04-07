@@ -49,4 +49,10 @@ class AppIcons {
   static const kHint = "assets/Icons/Hint.svg";
   static const kLock = "assets/Icons/Lock.svg";
   static const kSuccessPayment = "assets/Icons/SuccessPayment.svg";
+  static const kBag = "assets/Icons/Bag.svg";
+  static const kLocation = "assets/Icons/Location.svg";
+  static const kPhone = "assets/Icons/Phone.svg";
+  static const kGender = "assets/Icons/Gender.svg";
+  static const kDate = "assets/Icons/Date.svg";
+  static const kUserProfile = "assets/Icons/UserProfile.svg";
 }
