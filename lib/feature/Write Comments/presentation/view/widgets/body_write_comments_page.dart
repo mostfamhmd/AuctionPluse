@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
-import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/EditReviewCubit/edit_review_cubit.dart';
 import 'package:smart_auction/feature/Write%20Comments/presentation/manager/Add%20Comment%20Cubit/add_comment_cubit.dart';
 import 'package:smart_auction/feature/Write%20Comments/presentation/view/widgets/rating_comment.dart';
 
 import '../../../../../core/widgets/Components/my_custom_field.dart';
+import 'done_btn.dart';
 
 class BodyWriteCommentsPage extends StatefulWidget {
-  const BodyWriteCommentsPage({super.key, required this.productId});
-  final String productId;
+  const BodyWriteCommentsPage(
+      {super.key,
+      required this.productId,
+      this.reviewId,
+      this.userComment,
+      this.rating});
+  final String? productId;
+  final String? reviewId;
+  final String? userComment;
+  final num? rating;
   @override
   State<BodyWriteCommentsPage> createState() => _BodyWriteCommentsPageState();
 }
@@ -23,17 +29,19 @@ class BodyWriteCommentsPage extends StatefulWidget {
 class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
   TextEditingController myController = TextEditingController();
   ValueNotifier<bool> isLoading = ValueNotifier(false);
-  var _box;
-  dynamic userData;
+  String addComment = "Add Comment";
+  String editComment = "Edit Comment";
+  String myBtn = '';
   @override
   void initState() {
+    if (widget.userComment != null) {
+      myController.text = widget.userComment!;
+      context.read<AddCommentCubit>().ratings = widget.rating!.toDouble();
+      myBtn = editComment;
+    } else {
+      myBtn = addComment;
+    }
     super.initState();
-  }
-
-  Future<void> getUserData() async {
-    _box = await Hive.openBox(AppConsts.kUserDataBox);
-    userData = _box.get(AppConsts.kUserDataBox);
-    print("my data is : $userData");
   }
 
   @override
@@ -103,36 +111,33 @@ class _BodyWriteCommentsPageState extends State<BodyWriteCommentsPage> {
                 SizedBox(
                   height: 15.h,
                 ),
-                Center(
-                  child: MySmallBTN(
-                    onTap: () {
-                      getUserData();
+                DoneBTN(
+                  myBtn: myBtn,
+                  productId: widget.productId,
+                  reviewId: widget.reviewId,
+                  userComment: widget.userComment,
+                  rating: widget.rating,
+                  myController: myController,
+                  onTap: () {
+                    if (widget.productId != null) {
                       context.read<AddCommentCubit>().product =
-                          widget.productId;
+                          widget.productId!;
                       context.read<AddCommentCubit>().title = myController.text;
                       context
                           .read<AddCommentCubit>()
                           .addNewComment(context: context);
-                    },
-                    nameButton: "",
-                    child: ValueListenableBuilder(
-                      valueListenable: isLoading,
-                      builder:
-                          (BuildContext context, bool value, Widget? child) =>
-                              value
-                                  ? const Center(
-                                      child: LoadingState(),
-                                    )
-                                  : Center(
-                                      child: Text(
-                                        "Add a comment",
-                                        style: AppStyles.kPoppins500.copyWith(
-                                            fontSize: 18.sp,
-                                            color: AppColors.kBlack),
-                                      ),
-                                    ),
-                    ),
-                  ),
+                    } else if (widget.reviewId != null) {
+                      if (widget.userComment != myController.text ||
+                          widget.rating !=
+                              context.read<AddCommentCubit>().ratings) {
+                        context.read<EditReviewCubit>().editReview(
+                              reviewId: widget.reviewId!,
+                              comment: myController.text,
+                              ratings: context.read<AddCommentCubit>().ratings,
+                            );
+                      }
+                    }
+                  },
                 )
               ],
             ),

@@ -7,37 +7,61 @@ import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/fonts.dart';
 import '../../../../../core/widgets/Components/rating_widget.dart';
 
-class ListViewComments extends StatelessWidget {
+class ListViewComments extends StatefulWidget {
   const ListViewComments({
     super.key,
     required this.listProductReviews,
   });
   final List<Review> listProductReviews;
+
+  @override
+  State<ListViewComments> createState() => _ListViewCommentsState();
+}
+
+class _ListViewCommentsState extends State<ListViewComments> {
+  List<String> time = [];
+  String createdOrUpdated = '';
+  @override
+  void initState() {
+    for (int i = 0; i < widget.listProductReviews.length; i++) {
+      if (widget.listProductReviews[i].createdAt! ==
+          widget.listProductReviews[i].updatedAt) {
+        String dateTimeString = widget.listProductReviews[i].createdAt!;
+        DateTime dateTime = DateTime.parse(dateTimeString);
+        String formattedDate = DateFormat('MMMM d, yyyy').format(dateTime);
+        createdOrUpdated = "created at ";
+        time.add(createdOrUpdated + formattedDate);
+      } else {
+        String dateTimeString = widget.listProductReviews[i].updatedAt!;
+        DateTime dateTime = DateTime.parse(dateTimeString);
+        String formattedDate = DateFormat('MMMM d, yyyy').format(dateTime);
+        createdOrUpdated = "updated at ";
+        time.add(createdOrUpdated + formattedDate);
+      }
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> time = [];
-    for (int i = 0; i < listProductReviews.length; i++) {
-      String dateTimeString = listProductReviews[i].createdAt!;
-      DateTime dateTime = DateTime.parse(dateTimeString);
-      String formattedDate = DateFormat('MMMM d, yyyy').format(dateTime);
-      time.add(formattedDate);
-    }
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: listProductReviews.length <= 3 ? listProductReviews.length : 3,
+      itemCount: widget.listProductReviews.length <= 3
+          ? widget.listProductReviews.length
+          : 3,
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IntrinsicWidth(
             child: Row(
               children: [
-                RatingWidget(rating: listProductReviews[index].ratings!),
+                RatingWidget(rating: widget.listProductReviews[index].ratings!),
                 SizedBox(
                   width: 20.w,
                 ),
                 Text(
-                  "${listProductReviews[index].ratings}",
+                  "${widget.listProductReviews[index].ratings}",
                   style: TextStyle(
                     fontSize: 10.sp,
                     fontFamily: AppFonts.kPoppins700,
@@ -51,7 +75,7 @@ class ListViewComments extends StatelessWidget {
             height: 15.h,
           ),
           Text(
-            listProductReviews[index].title ?? "No Comment",
+            widget.listProductReviews[index].title ?? "No Comment",
             style: TextStyle(
               fontFamily: AppFonts.kPoppins400,
               color: AppColors.kGray,

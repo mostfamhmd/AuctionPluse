@@ -7,6 +7,7 @@ import 'package:smart_auction/feature/Details%20Product/presentation/manager/Is%
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Review%20Cubit/review_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Selected%20Color%20Cubit/selected_color_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/body_details_product.dart';
+import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/DeleteReviewCubit/delete_review_cubit.dart';
 
 class DetailsProductPage extends StatelessWidget {
   const DetailsProductPage({super.key, required this.product});
@@ -23,6 +24,9 @@ class DetailsProductPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ReviewCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DeleteReviewCubit(),
         ),
       ],
       child: Scaffold(

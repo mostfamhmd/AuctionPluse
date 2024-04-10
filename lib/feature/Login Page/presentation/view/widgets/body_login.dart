@@ -15,6 +15,7 @@ import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/pas
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/register_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/sign_in_to.dart';
 import 'package:smart_auction/core/helpers/cache_helper.dart';
+import 'package:smart_auction/main.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({super.key});
@@ -37,6 +38,7 @@ class _BodyLoginState extends State<BodyLogin> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
+          userId = state.loginData.data!.sId!;
           CacheHelper().setData(AppConsts.kUserId, state.loginData.data!.sId!);
           CacheHelper().setData(AppConsts.kUserToken, state.loginData.token!);
           CacheHelper()

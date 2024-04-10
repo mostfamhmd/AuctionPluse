@@ -2,7 +2,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/app_logo.dart';
@@ -18,6 +17,7 @@ import 'package:smart_auction/feature/Sign%20Up%20Screen/presentation/view/widge
 import 'package:smart_auction/feature/Sign%20Up%20Screen/presentation/view/widgets/password_again.dart';
 import 'package:smart_auction/feature/Sign%20Up%20Screen/presentation/view/widgets/sign_in.dart';
 import 'package:smart_auction/core/helpers/cache_helper.dart';
+import 'package:smart_auction/main.dart';
 
 class BodySignUp extends StatefulWidget {
   const BodySignUp({
@@ -29,17 +29,13 @@ class BodySignUp extends StatefulWidget {
 }
 
 class _BodySignUpState extends State<BodySignUp> {
-  final userData = Hive.box(AppConsts.kUserDataBox);
-  Future<void> createItem(Map<String, dynamic> newItem) async {
-    await userData.add(newItem);
-  }
-
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
+          userId = state.signUpData.data!.sId!;
           CacheHelper().setData(AppConsts.kUserId, state.signUpData.data!.sId!);
           CacheHelper().setData(AppConsts.kUserToken, state.signUpData.token!);
           CacheHelper()

@@ -92,7 +92,7 @@ class DioHelper {
   }
 
   ///http delete request
-  Future<Map<String, dynamic>> deleteRequest({
+  Future<dynamic> deleteRequest({
     required String endPoint,
     Map<String, dynamic>? queryParameters,
     String? token,

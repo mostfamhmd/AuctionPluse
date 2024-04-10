@@ -134,18 +134,21 @@ class InfoProduct extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            MyBigBTN(
-              nameBTN: "Add To Cart",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeView(
-                      currentIndex: 1,
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: MyBigBTN(
+                nameBTN: "Add To Cart",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeView(
+                        currentIndex: 1,
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
             SizedBox(
               height: 10.h,
