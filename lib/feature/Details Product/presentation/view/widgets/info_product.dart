@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Selected%20Color%20Cubit/selected_color_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/body_details_product.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/commnet_cubit.dart';
@@ -12,9 +11,10 @@ import 'package:smart_auction/feature/Details%20Product/presentation/view/widget
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/rating_and_favorite.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/slider_widgets.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/view/widgets/specifications.dart';
-import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 
-class InfoProduct extends StatelessWidget {
+import 'add_to_cart_btn.dart';
+
+class InfoProduct extends StatefulWidget {
   const InfoProduct({
     super.key,
     required this.infoProduct,
@@ -26,6 +26,13 @@ class InfoProduct extends StatelessWidget {
   final List<Color> colors;
   final ValueNotifier<bool> isFavorite;
 
+  @override
+  State<InfoProduct> createState() => _InfoProductState();
+}
+
+class _InfoProductState extends State<InfoProduct> {
+  ValueNotifier<bool> loading = ValueNotifier(false);
+  String color = '';
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,27 +47,27 @@ class InfoProduct extends StatelessWidget {
               height: 20.h,
             ),
             SliderWidget(
-              images: infoProduct.product.images!,
+              images: widget.infoProduct.product.images!,
             ),
             SizedBox(
               height: 10.h,
             ),
             NameProduct(
-              productName: infoProduct.product.name!,
+              productName: widget.infoProduct.product.name!,
             ),
             SizedBox(
               height: 10.h,
             ),
             RatingAndFavorite(
-              isFavorite: isFavorite,
-              rating: infoProduct.product.ratingsAverage,
-              productId: infoProduct.product.sId!,
+              isFavorite: widget.isFavorite,
+              rating: widget.infoProduct.product.ratingsAverage,
+              productId: widget.infoProduct.product.sId!,
             ),
             SizedBox(
               height: 10.h,
             ),
             Text(
-              "${infoProduct.product.price! - infoProduct.product.discountedPrice!}",
+              "${widget.infoProduct.product.price! - widget.infoProduct.product.discountedPrice!}",
               style: AppStyles.kPoppins700.copyWith(
                 color: AppColors.kLightBlue,
                 fontFamily: AppFonts.kPoppins700,
@@ -84,19 +91,23 @@ class InfoProduct extends StatelessWidget {
               builder: (context, selectedColor) {
                 return Wrap(
                   children: List.generate(
-                    colors.length,
+                    widget.colors.length,
                     (index) => Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 10.w,
                       ),
                       child: InkWell(
                         onTap: () {
-                          context.read<ColorCubit>().selectColor(colors[index]);
+                          context
+                              .read<ColorCubit>()
+                              .selectColor(widget.colors[index]);
+                          color = widget.infoProduct.product.colors![index];
+                          setState(() {});
                         },
                         child: CircleAvatar(
-                          backgroundColor: colors[index],
+                          backgroundColor: widget.colors[index],
                           radius: 15.r,
-                          child: selectedColor == colors[index]
+                          child: selectedColor == widget.colors[index]
                               ? const Center(
                                   child: Icon(
                                     Icons.check_circle,
@@ -125,30 +136,21 @@ class InfoProduct extends StatelessWidget {
               height: 10.h,
             ),
             Specification(
-              specification: infoProduct.product.description!,
+              specification: widget.infoProduct.product.description!,
             ),
             SizedBox(
               height: 10.h,
             ),
-            CommentsCubit(idProduct: infoProduct.product.id!),
+            CommentsCubit(
+              idProduct: widget.infoProduct.product.id!,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: MyBigBTN(
-                nameBTN: "Add To Cart",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeView(
-                        currentIndex: 1,
-                      ),
-                    ),
-                  );
-                },
-              ),
+            AddToCartBTN(
+              loading: loading,
+              productId: widget.infoProduct.product.id!,
+              color: color,
             ),
             SizedBox(
               height: 10.h,

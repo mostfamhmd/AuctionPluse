@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Cart%20Product%20Cubit/get_cart_product_cubit.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Review%20Cubit/review_cubit.dart';
 import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/WhichList%20Cubit/which_list_cubit.dart';
 
@@ -29,6 +30,7 @@ class _BodyDetailsProductPageState extends State<BodyDetailsProductPage> {
     }
     context.read<ReviewCubit>().getAllReviews();
     context.read<WhichListCubit>().getWhichList();
+    context.read<GetCartProductCubit>().getCartProduct();
     super.initState();
   }
 
