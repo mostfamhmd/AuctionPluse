@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
-import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart.dart';
+import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart_model.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Cart%20Product%20Cubit/get_cart_product_cubit.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/swipe_to_delete.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/total_price.dart';
@@ -23,6 +24,7 @@ class _BodyCartPageState extends State<BodyCartPage> {
   @override
   void initState() {
     context.read<GetCartProductCubit>().getCartProduct();
+    context.read<GetProductsCubit>().getAllProducts();
     super.initState();
   }
 
@@ -33,7 +35,9 @@ class _BodyCartPageState extends State<BodyCartPage> {
         if (state is GetCartProductLoading) {
           return const LoadingState();
         } else if (state is GetCartProductSuccess) {
-          return CubitBody(getCartModel: state.getCartModel);
+          return CubitBody(
+            getCartModel: state.getCartModel,
+          );
         } else if (state is GetCartProductFailure) {
           return FailureState(error: state.serverFailure);
         } else {
@@ -63,7 +67,7 @@ class CubitBody extends StatelessWidget {
               height: 20.h,
             ),
             SwipeToDelete(
-              length: 5,
+              getCartModel: getCartModel,
             ),
             SizedBox(
               height: 10.h,
@@ -81,7 +85,9 @@ class CubitBody extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const TotalPrice(),
+            TotalPrice(
+              totalPrice: getCartModel.data!.totalCartPrice.toString(),
+            ),
             SizedBox(
               height: 40.h,
             ),

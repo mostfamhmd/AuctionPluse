@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
 import 'package:smart_auction/core/helpers/dio_helper.dart';
 import 'package:smart_auction/core/utils/consts.dart';
-import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart.dart';
+import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart_model.dart';
 
 class GetCartProductsService {
   DioHelper dioHelper = DioHelper();

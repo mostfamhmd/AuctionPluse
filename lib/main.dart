@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
@@ -9,6 +10,7 @@ import 'package:smart_auction/feature/onBoarding/presentation/view/onBoarding_pa
 import 'core/main_cubit.dart';
 
 String? userId;
+List<ProductInfo> products = [];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

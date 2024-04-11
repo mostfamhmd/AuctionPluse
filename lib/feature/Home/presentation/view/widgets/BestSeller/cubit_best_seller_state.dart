@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
-import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/best_seller_body.dart';
+import 'package:smart_auction/main.dart';
 
 class CubitBestSellerState extends StatefulWidget {
   const CubitBestSellerState({super.key});
@@ -16,7 +16,6 @@ class CubitBestSellerState extends StatefulWidget {
 }
 
 class _CubitBestSellerStateState extends State<CubitBestSellerState> {
-  List<ProductInfo> products = [];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetProductsCubit, GetProductsState>(

@@ -5,8 +5,8 @@ import '../../../../../core/utils/colors.dart';
 import 'custom_price.dart';
 
 class TotalPrice extends StatelessWidget {
-  const TotalPrice({super.key});
-
+  const TotalPrice({super.key, required this.totalPrice});
+  final String totalPrice;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,9 +51,9 @@ class TotalPrice extends StatelessWidget {
             color: AppColors.kGray.withOpacity(0.3),
           ),
           const Spacer(),
-          const CustomPrice(
+          CustomPrice(
             isTotal: true,
-            price: r"$766.86",
+            price: r"$" + totalPrice,
             typePrice: "Total Price",
           ),
         ],

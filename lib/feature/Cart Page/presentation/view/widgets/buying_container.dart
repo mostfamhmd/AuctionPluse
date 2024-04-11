@@ -1,118 +1,202 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/models/product%20model/product_model.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
+import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
+import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart_model.dart';
+import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Update%20Product%20Cart%20Cubit/update_product_cart_cubit.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/fonts.dart';
-import '../../../../../core/utils/images.dart';
+import 'plus_minus_btn.dart';
 
-class BuyingContainer extends StatelessWidget {
-  const BuyingContainer({super.key});
+class BuyingContainer extends StatefulWidget {
+  const BuyingContainer({
+    super.key,
+    required this.productInfo,
+    this.cartItem,
+    required this.index,
+  });
+  final ProductInfo productInfo;
+  final CartItems? cartItem;
+  final int index;
+
+  @override
+  State<BuyingContainer> createState() => _BuyingContainerState();
+}
+
+class _BuyingContainerState extends State<BuyingContainer> {
+  String colors = '';
+  int? color;
+  ValueNotifier<int> counter = ValueNotifier<int>(1);
+
+  @override
+  void initState() {
+    colors = widget.cartItem!.color!.replaceAll("#", "0xFF");
+    color = int.parse(colors);
+
+    if (widget.productInfo.quantity! >= widget.cartItem!.quantity!) {
+      counter = ValueNotifier<int>(widget.cartItem!.quantity!);
+    } else {
+      counter = ValueNotifier<int>(widget.productInfo.quantity!);
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 110.h,
-      width: MediaQuery.sizeOf(context).width,
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.w,
-        vertical: 10.h,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5.r),
-        border: Border.all(
-          color: AppColors.kGray.withOpacity(0.3),
-          width: 1.w,
+    return BlocListener<UpdateProductCartCubit, UpdateProductCartState>(
+      listener: (context, state) {
+        if (state is UpdateProductCartSuccess) {
+          mySnackBar(context, "Upadated Successfully");
+          if (counter.value <
+              state.updateProductInCart.data!.cartItems![widget.index]
+                  .quantity!) {
+            counter.value++;
+          } else if (counter.value >
+              state.updateProductInCart.data!.cartItems![widget.index]
+                  .quantity!) {
+            counter.value--;
+          }
+        } else if (state is UpdateProductCartError) {
+          mySnackBar(context, state.errorMessage);
+        }
+      },
+      child: Container(
+        height: 110.h,
+        width: MediaQuery.sizeOf(context).width,
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w,
+          vertical: 10.h,
         ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Image.asset(AppImages.kIphone15),
-          const Spacer(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "iPhone 15 pro max",
-                style: TextStyle(
-                  color: AppColors.kDarkBlue,
-                  fontFamily: AppFonts.kPoppins700,
-                  fontSize: 12.sp,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                "256G , Full Box ",
-                style: TextStyle(
-                  color: AppColors.kGray,
-                  fontFamily: AppFonts.kPoppins400,
-                  fontSize: 11.sp,
-                ),
-              ),
-              const Spacer(
-                flex: 2,
-              ),
-              Text(
-                r"$299,43",
-                style: TextStyle(
-                  color: AppColors.kBlue,
-                  fontFamily: AppFonts.kPoppins700,
-                  fontSize: 12.sp,
-                ),
-              ),
-            ],
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.r),
+          border: Border.all(
+            color: AppColors.kGray.withOpacity(0.3),
+            width: 1.w,
           ),
-          const Spacer(
-            flex: 2,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.r),
-              color: AppColors.kGray.withOpacity(0.4),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ImageComponent(
+                urlImage: widget.productInfo.imageCover!,
+                height: 100.h,
+                width: 70.w,
+                radius: 0),
+            SizedBox(
+              width: 20.w,
             ),
-            child: Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 10.w,
-                ),
                 Text(
-                  "-",
+                  widget.productInfo.name!,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                    fontFamily: AppFonts.kPoppins400,
+                    color: AppColors.kDarkBlue,
+                    fontFamily: AppFonts.kPoppins700,
+                    fontSize: 12.sp,
                   ),
                 ),
-                SizedBox(
-                  width: 10.w,
+                const Spacer(),
+                CircleAvatar(
+                  backgroundColor: Color(color!),
+                  radius: 15.r,
+                ),
+                const Spacer(
+                  flex: 2,
                 ),
                 Text(
-                  "1",
+                  r"$" +
+                      (widget.productInfo.price! -
+                              widget.productInfo.discountedPrice!)
+                          .toString(),
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                    fontFamily: AppFonts.kPoppins400,
+                    color: AppColors.kBlue,
+                    fontFamily: AppFonts.kPoppins700,
+                    fontSize: 12.sp,
                   ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Text(
-                  "+",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                    fontFamily: AppFonts.kPoppins400,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
                 ),
               ],
             ),
-          )
-        ],
+            const Spacer(
+              flex: 2,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 10.h,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.kGray.withOpacity(0.4),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (counter.value == 1) {
+                      } else {
+                        context
+                            .read<UpdateProductCartCubit>()
+                            .updateProductCart(
+                                productCartId: widget.cartItem!.sId!,
+                                quantity: counter.value - 1);
+                      }
+                    },
+                    child: const PlusMinusBTN(
+                      btnName: "-",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: counter,
+                    builder: (BuildContext context, value, Widget? child) =>
+                        Text(
+                      "$value",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontFamily: AppFonts.kPoppins500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (counter.value < widget.productInfo.quantity!) {
+                        context
+                            .read<UpdateProductCartCubit>()
+                            .updateProductCart(
+                                productCartId: widget.cartItem!.sId!,
+                                quantity: counter.value + 1);
+                      } else {
+                        mySnackBar(context,
+                            "There is no more than ${widget.productInfo.quantity!} of this product");
+                      }
+                    },
+                    child: const PlusMinusBTN(
+                      btnName: "+",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
