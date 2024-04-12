@@ -22,7 +22,6 @@ class EditAndDeleteReviewService {
       );
       return right(data);
     } on DioException catch (dioException) {
-      print("data is : ${dioException.toString()}");
       return left(ServerFailure(errMessage: dioException.toString()));
     } catch (error) {
       return left(

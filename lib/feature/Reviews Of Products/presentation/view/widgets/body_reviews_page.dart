@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/globals/glopals.dart';
 import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/feature/Details%20Product/data/model/review_model.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/DeleteReviewCubit/delete_review_cubit.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/view/widgets/item_comment.dart';
-import 'package:smart_auction/main.dart';
 
 import '../../../../Write Comments/presentation/view/write_comments_page.dart';
 import 'comments_body.dart';

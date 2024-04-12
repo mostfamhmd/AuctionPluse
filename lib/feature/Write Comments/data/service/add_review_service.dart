@@ -17,7 +17,6 @@ class AddReviewService {
 
     MyReview myReview = MyReview();
     try {
-      print("user Data : $token + $userId");
       Map<String, dynamic> data = await dioHelper.postRequest(
         endPoint: "reviews",
         body: {

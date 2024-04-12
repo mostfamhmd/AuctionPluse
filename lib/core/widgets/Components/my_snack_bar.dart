@@ -12,6 +12,7 @@ void mySnackBar(BuildContext context, String message) {
       duration: const Duration(seconds: 2),
       action: SnackBarAction(
         label: 'Close',
+        textColor: AppColors.kLightBlue,
         onPressed: () {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
         },

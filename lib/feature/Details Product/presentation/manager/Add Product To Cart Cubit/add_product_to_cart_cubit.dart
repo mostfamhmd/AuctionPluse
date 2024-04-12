@@ -11,6 +11,7 @@ class AddProductToCartCubit extends Cubit<AddProductToCartState> {
 
   Future<void> addProductToCart(
       {required String productId, required String color}) async {
+    emit(AddProductToCartLoading());
     Either<ServerFailure, AddedProductModel> result =
         await AddProductCartServices()
             .addProductCartService(productId: productId, color: color);

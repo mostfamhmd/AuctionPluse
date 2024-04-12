@@ -31,7 +31,6 @@ class InfoProduct extends StatefulWidget {
 }
 
 class _InfoProductState extends State<InfoProduct> {
-  ValueNotifier<bool> loading = ValueNotifier(false);
   String color = '';
   @override
   Widget build(BuildContext context) {
@@ -148,7 +147,6 @@ class _InfoProductState extends State<InfoProduct> {
               height: 10.h,
             ),
             AddToCartBTN(
-              loading: loading,
               productId: widget.infoProduct.product.id!,
               color: color,
             ),

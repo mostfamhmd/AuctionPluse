@@ -5,15 +5,18 @@ import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Details%20Product/presentation/manager/Add%20Product%20To%20Cart%20Cubit/add_product_to_cart_cubit.dart';
 
-class AddToCartBTN extends StatelessWidget {
-  const AddToCartBTN(
-      {super.key,
-      required this.loading,
-      required this.productId,
-      required this.color});
-  final ValueNotifier<bool> loading;
+class AddToCartBTN extends StatefulWidget {
+  const AddToCartBTN({super.key, required this.productId, required this.color});
   final String productId;
   final String color;
+
+  @override
+  State<AddToCartBTN> createState() => _AddToCartBTNState();
+}
+
+class _AddToCartBTNState extends State<AddToCartBTN> {
+  ValueNotifier<bool> loading = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddProductToCartCubit, AddProductToCartState>(
@@ -39,12 +42,11 @@ class AddToCartBTN extends StatelessWidget {
               : MyBigBTN(
                   nameBTN: "Add To Cart",
                   onTap: () {
-                    if (color.isNotEmpty) {
-                      context
-                          .read<AddProductToCartCubit>()
-                          .addProductToCart(productId: productId, color: color);
+                    if (widget.color.isNotEmpty) {
+                      context.read<AddProductToCartCubit>().addProductToCart(
+                          productId: widget.productId, color: widget.color);
                     }
-                    if (color.isEmpty) {
+                    if (widget.color.isEmpty) {
                       mySnackBar(context, "choose color");
                     }
                   },

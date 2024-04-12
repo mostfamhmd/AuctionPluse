@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/globals/glopals.dart';
 import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/app_logo.dart';
 import 'package:smart_auction/core/widgets/Components/app_title.dart';
@@ -15,7 +16,6 @@ import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/pas
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/register_login.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/view/widgets/sign_in_to.dart';
 import 'package:smart_auction/core/helpers/cache_helper.dart';
-import 'package:smart_auction/main.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({super.key});

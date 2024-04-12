@@ -6,13 +6,14 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
 class MyCustomField extends StatelessWidget {
-  MyCustomField(
-      {super.key,
-      required this.myController,
-      required this.textAlign,
-      required this.hintText,
-      this.maxLines = 1,
-      this.keyboardType});
+  MyCustomField({
+    super.key,
+    required this.myController,
+    required this.textAlign,
+    required this.hintText,
+    this.maxLines = 1,
+    this.keyboardType,
+  });
   final TextEditingController myController;
   final TextAlign textAlign;
   final String hintText;

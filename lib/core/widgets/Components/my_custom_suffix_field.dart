@@ -42,7 +42,7 @@ class MyCustomSuffixField extends StatelessWidget {
             : widget,
         hintText: hintText,
         hintStyle: AppStyles.kPoppins400
-            .copyWith(fontSize: 14.sp, color: AppColors.kGray),
+            .copyWith(fontSize: 14.sp, color: AppColors.kBlack),
         border: buildBorder(),
         focusedBorder: buildBorder(),
         enabledBorder: buildBorder(),

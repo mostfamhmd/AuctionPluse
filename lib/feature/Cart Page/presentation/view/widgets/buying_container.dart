@@ -6,6 +6,7 @@ import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart_model.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Update%20Product%20Cart%20Cubit/update_product_cart_cubit.dart';
+import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/fonts.dart';
@@ -50,16 +51,15 @@ class _BuyingContainerState extends State<BuyingContainer> {
     return BlocListener<UpdateProductCartCubit, UpdateProductCartState>(
       listener: (context, state) {
         if (state is UpdateProductCartSuccess) {
-          mySnackBar(context, "Upadated Successfully");
-          if (counter.value <
-              state.updateProductInCart.data!.cartItems![widget.index]
-                  .quantity!) {
-            counter.value++;
-          } else if (counter.value >
-              state.updateProductInCart.data!.cartItems![widget.index]
-                  .quantity!) {
-            counter.value--;
-          }
+          Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (BuildContext context,
+                          Animation<double> animation,
+                          Animation<double> secondaryAnimation) =>
+                      HomeView(
+                        currentIndex: 1,
+                      )));
         } else if (state is UpdateProductCartError) {
           mySnackBar(context, state.errorMessage);
         }

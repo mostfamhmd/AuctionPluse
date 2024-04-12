@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/feature/Add%20Brand/presentation/view/add_brand_view.dart';
 import 'package:smart_auction/feature/Add%20Category/presentation/view/add_category_view.dart';
+import 'package:smart_auction/feature/Add%20Coupon/presentation/view/add_coupon_page.dart';
 import 'package:smart_auction/feature/Add%20Product/Presentation/view/add_product_view.dart';
 import 'package:smart_auction/feature/Add%20SubCategory/presentation/view/add_sub_category_view.dart';
+import 'package:smart_auction/feature/Coupons%20Management/presentation/view/coupons_management_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Order%20Management/presentation/view/order_management_view.dart';
 import 'package:smart_auction/feature/Product%20mangement/presentation/view/product_mangement_view.dart';
@@ -74,6 +76,22 @@ class OptionsDrawer extends StatelessWidget {
                 Navigator.push<void>(
                   context,
                   MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        const CouponsManagementPage(),
+                  ),
+                );
+              },
+              leading: Text(
+                "Coupons mangement",
+                style: AppStyles.kInter600.copyWith(fontSize: 20.sp),
+              ),
+            ),
+            ListTile(
+              dense: true,
+              onTap: () {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
                     builder: (BuildContext context) => const AddBrandView(),
                   ),
                 );
@@ -126,6 +144,21 @@ class OptionsDrawer extends StatelessWidget {
               },
               leading: Text(
                 "Add a product",
+                style: AppStyles.kInter600.copyWith(fontSize: 20.sp),
+              ),
+            ),
+            ListTile(
+              dense: true,
+              onTap: () {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const AddCouponPage(),
+                  ),
+                );
+              },
+              leading: Text(
+                "Add a coupon",
                 style: AppStyles.kInter600.copyWith(fontSize: 20.sp),
               ),
             ),

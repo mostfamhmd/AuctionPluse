@@ -5,8 +5,10 @@ import '../../../../../core/utils/colors.dart';
 import 'custom_price.dart';
 
 class TotalPrice extends StatelessWidget {
-  const TotalPrice({super.key, required this.totalPrice});
+  const TotalPrice(
+      {super.key, required this.totalPrice, required this.cartNumbers});
   final String totalPrice;
+  final int cartNumbers;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,10 +28,10 @@ class TotalPrice extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const CustomPrice(
+          CustomPrice(
             isTotal: false,
-            price: r"$598.86",
-            typePrice: "Items (3)",
+            price: r"$" + totalPrice,
+            typePrice: "Items ($cartNumbers)",
           ),
           const Spacer(),
           const CustomPrice(

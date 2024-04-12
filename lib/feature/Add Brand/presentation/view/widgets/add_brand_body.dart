@@ -136,7 +136,7 @@ class _AddBrandBodyState extends State<AddBrandBody> {
                           ? const Center(child: LoadingState())
                           : Center(
                               child: Text(
-                                "Add Category",
+                                "Add Brand",
                                 style: AppStyles.kPoppins500.copyWith(
                                     fontSize: 18.sp, color: AppColors.kBlack),
                               ),
