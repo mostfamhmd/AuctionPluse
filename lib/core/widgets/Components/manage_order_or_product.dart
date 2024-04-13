@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/core/widgets/Components/price_rating_item.dart';
 import 'package:smart_auction/core/widgets/Components/quantity_order_or_product.dart';
 
@@ -24,7 +25,7 @@ class ManageOrderOrProduct extends StatelessWidget {
   final String productName;
   final String productDescription;
   final String productBrand;
-  final double rating;
+  final num rating;
   final String productPrice;
   final bool isEdit;
 
@@ -65,49 +66,51 @@ class ManageOrderOrProduct extends StatelessWidget {
           isEdit == true ? const EditRemove() : const Center(),
           Align(
             alignment: Alignment.topCenter,
-            child: Image.asset(
-              urlLinkImage,
-              height: 250.h,
+            child: ImageComponent(
+              urlImage: urlLinkImage,
+              height: 200.h,
+              width: 400.w,
+              radius: 0,
             ),
           ),
           const Spacer(),
           isEdit == false
               ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    productName,
-                    style: AppStyles.kInter600.copyWith(
-                      fontSize: 20.sp,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      productName,
+                      style: AppStyles.kInter600.copyWith(
+                        fontSize: 20.sp,
+                      ),
                     ),
-                  ),
-                  SvgPicture.asset(AppIcons.kRemove),
-                ],
-              )
+                    SvgPicture.asset(AppIcons.kRemove),
+                  ],
+                )
               : Row(
-                children: [
-                  Text(
-                    productName,
-                    style: AppStyles.kInter600.copyWith(
-                      fontSize: 20.sp,
+                  children: [
+                    Text(
+                      productName,
+                      style: AppStyles.kInter600.copyWith(
+                        fontSize: 20.sp,
+                      ),
                     ),
-                  ),
-                  const Spacer(
-                    flex: 6,
-                  ),
-                  SvgPicture.asset(AppIcons.kMinus),
-                  const Spacer(),
-                  Text(
-                    "1",
-                    style: AppStyles.kPoppins400.copyWith(
-                      fontSize: 18.sp,
-                      color: AppColors.kBlack,
+                    const Spacer(
+                      flex: 6,
                     ),
-                  ),
-                  const Spacer(),
-                  SvgPicture.asset(AppIcons.kPlus),
-                ],
-              ),
+                    SvgPicture.asset(AppIcons.kMinus),
+                    const Spacer(),
+                    Text(
+                      "1",
+                      style: AppStyles.kPoppins400.copyWith(
+                        fontSize: 18.sp,
+                        color: AppColors.kBlack,
+                      ),
+                    ),
+                    const Spacer(),
+                    SvgPicture.asset(AppIcons.kPlus),
+                  ],
+                ),
           SizedBox(
             height: 15.h,
           ),
@@ -128,9 +131,7 @@ class ManageOrderOrProduct extends StatelessWidget {
                 color: AppColors.kDarkBlue,
                 fontWeight: FontWeight.w500),
           ),
-          isEdit == false
-              ? const QuantityProduct()
-              : const Center(),
+          isEdit == false ? const QuantityProduct() : const Center(),
           PriceRatingProduct(
             rating: rating,
             productPrice: productPrice,

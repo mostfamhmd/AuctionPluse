@@ -10,16 +10,19 @@ class EditRemove extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "edit",
-          style: AppStyles.kPoppins400
-              .copyWith(fontSize: 20.sp, color: AppColors.kGray),
-        ),
-        SvgPicture.asset(AppIcons.kRemove),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "edit",
+            style: AppStyles.kPoppins400
+                .copyWith(fontSize: 20.sp, color: AppColors.kGray),
+          ),
+          SvgPicture.asset(AppIcons.kRemove),
+        ],
+      ),
     );
   }
 }

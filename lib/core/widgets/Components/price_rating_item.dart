@@ -5,9 +5,10 @@ import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/rating_widget.dart';
 
 class PriceRatingProduct extends StatelessWidget {
-  const PriceRatingProduct({super.key, required this.productPrice, required this.rating});
+  const PriceRatingProduct(
+      {super.key, required this.productPrice, required this.rating});
   final String productPrice;
-  final double rating;
+  final num rating;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,9 +18,10 @@ class PriceRatingProduct extends StatelessWidget {
           style: AppStyles.kInter700
               .copyWith(fontSize: 22.sp, color: AppColors.kLightBlue),
         ),
-        const Spacer(
-        ),
-        RatingWidget(rating: rating,)
+        const Spacer(),
+        RatingWidget(
+          rating: rating,
+        )
       ],
     );
   }
