@@ -19,6 +19,7 @@ import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%2
 import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/Delete%20Product%20WhichListCubit/delete_favorite_product_cubit.dart';
 import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/WhichList%20Cubit/which_list_cubit.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
+import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Delete%20Specific%20Product%20Cubit/delete_specific_product_cubit.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Get%20Admin%20Products%20Cubit/get_admin_products_cubit.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/DeleteReviewCubit/delete_review_cubit.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/EditReviewCubit/edit_review_cubit.dart';
@@ -111,6 +112,9 @@ class MainCubit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GetAdminProductsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DeleteSpecificProductCubit(),
         ),
       ],
       child: child,

@@ -6,8 +6,9 @@ import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
 class EditRemove extends StatelessWidget {
-  const EditRemove({super.key});
-
+  const EditRemove({super.key, this.onPressedEdit, this.onPressedRemove});
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedRemove;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,12 +16,16 @@ class EditRemove extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "edit",
-            style: AppStyles.kPoppins400
-                .copyWith(fontSize: 20.sp, color: AppColors.kGray),
+          TextButton(
+            onPressed: onPressedEdit,
+            child: Text("edit",
+                style: AppStyles.kPoppins400
+                    .copyWith(fontSize: 20.sp, color: AppColors.kGray)),
           ),
-          SvgPicture.asset(AppIcons.kRemove),
+          IconButton(
+            onPressed: onPressedRemove,
+            icon: SvgPicture.asset(AppIcons.kRemove),
+          ),
         ],
       ),
     );
