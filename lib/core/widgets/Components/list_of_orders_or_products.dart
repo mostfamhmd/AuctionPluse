@@ -26,6 +26,9 @@ class ListOfOrdersOrProducts extends StatefulWidget {
 
 class _ListOfOrdersOrProductsState extends State<ListOfOrdersOrProducts> {
   List<String> brandName = [];
+  List<String> subCategoryName = [];
+  List<List<String>> listSubs = [];
+  SubCategory? subCategory;
   @override
   void initState() {
     if (widget.getBrandsModel != null) {
@@ -34,6 +37,24 @@ class _ListOfOrdersOrProductsState extends State<ListOfOrdersOrProducts> {
           if (widget.adminProduct![i].brand! ==
               widget.getBrandsModel!.data![j].sId) {
             brandName.add(widget.getBrandsModel!.data![j].name!);
+          }
+        }
+      }
+    }
+    if (widget.subCategoriesModel != null) {
+      for (int i = 0; i < widget.adminProduct!.length; i++) {
+        for (int j = 0; j < widget.subCategoriesModel!.data!.length; j++) {
+          for (int k = 0;
+              k < widget.adminProduct![i].subcategories!.length;
+              k++) {
+            if (widget.adminProduct![i].subcategories![k] ==
+                widget.subCategoriesModel!.data![j].sId) {
+              subCategoryName.add(widget.subCategoriesModel!.data![j].name!);
+            }
+          }
+          if (subCategoryName.isNotEmpty) {
+            listSubs.add(subCategoryName);
+            subCategoryName = [];
           }
         }
       }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:smart_auction/core/managers/Specific%20SubCategory%20Cubit/specific_sub_category_cubit.dart';
+import 'package:smart_auction/core/managers/SubCategories%20Cubits/Specific%20SubCategory%20Cubit/specific_sub_category_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/widgets/item_sub_category.dart';
 

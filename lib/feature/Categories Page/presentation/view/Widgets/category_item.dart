@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/sub_category_page.dart';
 import '../../../../../core/utils/styles.dart';
@@ -9,8 +10,10 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem({
     super.key,
     required this.category,
+    required this.role,
   });
   final Category category;
+  final String role;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -42,6 +45,27 @@ class CategoryItem extends StatelessWidget {
               category.name!,
               style: AppStyles.kInter700.copyWith(fontSize: 16.sp),
             ),
+            const Spacer(),
+            role == "user"
+                ? IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.edit,
+                      color: AppColors.kGray,
+                      size: 20.sp,
+                    ),
+                  )
+                : const Center(),
+            role == "user"
+                ? IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete,
+                      color: AppColors.kRed,
+                      size: 20.sp,
+                    ),
+                  )
+                : const Center(),
           ],
         ),
       ),

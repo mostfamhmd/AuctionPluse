@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_auction/core/managers/UpdateProductCubit/update_product_cubit.dart';
+import 'package:smart_auction/feature/Add%20Product/Presentation/manager/AddProductCubit/add_product_cubit.dart';
 import 'package:smart_auction/feature/Coupons%20Management/presentation/manager/Delete%20Coupon%20Cubit/delete_coupon_cubit.dart';
 import 'package:smart_auction/feature/Coupons%20Management/presentation/manager/Get%20All%20Coupons%20Cubit/get_all_coupons_cubit.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Specific%20Coupon%20Cubit/get_specific_coupon_cubit.dart';
@@ -115,6 +117,12 @@ class MainCubit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DeleteSpecificProductCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AddProductCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UpdateProductCubit(),
         ),
       ],
       child: child,
