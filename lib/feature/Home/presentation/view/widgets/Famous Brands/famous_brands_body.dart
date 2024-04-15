@@ -7,7 +7,10 @@ import 'package:smart_auction/core/widgets/Components/custom_more.dart';
 import '../../../../../Famous Brands/presentation/view/famous_brand.dart';
 
 class FamousBrandsBody extends StatelessWidget {
-  const FamousBrandsBody({super.key, required this.brands});
+  const FamousBrandsBody({
+    super.key,
+    required this.brands,
+  });
   final List<Brands> brands;
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,9 @@ class FamousBrandsBody extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    FamousBrandsPage(brands: brands),
+                builder: (BuildContext context) => FamousBrandsPage(
+                  brands: brands,
+                ),
               ),
             );
           },

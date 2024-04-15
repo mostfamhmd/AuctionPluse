@@ -12,9 +12,11 @@ import 'core/main_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  role = await AppConsts.getData(AppConsts.kUserRole);
   userId = await AppConsts.getData(AppConsts.kUserId);
   if (kDebugMode) {
     print(userId);
+    print(role);
   }
   runApp(const SmartAuction());
 }

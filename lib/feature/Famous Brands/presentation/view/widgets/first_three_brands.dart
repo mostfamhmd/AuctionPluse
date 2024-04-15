@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
+import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/view/widgets/position_card_number.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/styles.dart';
+import '../../../../../core/widgets/Components/edit_and_delete.dart';
 
 class FirstThreeBrands extends StatelessWidget {
-  const FirstThreeBrands(
-      {super.key,
-      required this.imageURL,
-      required this.brandName,
-      required this.rankColor,
-      required this.rankNum,
-      required this.topCard});
+  const FirstThreeBrands({
+    super.key,
+    required this.rankColor,
+    required this.rankNum,
+    required this.topCard,
+    required this.brand,
+    required this.role,
+    this.onPressedEdit,
+    this.onPressedDelete,
+  });
 
-  final String imageURL;
-  final String brandName;
   final int rankColor;
   final int rankNum;
   final double topCard;
+  final Brands brand;
+  final String role;
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class FirstThreeBrands extends StatelessWidget {
           ),
           child: Row(children: [
             ImageComponent(
-              urlImage: imageURL,
+              urlImage: brand.image!,
               height: 100.h,
               width: 100.w,
               radius: 10.r,
@@ -62,7 +69,7 @@ class FirstThreeBrands extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    brandName,
+                    brand.name!,
                     style: AppStyles.kPoppins700
                         .copyWith(fontSize: 18.sp, color: AppColors.kBlack),
                   ),
@@ -71,7 +78,13 @@ class FirstThreeBrands extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            role == "user"
+                ? EditAndDelete(
+                    onPressedEdit: onPressedEdit,
+                    onPressedDelete: onPressedDelete,
+                  )
+                : const Center()
           ]),
         ),
         PositionCardRank(color: rankColor, rankNum: rankNum, top: topCard),
@@ -79,32 +92,3 @@ class FirstThreeBrands extends StatelessWidget {
     );
   }
 }
-
-List<BoxShadow> middleBoxShadow = [
-  BoxShadow(
-    color: AppColors.kGray.withOpacity(0.9),
-    blurStyle: BlurStyle.normal,
-    offset: const Offset(2, 4),
-  ),
-  BoxShadow(
-    color: AppColors.kGray.withOpacity(0.9),
-    blurStyle: BlurStyle.normal,
-    offset: const Offset(-2, -4),
-  ),
-];
-List<BoxShadow> firstBoxShadow = [
-  BoxShadow(
-    color: AppColors.kGray.withOpacity(0.3),
-    blurRadius: 4,
-    blurStyle: BlurStyle.normal,
-    offset: const Offset(8, 0),
-  ),
-];
-List<BoxShadow> latestBoxShadow = [
-  BoxShadow(
-    color: AppColors.kGray.withOpacity(0.3),
-    blurRadius: 4,
-    blurStyle: BlurStyle.normal,
-    offset: const Offset(-8, 0),
-  ),
-];

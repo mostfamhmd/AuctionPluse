@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,14 +10,17 @@ import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%2
 import 'package:smart_auction/feature/Home/presentation/view/widgets/Famous%20Brands/famous_brands_body.dart';
 
 class CubitFamousBrandState extends StatelessWidget {
-  const CubitFamousBrandState({super.key});
-
+  const CubitFamousBrandState({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetBrandsCubit, GetBrandsState>(
       builder: (context, state) {
         if (state is GetBrandsSuccess) {
-          return FamousBrandsBody(brands: state.getBrandsModel.data!);
+          return FamousBrandsBody(
+            brands: state.getBrandsModel.data!,
+          );
         } else if (state is GetBrandsLoading) {
           return Center(
             child: SpinKitThreeBounce(

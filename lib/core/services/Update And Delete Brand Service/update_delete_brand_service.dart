@@ -16,7 +16,7 @@ class UpdateDeleteBrandService {
     String token = await AppConsts.getData(AppConsts.kUserToken);
     try {
       await dioHelper.deleteRequest(
-        endPoint: "barand/$brandId",
+        endPoint: "brands/$brandId",
         token: token,
       );
       return right("Deleted Successfully");
@@ -57,7 +57,7 @@ class UpdateDeleteBrandService {
     }
     try {
       await dioHelper.putRequest(
-        endPoint: "category/$brandId",
+        endPoint: "brands/$brandId",
         token: token,
         body: formData,
       );

@@ -78,7 +78,7 @@ class _HomeBodyState extends State<HomeBody> {
               SizedBox(
                 height: 25.h,
               ),
-              const CubitFamousBrandState(),
+              CubitFamousBrandState(),
             ],
           ),
         ),
