@@ -8,7 +8,7 @@ part 'delete_sub_category_state.dart';
 class DeleteSubCategoryCubit extends Cubit<DeleteSubCategoryState> {
   DeleteSubCategoryCubit() : super(DeleteSubCategoryInitial());
 
-  Future<void> updateSubCategory({
+  Future<void> deleteSubCategory({
     required String subCategoryId,
   }) async {
     emit(DeleteSubCategoryLoading());

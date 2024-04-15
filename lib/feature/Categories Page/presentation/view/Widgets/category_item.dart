@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/widgets/Components/edit_and_delete.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/sub_category_page.dart';
 import '../../../../../core/utils/styles.dart';
@@ -11,9 +11,13 @@ class CategoryItem extends StatelessWidget {
     super.key,
     required this.category,
     required this.role,
+    this.onPressedEdit,
+    this.onPressedDelete,
   });
   final Category category;
   final String role;
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedDelete;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -47,24 +51,9 @@ class CategoryItem extends StatelessWidget {
             ),
             const Spacer(),
             role == "user"
-                ? IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.edit,
-                      color: AppColors.kGray,
-                      size: 20.sp,
-                    ),
-                  )
-                : const Center(),
-            role == "user"
-                ? IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.delete,
-                      color: AppColors.kRed,
-                      size: 20.sp,
-                    ),
-                  )
+                ? EditAndDelete(
+                    onPressedEdit: onPressedEdit,
+                    onPressedDelete: onPressedDelete)
                 : const Center(),
           ],
         ),

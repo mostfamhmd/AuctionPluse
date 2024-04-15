@@ -5,6 +5,7 @@ import 'package:smart_auction/core/managers/Brand%20Cubits/Update%20Brand%20Cubi
 import 'package:smart_auction/core/managers/Category%20Cubits/Delete%20Category%20Cubit/delete_category_cubit.dart';
 import 'package:smart_auction/core/managers/Category%20Cubits/Update%20Category%20Cubit/update_category_cubit.dart';
 import 'package:smart_auction/core/managers/SubCategories%20Cubits/Delete%20SubCategory%20Cubit/delete_sub_category_cubit.dart';
+import 'package:smart_auction/core/managers/SubCategories%20Cubits/Specific%20SubCategory%20Cubit/specific_sub_category_cubit.dart';
 import 'package:smart_auction/core/managers/SubCategories%20Cubits/Update%20SubCategory%20Cubit/update_sub_category_cubit.dart';
 import 'package:smart_auction/core/managers/UpdateProductCubit/update_product_cubit.dart';
 import 'package:smart_auction/feature/Add%20Brand/presentation/manager/Add%20Brand%20Cubit/add_brand_cubit.dart';
@@ -151,6 +152,9 @@ class MainCubit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AddBrandCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SpecificSubCategoryCubit(),
         ),
       ],
       child: child,
