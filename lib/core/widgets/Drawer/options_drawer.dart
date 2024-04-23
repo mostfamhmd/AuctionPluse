@@ -6,6 +6,7 @@ import 'package:smart_auction/feature/Add%20Category/presentation/view/add_categ
 import 'package:smart_auction/feature/Add%20Coupon/presentation/view/add_coupon_page.dart';
 import 'package:smart_auction/feature/Add%20Product/Presentation/view/add_product_view.dart';
 import 'package:smart_auction/feature/Add%20SubCategory/presentation/view/add_sub_category_view.dart';
+import 'package:smart_auction/feature/Auction%201/presentation/view/auction_1.dart';
 import 'package:smart_auction/feature/Coupons%20Management/presentation/view/coupons_management_page.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
 import 'package:smart_auction/feature/Order%20Management/presentation/view/order_management_view.dart';
@@ -165,12 +166,12 @@ class OptionsDrawer extends StatelessWidget {
             ListTile(
               dense: true,
               onTap: () {
-                /*Navigator.push<void>(
+                Navigator.push<void>(
                   context,
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => const Auction1(),
                   ),
-                );*/
+                );
               },
               leading: Text(
                 "Auctions",

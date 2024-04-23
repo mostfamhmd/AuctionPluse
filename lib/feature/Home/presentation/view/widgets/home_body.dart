@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
+import 'package:smart_auction/feature/Auction%201/presentation/view/auction_1.dart';
+import 'package:smart_auction/feature/Auction%205/presentation/view/auction_5.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%20Brands%20Cubit/get_brands_cubit.dart';
 import 'package:smart_auction/feature/Home/presentation/view/home_view.dart';
@@ -60,8 +62,22 @@ class _HomeBodyState extends State<HomeBody> {
                 height: 20.h,
               ),
               LiveAuction(
-                seeAll: () {},
-                viewShows: () {},
+                seeAll: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Auction5(),
+                    ),
+                  );
+                },
+                viewShows: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Auction1(),
+                    ),
+                  );
+                },
               ),
               SizedBox(
                 height: 20.h,
@@ -78,7 +94,7 @@ class _HomeBodyState extends State<HomeBody> {
               SizedBox(
                 height: 25.h,
               ),
-              CubitFamousBrandState(),
+              const CubitFamousBrandState(),
             ],
           ),
         ),

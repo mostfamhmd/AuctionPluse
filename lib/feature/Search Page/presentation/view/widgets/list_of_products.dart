@@ -54,7 +54,7 @@ class ListOfProducts extends StatelessWidget {
                 ),
               ),
             )
-          : const FailureState(error: "No Products Found"),
+          : const FailureState(error: ""),
     );
   }
 }

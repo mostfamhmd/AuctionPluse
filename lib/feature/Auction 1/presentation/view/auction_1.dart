@@ -84,11 +84,12 @@ class Auction1 extends StatelessWidget {
                       context,
                       title: 'Join Now',
                       fontSize: 6,
-                      onPressed: () => Navigator.push(
+                      onPressed: () => Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const Auction3(),
                         ),
+                        (route) => false,
                       ),
                       backgroundColor: AppColors.kLightBlue,
                     ),
