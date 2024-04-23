@@ -55,4 +55,7 @@ class AppIcons {
   static const kGender = "assets/Icons/Gender.svg";
   static const kDate = "assets/Icons/Date.svg";
   static const kUserProfile = "assets/Icons/UserProfile.svg";
+  static const kSchedule = "assets/Icons/Schedule.svg";
+  static const kVoice = "assets/Icons/Voice.svg";
+  static const kAuction = "assets/Icons/Auction.svg";
 }

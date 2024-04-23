@@ -5,6 +5,7 @@ import 'package:smart_auction/core/utils/fonts.dart';
 
 ElevatedButton customElevatedButton(
   BuildContext context, {
+  double? fontSize,
   required String title,
   required void Function() onPressed,
   Color backgroundColor = AppColors.kLightBlue,
@@ -24,8 +25,8 @@ ElevatedButton customElevatedButton(
     onPressed: onPressed,
     child: Text(
       title,
-      style: const TextStyle(
-        fontSize: 14,
+      style: TextStyle(
+        fontSize: fontSize ?? 14.sp,
         fontFamily: AppFonts.kPoppins700,
       ),
     ),

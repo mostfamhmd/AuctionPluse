@@ -13,6 +13,7 @@ import '../../../../core/utils/icons.dart';
 import '../../../../core/widgets/AppBar/name_app_bar.dart';
 import '../../../../core/widgets/My Bottom Nav Bar/name_and_icon_page.dart';
 import '../../../Account Page/presentation/view/widgets/body_account.dart';
+import 'widgets/auction_button.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key, this.currentIndex = 0});
@@ -47,53 +48,76 @@ class _HomeViewState extends State<HomeView> {
       appBar: appBar[widget.currentIndex],
       body: body[widget.currentIndex],
       endDrawer: widget.currentIndex != 3 ? const MyDrawer() : null,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.kWhite,
-        elevation: 3,
-        onTap: (value) {
-          setState(() {
-            widget.currentIndex = value;
-          });
-        },
-        currentIndex: widget.currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: NameAndIconPage(
-              currentIndex: widget.currentIndex,
-              myIndex: 0,
-              pageIcon: AppIcons.kHome,
-              pageName: "Home",
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: const AuctionButton(),
+      bottomNavigationBar: BottomAppBar(
+        surfaceTintColor: AppColors.kGray,
+        color: AppColors.kWhite,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.currentIndex = 0;
+                });
+              },
+              icon: NameAndIconPage(
+                currentIndex: widget.currentIndex,
+                myIndex: 0,
+                pageIcon: AppIcons.kHome,
+                pageName: "Home",
+              ),
             ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: NameAndIconPage(
-              currentIndex: widget.currentIndex,
-              myIndex: 1,
-              pageIcon: AppIcons.kCart,
-              pageName: "Cart",
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.currentIndex = 1;
+                });
+              },
+              icon: NameAndIconPage(
+                currentIndex: widget.currentIndex,
+                myIndex: 1,
+                pageIcon: AppIcons.kCart,
+                pageName: "Cart",
+              ),
             ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: NameAndIconPage(
-              currentIndex: widget.currentIndex,
-              myIndex: 2,
-              pageIcon: AppIcons.kOffer,
-              pageName: "Offer",
+            const Spacer(
+              flex: 5,
             ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: NameAndIconPage(
-              currentIndex: widget.currentIndex,
-              myIndex: 3,
-              pageIcon: AppIcons.kUser,
-              pageName: "Account",
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.currentIndex = 2;
+                });
+              },
+              icon: NameAndIconPage(
+                currentIndex: widget.currentIndex,
+                myIndex: 2,
+                pageIcon: AppIcons.kOffer,
+                pageName: "Offer",
+              ),
             ),
-            label: "",
-          ),
-        ],
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.currentIndex = 3;
+                });
+              },
+              icon: NameAndIconPage(
+                currentIndex: widget.currentIndex,
+                myIndex: 3,
+                pageIcon: AppIcons.kUser,
+                pageName: "Account",
+              ),
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }

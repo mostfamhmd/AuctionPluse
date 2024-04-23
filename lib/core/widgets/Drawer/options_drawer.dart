@@ -164,7 +164,14 @@ class OptionsDrawer extends StatelessWidget {
             ),
             ListTile(
               dense: true,
-              onTap: () {},
+              onTap: () {
+                /*Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const Auction1(),
+                  ),
+                );*/
+              },
               leading: Text(
                 "Auctions",
                 style: AppStyles.kInter600.copyWith(fontSize: 20.sp),
