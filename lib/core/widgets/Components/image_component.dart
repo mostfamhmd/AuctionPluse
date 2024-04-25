@@ -25,7 +25,7 @@ class ImageComponent extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             filterQuality: FilterQuality.high,
           ),
         ),

@@ -7,17 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_auction/core/managers/Category%20Cubits/Update%20Category%20Cubit/update_category_cubit.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
-import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/feature/Add%20Category/presentation/manager/AddCategoryCubit/add_category_cubit.dart';
+import 'package:smart_auction/feature/Categories%20Page/data/Model/category_model.dart';
+
+import 'adding_category.dart';
+import 'updating_category.dart';
 
 class AddCategoryBody extends StatefulWidget {
-  const AddCategoryBody({super.key});
-
+  const AddCategoryBody({super.key, this.category});
+  final Category? category;
   @override
   State<AddCategoryBody> createState() => _AddCategoryBodyState();
 }
@@ -27,6 +33,14 @@ class _AddCategoryBodyState extends State<AddCategoryBody> {
   TextEditingController nameCategory = TextEditingController();
   final ValueNotifier<bool> _image = ValueNotifier<bool>(false);
   ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
+  @override
+  void initState() {
+    if (widget.category != null) {
+      nameCategory.text = widget.category!.name!;
+      _image.value = true;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +67,18 @@ class _AddCategoryBodyState extends State<AddCategoryBody> {
                   value
                       ? InkWell(
                           onTap: () => showImagePickerOption(context),
-                          child: Image.file(_photo!),
+                          child: _photo != null
+                              ? Image.file(
+                                  _photo!,
+                                  height: 250.h,
+                                  width: 250.w,
+                                  fit: BoxFit.contain,
+                                )
+                              : ImageComponent(
+                                  urlImage: widget.category!.image!,
+                                  height: 250.h,
+                                  width: 250.w,
+                                  radius: 0),
                         )
                       : InkWell(
                           onTap: () => showImagePickerOption(context),
@@ -75,84 +100,26 @@ class _AddCategoryBodyState extends State<AddCategoryBody> {
             ),
             InkWell(
               onTap: () {
-                if (_photo != null && nameCategory.text.isNotEmpty) {
+                if (_photo != null &&
+                    nameCategory.text.isNotEmpty &&
+                    widget.category == null) {
                   context.read<AddCategoryCubit>().addCategoryCubit(
                         name: nameCategory.text,
                         photo: _photo!,
                       );
+                } else if (widget.category != null) {
+                  context.read<UpdateCategoryCubit>().updateCategory(
+                        categoryId: widget.category!.sId!,
+                        image: _photo ?? widget.category!.image!,
+                        name: nameCategory.text,
+                      );
                 }
               },
-              child: Container(
-                height: 45.h,
-                width: 180.w,
-                decoration: BoxDecoration(
-                  color: AppColors.kLightBlue,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: BlocListener<AddCategoryCubit, AddCategoryState>(
-                  listener: (context, state) {
-                    if (state is AddCategoryLoading) {
-                      isLoading.value = true;
-                    } else if (state is AddCategorySuccess) {
-                      _photo = null;
-                      _image.value = false;
-                      nameCategory.clear();
-                      isLoading.value = false;
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(state.addCategoryModel.data!.name!),
-                          content: Text(
-                            "Added Successfully",
-                            style: TextStyle(
-                              color: AppColors.kDarkBlue,
-                              fontFamily: AppFonts.kPoppins700,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (state is AddCategoryFailed) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(
-                            "Failed",
-                            style: TextStyle(
-                              color: AppColors.kRed,
-                              fontFamily: AppFonts.kPoppins700,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                          content: Text(
-                            state.error,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: AppFonts.kPoppins400,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ),
-                      );
-                      isLoading.value = false;
-                    }
-                  },
-                  child: ValueListenableBuilder(
-                    valueListenable: isLoading,
-                    builder:
-                        (BuildContext context, bool value, Widget? child) =>
-                            value
-                                ? LoadingState()
-                                : Center(
-                                    child: Text(
-                                      "Add Category",
-                                      style: AppStyles.kPoppins500.copyWith(
-                                          fontSize: 18.sp,
-                                          color: AppColors.kBlack),
-                                    ),
-                                  ),
-                  ),
-                ),
+              child: MySmallBTN(
+                nameButton: "Add Category",
+                child: widget.category != null
+                    ? UpdatingCategory(isLoading: isLoading)
+                    : AddingCategory(isLoading: isLoading),
               ),
             ),
             SizedBox(

@@ -8,6 +8,7 @@ import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_
 import 'package:smart_auction/core/managers/SubCategories%20Cubits/Delete%20SubCategory%20Cubit/delete_sub_category_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Add%20Category/presentation/view/add_category_view.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
@@ -100,7 +101,19 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 30.h),
                                     child: CategoryItem(
-                                      onPressedEdit: () {},
+                                      onPressedEdit: () {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                    secondaryAnimation) =>
+                                                AddCategoryView(
+                                              category: state
+                                                  .getCategories.data![index],
+                                            ),
+                                          ),
+                                        );
+                                      },
                                       onPressedDelete: () {
                                         indx = index;
                                         context
