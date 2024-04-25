@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
 
 import '../../utils/styles.dart';
 
@@ -13,11 +14,7 @@ class LoadingOrNot extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: isLoad,
       builder: (BuildContext context, value, Widget? child) => value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.black,
-              ),
-            )
+          ? const LoadingState()
           : Center(
               child: Text(
                 nameBTN,

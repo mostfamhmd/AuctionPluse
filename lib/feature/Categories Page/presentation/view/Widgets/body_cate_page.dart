@@ -9,8 +9,8 @@ import 'package:smart_auction/core/managers/SubCategories%20Cubits/Delete%20SubC
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
+import 'package:smart_auction/feature/Categories%20Page/presentation/view/category_page.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
-import '../../../data/Model/category_model.dart';
 import 'category_item.dart';
 
 class BodyCategoryPage extends StatefulWidget {
@@ -21,7 +21,6 @@ class BodyCategoryPage extends StatefulWidget {
 }
 
 class _BodyCategoryPageState extends State<BodyCategoryPage> {
-  ValueNotifier<List<Category>> getCategories = ValueNotifier([]);
   List<String> idSubCategoryForCategory = [];
   List<List<String>> allIdSubCategoryForAllCategory = [];
   int? indx;
@@ -41,6 +40,7 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
           mySnackBar(context, "Deleted Sub Category Successfully");
           allIdSubCategoryForAllCategory
               .remove(allIdSubCategoryForAllCategory[indx!]);
+          setState(() {});
         } else if (deleteSubstate is DeleteSubCategoryError) {
           mySnackBar(context, deleteSubstate.error);
         } else if (deleteSubstate is DeleteSubCategoryLoading) {
@@ -51,7 +51,12 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
         listener: (context, state) {
           if (state is DeleteCategorySuccess) {
             mySnackBar(context, "Deleted Category Successfully");
-            getCategories.value.remove(getCategories.value[indx!]);
+            Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const CategoryPage(),
+                ));
           } else if (state is DeleteCategoryError) {
             mySnackBar(context, state.error);
           } else if (state is DeleteCategoryLoading) {
@@ -70,11 +75,6 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
                       for (int i = 0;
                           i < state.getCategories.data!.length;
                           i++) {
-                        getCategories.value.add(state.getCategories.data![i]);
-                      }
-                      for (int i = 0;
-                          i < state.getCategories.data!.length;
-                          i++) {
                         for (int j = 0;
                             j < substate.subCategoriesModel.data!.length;
                             j++) {
@@ -88,54 +88,47 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
                             .add(idSubCategoryForCategory);
                         idSubCategoryForCategory = [];
                       }
-                      return ValueListenableBuilder(
-                        valueListenable: getCategories,
-                        builder: (BuildContext context, value, Widget? child) =>
-                            Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30.w, vertical: 20.h),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: state.getCategories.data!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(bottom: 30.h),
-                                      child: CategoryItem(
-                                        onPressedEdit: () {},
-                                        onPressedDelete: () {
-                                          indx = index;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 20.h),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: state.getCategories.data!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(bottom: 30.h),
+                                    child: CategoryItem(
+                                      onPressedEdit: () {},
+                                      onPressedDelete: () {
+                                        indx = index;
+                                        context
+                                            .read<DeleteCategoryCubit>()
+                                            .deleteCategory(
+                                                categoryId: state.getCategories
+                                                    .data![index].sId!);
+                                        for (int i = 0;
+                                            i < idSubCategoryForCategory.length;
+                                            i++) {
                                           context
-                                              .read<DeleteCategoryCubit>()
-                                              .deleteCategory(
-                                                  categoryId:
-                                                      value[index].sId!);
-                                          for (int i = 0;
-                                              i <
-                                                  idSubCategoryForCategory
-                                                      .length;
-                                              i++) {
-                                            context
-                                                .read<DeleteSubCategoryCubit>()
-                                                .deleteSubCategory(
-                                                  subCategoryId:
-                                                      idSubCategoryForCategory[
-                                                          i],
-                                                );
-                                          }
-                                          setState(() {});
-                                        },
-                                        role: role!,
-                                        category: value[index],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
+                                              .read<DeleteSubCategoryCubit>()
+                                              .deleteSubCategory(
+                                                subCategoryId:
+                                                    idSubCategoryForCategory[i],
+                                              );
+                                        }
+                                        setState(() {});
+                                      },
+                                      role: role!,
+                                      category:
+                                          state.getCategories.data![index],
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ],
                         ),
                       );
                     }

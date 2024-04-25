@@ -18,21 +18,23 @@ class MySmallBTN extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        height: 45.h,
-        width: 180.w,
-        decoration: BoxDecoration(
-          color: AppColors.kLightBlue,
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        child: child ??
-            Center(
-              child: Text(
-                nameButton,
-                style: AppStyles.kPoppins500
-                    .copyWith(fontSize: 18.sp, color: AppColors.kBlack),
+      child: IntrinsicWidth(
+        child: Container(
+          height: 45.h,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          decoration: BoxDecoration(
+            color: AppColors.kLightBlue,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: child ??
+              Center(
+                child: Text(
+                  nameButton,
+                  style: AppStyles.kPoppins500
+                      .copyWith(fontSize: 18.sp, color: AppColors.kBlack),
+                ),
               ),
-            ),
+        ),
       ),
     );
   }

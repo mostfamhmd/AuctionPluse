@@ -3,20 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/fonts.dart';
+import 'package:smart_auction/core/managers/SubCategories%20Cubits/Update%20SubCategory%20Cubit/update_sub_category_cubit.dart';
+import 'package:smart_auction/core/models/specific%20subcategory%20model/specific_subcategory_model.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/drop_down_component.dart';
-import 'package:smart_auction/core/widgets/Components/loading_or_not.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/feature/Add%20SubCategory/presentation/manager/Add%20Sub%20Category%20Cubit/add_sub_category_cubit.dart';
 import 'package:smart_auction/feature/Categories%20Page/presentation/manager/Fetch%20Categories/fetch_categories_cubit.dart';
 
-class AddSubCategoryBody extends StatefulWidget {
-  const AddSubCategoryBody({super.key});
+import 'adding_sub_category.dart';
+import 'updating_sub_category.dart';
 
+class AddSubCategoryBody extends StatefulWidget {
+  const AddSubCategoryBody(
+      {super.key,
+      this.specificSubCategoryInfo,
+      this.categoryName,
+      this.categoryId});
+  final SpecificSubCategoryInfo? specificSubCategoryInfo;
+  final String? categoryName;
+  final String? categoryId;
   @override
   State<AddSubCategoryBody> createState() => _AddSubCategoryBodyState();
 }
@@ -27,12 +35,17 @@ class _AddSubCategoryBodyState extends State<AddSubCategoryBody> {
   ValueNotifier<bool> isDone = ValueNotifier<bool>(false);
   ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
   String? _selectedValue;
+  String? selectCategory;
   TextEditingController nameSubCategory = TextEditingController(text: "");
   int? _id;
 
   @override
   void initState() {
     context.read<FetchCategoriesCubit>().getCategories();
+    if (widget.specificSubCategoryInfo != null) {
+      nameSubCategory.text = widget.specificSubCategoryInfo!.name!;
+      selectCategory = widget.categoryName;
+    }
     super.initState();
   }
 
@@ -79,6 +92,7 @@ class _AddSubCategoryBodyState extends State<AddSubCategoryBody> {
                 builder: (BuildContext context, bool value, Widget? child) =>
                     value
                         ? DropDownComponent(
+                            hint: selectCategory,
                             onChanged: (value) {
                               setState(() {
                                 _selectedValue = value;
@@ -109,43 +123,24 @@ class _AddSubCategoryBodyState extends State<AddSubCategoryBody> {
             MySmallBTN(
               nameButton: "Add Subcategory",
               onTap: () async {
-                if (nameSubCategory.text != "" && _id != null) {
+                if (nameSubCategory.text != "" &&
+                    _id != null &&
+                    widget.specificSubCategoryInfo == null) {
                   context.read<AddSubCategoryCubit>().addSubCategory(
                       subName: nameSubCategory.text,
                       idCategory: _catID.value[_id!]);
+                } else if (widget.specificSubCategoryInfo != null) {
+                  context.read<UpdateSubCategoryCubit>().updateSubCategory(
+                      subCategoryId: widget.specificSubCategoryInfo!.sId!,
+                      name: nameSubCategory.text,
+                      categoryId:
+                          _id != null ? _catID.value[_id!] : widget.categoryId);
                 }
               },
-              child: BlocListener<AddSubCategoryCubit, AddSubCategoryState>(
-                listener: (context, state) {
-                  if (state is AddSubCategorySuccess) {
-                    isLoad.value = false;
-                    nameSubCategory.clear();
-
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(state.addSubCategoryModel.data!.name!),
-                        content: Text(
-                          "Added Successfully",
-                          style: TextStyle(
-                            color: AppColors.kDarkBlue,
-                            fontFamily: AppFonts.kPoppins700,
-                            fontSize: 18.sp,
-                          ),
-                        ),
-                      ),
-                    );
-                  } else if (state is AddSubCategoryLoading) {
-                    isLoad.value = true;
-                  } else {
-                    isLoad.value = false;
-                  }
-                },
-                child: LoadingOrNot(
-                  isLoad: isLoad,
-                  nameBTN: "Add Subcategory",
-                ),
-              ),
+              child: widget.specificSubCategoryInfo != null
+                  ? UpdatingSubCategory(isLoad: isLoad)
+                  : AddingSubCategory(
+                      isLoad: isLoad, nameSubCategory: nameSubCategory),
             )
           ],
         ),
