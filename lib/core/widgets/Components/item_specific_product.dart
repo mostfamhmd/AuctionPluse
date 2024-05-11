@@ -20,6 +20,7 @@ class ItemSpecificProduct extends StatelessWidget {
     required this.rating,
     required this.productPrice,
     this.onPressedRemove,
+    this.onPressedEdit,
   });
 
   final bool isEdit;
@@ -30,6 +31,7 @@ class ItemSpecificProduct extends StatelessWidget {
   final num rating;
   final String productPrice;
   final void Function()? onPressedRemove;
+  final void Function()? onPressedEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class ItemSpecificProduct extends StatelessWidget {
         isEdit == true
             ? EditRemove(
                 onPressedRemove: onPressedRemove,
+                onPressedEdit: onPressedEdit,
               )
             : const Center(),
         Align(

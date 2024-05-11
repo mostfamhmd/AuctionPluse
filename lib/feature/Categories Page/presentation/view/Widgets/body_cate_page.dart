@@ -38,20 +38,20 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
     return BlocListener<DeleteSubCategoryCubit, DeleteSubCategoryState>(
       listener: (context, deleteSubstate) {
         if (deleteSubstate is DeleteSubCategorySuccess) {
-          mySnackBar(context, "Deleted Sub Category Successfully");
+          mySuccessSnackBar(context, "Deleted Sub Category Successfully");
           allIdSubCategoryForAllCategory
               .remove(allIdSubCategoryForAllCategory[indx!]);
           setState(() {});
         } else if (deleteSubstate is DeleteSubCategoryError) {
-          mySnackBar(context, deleteSubstate.error);
+          myErrorSnackBar(context, deleteSubstate.error);
         } else if (deleteSubstate is DeleteSubCategoryLoading) {
-          mySnackBar(context, "Deleting...");
+          myLoadingSnackBar(context, "Deleting...");
         }
       },
       child: BlocListener<DeleteCategoryCubit, DeleteCategoryState>(
         listener: (context, state) {
           if (state is DeleteCategorySuccess) {
-            mySnackBar(context, "Deleted Category Successfully");
+            mySuccessSnackBar(context, "Deleted Category Successfully");
             Navigator.pushReplacement(
                 context,
                 PageRouteBuilder(
@@ -59,9 +59,9 @@ class _BodyCategoryPageState extends State<BodyCategoryPage> {
                       const CategoryPage(),
                 ));
           } else if (state is DeleteCategoryError) {
-            mySnackBar(context, state.error);
+            myErrorSnackBar(context, state.error);
           } else if (state is DeleteCategoryLoading) {
-            mySnackBar(context, "Deleting...");
+            myLoadingSnackBar(context, "Deleting...");
           }
         },
         child: BlocBuilder<FetchSubCategoriesCubit, FetchSubCategoriesState>(

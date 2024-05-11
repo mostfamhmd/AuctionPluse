@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/images.dart';
 import 'package:smart_auction/core/utils/styles.dart';
+import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_field.dart';
 
 class InfoProduct extends StatefulWidget {
@@ -29,9 +30,9 @@ class InfoProduct extends StatefulWidget {
   final TextEditingController productPriceBeforeDiscount;
   final TextEditingController productPrice;
   final TextEditingController productQuantaty;
-  final ValueNotifier<List<File>> listImage;
+  final ValueNotifier<List<dynamic>> listImage;
   late ValueNotifier<bool> iscoverImage = ValueNotifier<bool>(false);
-  final File? coverImageFile;
+  final dynamic coverImageFile;
   final void Function()? coverImage;
   final void Function()? image;
 
@@ -62,22 +63,26 @@ class _InfoProductState extends State<InfoProduct> {
                         alignment: Alignment.center,
                         child: SvgPicture.asset(
                           AppImages.kDefualt,
-                          height: 160.h,
-                          width: 160.w,
+                          height: 250.h,
+                          width: 250.w,
                         ),
                       )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.h),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Image.file(
-                            widget.coverImageFile!,
-                            fit: BoxFit.cover,
-                            height: 190.h,
-                            width: MediaQuery.sizeOf(context).width,
+                    : widget.coverImageFile is File
+                        ? Align(
+                            alignment: Alignment.center,
+                            child: Image.file(
+                              widget.coverImageFile!,
+                              fit: BoxFit.fill,
+                              height: 250.h,
+                              width: 250.w,
+                            ),
+                          )
+                        : ImageComponent(
+                            urlImage: widget.coverImageFile!,
+                            height: 250.h,
+                            width: 250.w,
+                            radius: 0,
                           ),
-                        ),
-                      ),
           ),
         ),
         SizedBox(
@@ -93,26 +98,34 @@ class _InfoProductState extends State<InfoProduct> {
         ),
         ValueListenableBuilder(
           valueListenable: widget.listImage,
-          builder: (BuildContext context, List<File> value, Widget? child) =>
+          builder: (BuildContext context, value, Widget? child) =>
               ListSliderProductImages(
+            height: 250.h,
+            width: 250.w,
             customizedBanners: List.generate(
               widget.listImage.value.length + 1,
               (index) => index <= widget.listImage.value.length - 1
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.h),
-                      child: Image.file(
-                        widget.listImage.value[index],
-                        fit: BoxFit.cover,
-                      ),
-                    )
+                  ? value[index] is File
+                      ? Image.file(
+                          widget.listImage.value[index],
+                          fit: BoxFit.fill,
+                          height: 250.h,
+                          width: 250.w,
+                        )
+                      : ImageComponent(
+                          height: 250.h,
+                          width: 250.w,
+                          urlImage: value[index],
+                          radius: 0,
+                        )
                   : InkWell(
                       onTap: widget.image,
                       child: Align(
                         alignment: Alignment.center,
                         child: SvgPicture.asset(
                           AppImages.kDefualt,
-                          height: 160.h,
-                          width: 160.w,
+                          height: 250.h,
+                          width: 250.w,
                         ),
                       ),
                     ),
@@ -174,15 +187,19 @@ class _InfoProductState extends State<InfoProduct> {
 }
 
 class ListSliderProductImages extends StatelessWidget {
-  const ListSliderProductImages({super.key, this.customizedBanners});
+  const ListSliderProductImages(
+      {super.key, this.customizedBanners, this.height, this.width});
   final List<Widget>? customizedBanners;
+  final double? height;
+  final double? width;
   @override
   Widget build(BuildContext context) {
-    return BannerCarousel.fullScreen(
-      height: 200.h,
+    return BannerCarousel(
+      height: height ?? 200.h,
+      width: width ?? double.maxFinite,
       disableColor: AppColors.kGray,
       activeColor: AppColors.kBlue,
-      animation: false,
+      animation: true,
       customizedBanners: customizedBanners,
     );
   }

@@ -43,7 +43,7 @@ class AddingSubCategory extends StatelessWidget {
         } else if (state is AddSubCategoryLoading) {
           isLoad.value = true;
         } else if (state is AddSubCategoryFailure) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
           isLoad.value = false;
         }
       },

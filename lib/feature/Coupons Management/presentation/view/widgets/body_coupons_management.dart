@@ -44,13 +44,13 @@ class _BodyCouponsManagementState extends State<BodyCouponsManagement> {
                               Animation<double> secondaryAnimation) =>
                           const CouponsManagementPage()),
                 );
-                mySnackBar(context, delete.success);
+                mySuccessSnackBar(context, delete.success);
               } else if (delete is DeleteCouponFailure) {
-                mySnackBar(context, delete.error);
+                myErrorSnackBar(context, delete.error);
               } else if (delete is DeleteCouponLoading) {
-                mySnackBar(context, "Loading...");
+                myLoadingSnackBar(context, "Loading...");
               } else {
-                mySnackBar(context, "something has gone wrong");
+                myLoadingSnackBar(context, "something has gone wrong");
               }
             },
             child: listCoupons.isNotEmpty

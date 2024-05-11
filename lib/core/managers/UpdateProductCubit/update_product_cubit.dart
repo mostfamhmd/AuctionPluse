@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
@@ -19,10 +17,11 @@ class UpdateProductCubit extends Cubit<UpdateProductState> {
     String? categoryId,
     List<String>? listSubCategoryId,
     String? brandId,
-    File? imageFile,
-    List<File>? listImageFile,
+    dynamic imageFile,
+    List<dynamic>? listImageFile,
     List<String>? colors,
   }) async {
+    emit(UpdateProductLoading());
     Either<ServerFailure, String> result =
         await UpdateProductService().updateProductService(
       productId: productId,

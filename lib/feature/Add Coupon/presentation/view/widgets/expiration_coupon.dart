@@ -55,7 +55,7 @@ class ExpirationCoupon extends StatelessWidget {
             String formattedDate = '';
             DateTime now = DateTime.now();
             if (pickedDate.isBefore(now)) {
-              mySnackBar(context, "Choose an upcoming date");
+              myLoadingSnackBar(context, "Choose an upcoming date");
               couponExpiration.text =
                   "ex: ${DateTime.now().toIso8601String().substring(0, 10).replaceAll("-", "/")}";
             } else if (pickedDate.isAfter(now)) {
@@ -63,7 +63,7 @@ class ExpirationCoupon extends StatelessWidget {
               couponExpiration.text = formattedDate;
             }
           } else {
-            mySnackBar(context, "Choose an upcoming date");
+            myLoadingSnackBar(context, "Choose an upcoming date");
           }
         },
         child: SvgPicture.asset(

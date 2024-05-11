@@ -35,7 +35,7 @@ class _BodySubCategoryPageState extends State<BodySubCategoryPage> {
     return BlocListener<DeleteSubCategoryCubit, DeleteSubCategoryState>(
       listener: (context, deleteSubstate) {
         if (deleteSubstate is DeleteSubCategorySuccess) {
-          mySnackBar(context, "Deleted Sub Category Successfully");
+          mySuccessSnackBar(context, "Deleted Sub Category Successfully");
           Navigator.pushReplacement(
               context,
               PageRouteBuilder(
@@ -46,9 +46,9 @@ class _BodySubCategoryPageState extends State<BodySubCategoryPage> {
                 ),
               ));
         } else if (deleteSubstate is DeleteSubCategoryError) {
-          mySnackBar(context, deleteSubstate.error);
+          myErrorSnackBar(context, deleteSubstate.error);
         } else if (deleteSubstate is DeleteSubCategoryLoading) {
-          mySnackBar(context, "Deleting...");
+          myLoadingSnackBar(context, "Deleting...");
         }
       },
       child: BlocBuilder<SpecificSubCategoryCubit, SpecificSubCategoryState>(

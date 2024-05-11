@@ -59,19 +59,19 @@ class _GridViewForViewProductState extends State<GridViewForViewProduct> {
             listener: (context, state) {
               if (state is DeleteProdWhichListLoading) {
                 if (_indx == index) {
-                  mySnackBar(context, "Loading...");
+                  myLoadingSnackBar(context, "Loading...");
                 }
               } else if (state is DeleteProductWhichListSuccess) {
                 if (_indx == index) {
                   widget.products!.remove(widget.products![_indx!]);
-                  mySnackBar(
+                  mySuccessSnackBar(
                       context, state.deletedProductwhichListModel.message!);
                 }
 
                 setState(() {});
               } else if (state is DeleteProductWhichListError) {
                 if (_indx == index) {
-                  mySnackBar(context, state.error);
+                  myErrorSnackBar(context, state.error);
                 }
               }
             },

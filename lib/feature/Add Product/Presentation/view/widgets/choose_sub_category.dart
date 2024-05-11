@@ -12,7 +12,7 @@ class ChooseSubCategory extends StatefulWidget {
   final ValueNotifier<List<String>> subCategoryName;
   final String? idCatSelected;
   final List<String>? selectedItems;
-  final void Function(String?)? onChanged;
+  final void Function(dynamic)? onChanged;
 
   @override
   State<ChooseSubCategory> createState() => _ChooseSubCategoryState();
@@ -22,18 +22,16 @@ class _ChooseSubCategoryState extends State<ChooseSubCategory> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: widget.subCategoryName,
-      builder: (BuildContext context, value, Widget? child) => value.isNotEmpty
-          ? DropDownListSubCategory(
-              onChanged: widget.onChanged,
-              subCategoryName: widget.subCategoryName,
-              selectedItems: widget.selectedItems,
-            )
-          : value.isEmpty && widget.idCatSelected != null
-              ? const FailureState(error: "create new sub category first")
-              : value.isEmpty && widget.idCatSelected == null
-                  ? const Center()
-                  : const LoadingState(),
-    );
+        valueListenable: widget.subCategoryName,
+        builder: (BuildContext context, value, Widget? child) =>
+            value.isNotEmpty
+                ? DropDownListSubCategory(
+                    onChanged: widget.onChanged,
+                    subCategoryName: value,
+                    selectedItems: widget.selectedItems,
+                  )
+                : value.isEmpty && widget.idCatSelected != null
+                    ? const FailureState(error: "create new sub category first")
+                    : const Center());
   }
 }

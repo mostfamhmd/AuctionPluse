@@ -10,17 +10,20 @@ class ChooseCategory extends StatelessWidget {
       required this.isLoadingCategory,
       this.valCat,
       this.onChanged,
-      required this.categories});
+      required this.categories,
+      this.hintCategory});
   final ValueNotifier<bool> isLoadingCategory;
   final String? valCat;
   final void Function(String?)? onChanged;
   final List<String> categories;
+  final String? hintCategory;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: isLoadingCategory,
       builder: (BuildContext context, value, Widget? child) => value == false
           ? DropDownComponent(
+              hint: hintCategory,
               value: valCat,
               onChanged: onChanged,
               items: categories

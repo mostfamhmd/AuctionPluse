@@ -20,21 +20,25 @@ class UpdateProductService {
     String? categoryId,
     List<String>? listSubCategoryId,
     String? brandId,
-    File? imageFile,
-    List<File>? listImageFile,
+    dynamic imageFile,
+    List<dynamic>? listImageFile,
     List<String>? colors,
   }) async {
     String token = await AppConsts.getData(AppConsts.kUserToken);
-    MultipartFile imageCoverMultipart = await MultipartFile.fromFile(
-      imageFile!.path,
-      contentType: MediaType('imageCover', 'jpeg'),
-    );
-    List<MultipartFile> multiParts = [];
+    dynamic imageCoverMultipart = imageFile is File
+        ? await MultipartFile.fromFile(
+            imageFile.path,
+            contentType: MediaType('imageCover', 'jpeg'),
+          )
+        : imageFile;
+    List<dynamic> multiParts = [];
     for (int i = 0; i < listImageFile!.length; i++) {
-      MultipartFile image = await MultipartFile.fromFile(
-        listImageFile[i].path,
-        contentType: MediaType('image$i', 'jpeg'),
-      );
+      dynamic image = listImageFile[i] is File
+          ? await MultipartFile.fromFile(
+              listImageFile[i].path,
+              contentType: MediaType('image$i', 'jpeg'),
+            )
+          : listImageFile[i];
       multiParts.add(image);
     }
     FormData formData = FormData.fromMap(

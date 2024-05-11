@@ -22,10 +22,10 @@ class _AddToCartBTNState extends State<AddToCartBTN> {
     return BlocListener<AddProductToCartCubit, AddProductToCartState>(
       listener: (context, state) {
         if (state is AddProductToCartSuccess) {
-          mySnackBar(context, "${state.addedProductModel.message}");
+          mySuccessSnackBar(context, "${state.addedProductModel.message}");
           loading.value = false;
         } else if (state is AddProductToCartFailure) {
-          mySnackBar(context, state.errMessage);
+          myErrorSnackBar(context, state.errMessage);
           loading.value = false;
         } else if (state is AddProductToCartLoading) {
           loading.value = true;
@@ -47,7 +47,7 @@ class _AddToCartBTNState extends State<AddToCartBTN> {
                           productId: widget.productId, color: widget.color);
                     }
                     if (widget.color.isEmpty) {
-                      mySnackBar(context, "choose color");
+                      myLoadingSnackBar(context, "choose color");
                     }
                   },
                 ),

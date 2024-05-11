@@ -20,11 +20,11 @@ class UpdatingSubCategory extends StatelessWidget {
       listener: (context, state) {
         if (state is UpdateSubCategorySuccess) {
           isLoad.value = false;
-          mySnackBar(context, state.success);
+          mySuccessSnackBar(context, state.success);
         } else if (state is UpdateSubCategoryLoading) {
           isLoad.value = true;
         } else if (state is UpdateSubCategoryError) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
           isLoad.value = false;
         }
       },

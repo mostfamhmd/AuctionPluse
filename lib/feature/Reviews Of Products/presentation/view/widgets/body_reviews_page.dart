@@ -39,12 +39,12 @@ class _BodyReviewsPageState extends State<BodyReviewsPage> {
     return BlocListener<DeleteReviewCubit, DeleteReviewState>(
       listener: (context, state) {
         if (state is DeleteReviewSuccess) {
-          mySnackBar(context, "Removed Successfully");
+          mySuccessSnackBar(context, "Removed Successfully");
           userReview = null;
           setState(() {});
           isDelete.value = true;
         } else if (state is DeleteReviewFailure) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
         }
       },
       child: Padding(

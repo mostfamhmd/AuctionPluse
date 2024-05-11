@@ -44,12 +44,12 @@ class _AddBrandBodyState extends State<AddBrandBody> {
     return BlocListener<UpdateBrandCubit, UpdateBrandState>(
       listener: (context, state) {
         if (state is UpdateBrandSuccess) {
-          mySnackBar(context, "Updated Successfully");
+          mySuccessSnackBar(context, "Updated Successfully");
           isLoading.value = false;
         } else if (state is UpdateBrandLoading) {
           isLoading.value = true;
         } else if (state is UpdateBrandError) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
           isLoading.value = false;
         } else {
           isLoading.value = false;
@@ -127,7 +127,7 @@ class _AddBrandBodyState extends State<AddBrandBody> {
                           image: _photo ?? widget.brand!.image,
                           name: nameBrand.text);
                     } else {
-                      mySnackBar(context, "change data brand");
+                      myErrorSnackBar(context, "change data brand");
                     }
                   }
                 },
@@ -141,7 +141,7 @@ class _AddBrandBodyState extends State<AddBrandBody> {
                       _image.value = false;
                       nameBrand.clear();
                       isLoading.value = false;
-                      mySnackBar(context, "Added Successfully");
+                      mySuccessSnackBar(context, "Added Successfully");
                     } else if (state is AddBrandFailure) {
                       showDialog(
                         context: context,

@@ -48,15 +48,15 @@ class _CubitBodyState extends State<CubitBody> {
             totalPrice.value =
                 (widget.getCartModel.data!.totalCartPrice! - mostDiscount)
                     .toString();
-            mySnackBar(context, "Applied Successfully");
+            mySuccessSnackBar(context, "Applied Successfully");
             applyCoupon.value = true;
           }
         } else if (state is GetSpecificCouponLoading) {
-          mySnackBar(context, "Loading ...");
+          myLoadingSnackBar(context, "Loading ...");
         } else if (state is GetSpecificCouponError) {
-          mySnackBar(context, state.errorMessage);
+          myErrorSnackBar(context, state.errorMessage);
         } else {
-          mySnackBar(context, "Nothing to happend!");
+          myLoadingSnackBar(context, "Nothing to happend!");
         }
       },
       child: SingleChildScrollView(
@@ -86,7 +86,7 @@ class _CubitBodyState extends State<CubitBody> {
                   widget: InkWell(
                     onTap: () {
                       if (value == true) {
-                        mySnackBar(context, "Already Applied");
+                        mySuccessSnackBar(context, "Already Applied");
                       } else {
                         context
                             .read<GetSpecificCouponCubit>()

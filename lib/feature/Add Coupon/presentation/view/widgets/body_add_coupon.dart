@@ -31,12 +31,12 @@ class _BodyAddCouponState extends State<BodyAddCoupon> {
             listener: (context, state) {
               if (state is AddNewCouponSuccess) {
                 loading.value = false;
-                mySnackBar(context, "Added Successfully");
+                mySuccessSnackBar(context, "Added Successfully");
               } else if (state is AddNewCouponLoading) {
                 loading.value = true;
               } else if (state is AddNewCouponError) {
                 loading.value = false;
-                mySnackBar(context, state.errorMessage);
+                myErrorSnackBar(context, state.errorMessage);
               } else {
                 loading.value = false;
               }
@@ -49,12 +49,12 @@ class _BodyAddCouponState extends State<BodyAddCoupon> {
             listener: (context, state) {
               if (state is UpdateCouponSuccess) {
                 loading.value = false;
-                mySnackBar(context, "Updated Successfully");
+                mySuccessSnackBar(context, "Updated Successfully");
               } else if (state is UpdateCouponLoading) {
                 loading.value = true;
               } else if (state is UpdateCouponFailure) {
                 loading.value = false;
-                mySnackBar(context, state.error);
+                myErrorSnackBar(context, state.error);
               } else {
                 loading.value = false;
               }

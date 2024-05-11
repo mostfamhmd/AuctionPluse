@@ -61,7 +61,7 @@ class _BuyingContainerState extends State<BuyingContainer> {
                         currentIndex: 1,
                       )));
         } else if (state is UpdateProductCartError) {
-          mySnackBar(context, state.errorMessage);
+          myErrorSnackBar(context, state.errorMessage);
         }
       },
       child: Container(
@@ -181,7 +181,7 @@ class _BuyingContainerState extends State<BuyingContainer> {
                                 productCartId: widget.cartItem!.sId!,
                                 quantity: counter.value + 1);
                       } else {
-                        mySnackBar(context,
+                        myLoadingSnackBar(context,
                             "There is no more than ${widget.productInfo.quantity!} of this product");
                       }
                     },

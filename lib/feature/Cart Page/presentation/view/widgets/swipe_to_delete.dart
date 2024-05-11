@@ -68,7 +68,7 @@ class _SwipeToDeleteState extends State<SwipeToDelete> {
                               currentIndex: 1,
                             )));
               } else if (state is DeleteProductCartError) {
-                mySnackBar(context, state.errorMessage);
+                myErrorSnackBar(context, state.errorMessage);
               }
             },
             child: SwipeActionCell(

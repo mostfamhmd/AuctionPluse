@@ -13,7 +13,8 @@ class ManageOrderOrProduct extends StatelessWidget {
       required this.rating,
       required this.productPrice,
       required this.isEdit,
-      this.onPressedRemove});
+      this.onPressedRemove,
+      this.onPressedEdit});
 
   final String urlLinkImage;
   final String productName;
@@ -23,6 +24,7 @@ class ManageOrderOrProduct extends StatelessWidget {
   final String productPrice;
   final bool isEdit;
   final void Function()? onPressedRemove;
+  final void Function()? onPressedEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class ManageOrderOrProduct extends StatelessWidget {
             ),
           ]),
       child: ItemSpecificProduct(
+          onPressedEdit: onPressedEdit,
           onPressedRemove: onPressedRemove,
           isEdit: isEdit,
           urlLinkImage: urlLinkImage,

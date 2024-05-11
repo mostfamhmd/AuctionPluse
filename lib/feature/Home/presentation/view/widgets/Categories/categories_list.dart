@@ -31,7 +31,7 @@ class CategriesList extends StatelessWidget {
                 length: categories.length,
                 index: index + 1,
                 categoryName: categories[index].name!,
-                categoryImage: categories[index].image!,
+                categoryImage: categories[index].image ?? "",
               ),
             )),
       ),

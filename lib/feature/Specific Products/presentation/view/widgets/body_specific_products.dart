@@ -46,7 +46,7 @@ class _BodySpecificProductsState extends State<BodySpecificProducts> {
             if (state is GetProductsSuccess) {
               if (widget.isBrand == null) {
                 for (var element in state.productsModel.data!) {
-                  if (element.category!.name == widget.categoryName) {
+                  if (element.category?.name == widget.categoryName) {
                     products.add(element);
                   }
                 }

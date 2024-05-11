@@ -46,7 +46,7 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
     return BlocListener<DeleteBrandCubit, DeleteBrandState>(
       listener: (context, state) {
         if (state is DeleteBrandSuccess) {
-          mySnackBar(context, state.success);
+          mySuccessSnackBar(context, state.success);
           widget.brands.remove(widget.brands[indx!]);
           if (widget.brands.length <= 3) {
             firstThree.value = widget.brands.sublist(0, widget.brands.length);
@@ -58,9 +58,9 @@ class _BodyFamousBrandsPageState extends State<BodyFamousBrandsPage> {
           }
           setState(() {});
         } else if (state is DeleteBrandError) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
         } else if (state is DeleteBrandLoading) {
-          mySnackBar(context, "Loading ...");
+          myLoadingSnackBar(context, "Loading ...");
         }
       },
       child: SingleChildScrollView(

@@ -25,9 +25,9 @@ class UpdatingCategory extends StatelessWidget {
           isLoading.value = true;
         } else if (state is UpdateCategorySuccess) {
           isLoading.value = false;
-          mySnackBar(context, state.success);
+          mySuccessSnackBar(context, state.success);
         } else if (state is UpdateCategoryError) {
-          mySnackBar(context, state.error);
+          myErrorSnackBar(context, state.error);
           isLoading.value = false;
         }
       },

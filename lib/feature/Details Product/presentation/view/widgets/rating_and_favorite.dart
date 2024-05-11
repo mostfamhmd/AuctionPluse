@@ -32,7 +32,7 @@ class _RatingAndFavoriteState extends State<RatingAndFavorite> {
         if (state is IsFavoriteSuccess) {
           widget.isFavorite.value = true;
         } else if (state is IsFavoriteFailure) {
-          mySnackBar(context, state.serverFailure);
+          myErrorSnackBar(context, state.serverFailure);
         }
       },
       child:
@@ -41,7 +41,7 @@ class _RatingAndFavoriteState extends State<RatingAndFavorite> {
           if (state is DeleteProductWhichListSuccess) {
             widget.isFavorite.value = false;
           } else if (state is DeleteProductWhichListError) {
-            mySnackBar(context, state.error);
+            myErrorSnackBar(context, state.error);
           }
         },
         child: Row(

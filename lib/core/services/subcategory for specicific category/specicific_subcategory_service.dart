@@ -31,4 +31,27 @@ class SpecificSubCategoryService {
       );
     }
   }
+
+  Future<SpecificSubCategoryModel> getSpecificSubCategories(
+      {required String id}) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
+    SpecificSubCategoryModel specificSubCategoryModel =
+        SpecificSubCategoryModel();
+    try {
+      Map<String, dynamic> data = await dioHelper.getRequest(
+          endPoint: "category/$id/subcategories", token: token);
+      specificSubCategoryModel = SpecificSubCategoryModel.fromJson(data);
+      return specificSubCategoryModel;
+    } on DioException catch (dioException) {
+      throw ServerFailure.fromDioException(
+        dioException: dioException,
+      );
+    } catch (error) {
+      throw left(
+        ServerFailure(
+          errMessage: error.toString(),
+        ),
+      );
+    }
+  }
 }

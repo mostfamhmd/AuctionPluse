@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/widgets/Components/manage_order_or_product.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
+import 'package:smart_auction/feature/Add%20Product/Presentation/view/add_product_view.dart';
 import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Delete%20Specific%20Product%20Cubit/delete_specific_product_cubit.dart';
 import 'package:smart_auction/feature/Product%20mangement/presentation/view/product_mangement_view.dart';
@@ -75,13 +76,13 @@ class _ListOfOrdersOrProductsState extends State<ListOfOrdersOrProducts> {
                   const ProductManagementView(),
             ),
           );
-          mySnackBar(context, delete.success);
+          mySuccessSnackBar(context, delete.success);
         } else if (delete is DeleteSpecificProductFailure) {
-          mySnackBar(context, delete.error);
+          myErrorSnackBar(context, delete.error);
         } else if (delete is DeleteSpecificProductLoading) {
-          mySnackBar(context, "Loading ...");
+          myLoadingSnackBar(context, "Loading ...");
         } else {
-          mySnackBar(context, "Some thing wrong");
+          myLoadingSnackBar(context, "Some thing wrong");
         }
       },
       child: ListView.builder(
@@ -89,6 +90,17 @@ class _ListOfOrdersOrProductsState extends State<ListOfOrdersOrProducts> {
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return ManageOrderOrProduct(
+              onPressedEdit: () {
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AddProductsView(
+                      productInfo: widget.adminProduct![index],
+                    ),
+                  ),
+                );
+              },
               onPressedRemove: () {
                 context
                     .read<DeleteSpecificProductCubit>()

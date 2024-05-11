@@ -15,7 +15,7 @@ class AddProductServices {
       {required String name,
       required String description,
       required File imageCover,
-      required List<File> images,
+      required List<dynamic> images,
       required String brandId,
       required String categoryId,
       required List<String> subCategoriesId,

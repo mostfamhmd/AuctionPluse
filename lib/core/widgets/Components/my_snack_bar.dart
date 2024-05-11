@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/styles.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-void mySnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        message,
-        style: AppStyles.kPoppins700.copyWith(color: AppColors.kWhite),
-      ),
-      duration: const Duration(seconds: 2),
-      action: SnackBarAction(
-        label: 'Close',
-        textColor: AppColors.kLightBlue,
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        },
-      ),
+void myErrorSnackBar(BuildContext context, String message) {
+  showTopSnackBar(
+    Overlay.of(context),
+    CustomSnackBar.error(
+      message: message,
+    ),
+  );
+}
+
+void mySuccessSnackBar(BuildContext context, String message) {
+  showTopSnackBar(
+    Overlay.of(context),
+    CustomSnackBar.success(
+      message: message,
+    ),
+  );
+}
+
+void myLoadingSnackBar(BuildContext context, String message) {
+  showTopSnackBar(
+    Overlay.of(context),
+    CustomSnackBar.info(
+      message: message,
     ),
   );
 }

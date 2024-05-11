@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_auction/core/managers/Brand%20Cubits/Delete%20Brand%20Cubit/delete_brand_cubit.dart';
+import 'package:smart_auction/core/managers/Brand%20Cubits/GetSpecificBrandCubit/get_specific_brand_cubit.dart';
 import 'package:smart_auction/core/managers/Brand%20Cubits/Update%20Brand%20Cubit/update_brand_cubit.dart';
 import 'package:smart_auction/core/managers/Category%20Cubits/Delete%20Category%20Cubit/delete_category_cubit.dart';
 import 'package:smart_auction/core/managers/Category%20Cubits/Update%20Category%20Cubit/update_category_cubit.dart';
@@ -151,6 +152,9 @@ class MainCubit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SpecificSubCategoryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetSpecificBrandCubit(),
         ),
       ],
       child: child,

@@ -36,11 +36,11 @@ class DoneBTN extends StatelessWidget {
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.pop(context);
-          mySnackBar(context, "Updated Successfully");
+          mySuccessSnackBar(context, "Updated Successfully");
         } else if (state is EditReviewLoading) {
           isLoading.value = true;
         } else if (state is EditReviewFailure) {
-          mySnackBar(context, state.error.toString());
+          myErrorSnackBar(context, state.error.toString());
           isLoading.value = false;
         } else {
           isLoading.value = false;

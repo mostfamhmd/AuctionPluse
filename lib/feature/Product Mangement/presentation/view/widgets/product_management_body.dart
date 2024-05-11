@@ -40,10 +40,10 @@ class _ProductManagementBodyState extends State<ProductManagementBody> {
         } else if (subs is FetchSubCategoriesLoading) {
           isDoneSubs.value = true;
         } else if (subs is FetchSubCategoriesFailed) {
-          mySnackBar(context, subs.error);
+          myErrorSnackBar(context, subs.error);
           isDoneSubs.value = false;
         } else {
-          mySnackBar(context, "subs went wrong");
+          myLoadingSnackBar(context, "subs went wrong");
           isDoneSubs.value = false;
         }
       },
@@ -55,10 +55,10 @@ class _ProductManagementBodyState extends State<ProductManagementBody> {
           } else if (brand is GetBrandsLoading) {
             isDoneSubs.value = true;
           } else if (brand is GetBrandsFailure) {
-            mySnackBar(context, brand.errorMessage);
+            myErrorSnackBar(context, brand.errorMessage);
             isDoneSubs.value = false;
           } else {
-            mySnackBar(context, "subs went wrong");
+            myLoadingSnackBar(context, "subs went wrong");
             isDoneSubs.value = false;
           }
         },

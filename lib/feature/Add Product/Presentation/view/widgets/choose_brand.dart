@@ -10,11 +10,13 @@ class ChooseBrand extends StatelessWidget {
       required this.isLoadingBrand,
       this.valBrand,
       this.onChanged,
-      required this.brands});
+      required this.brands,
+      this.hintBrand});
   final ValueNotifier<bool> isLoadingBrand;
   final String? valBrand;
   final void Function(String?)? onChanged;
   final List<String> brands;
+  final String? hintBrand;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -23,7 +25,7 @@ class ChooseBrand extends StatelessWidget {
           ? DropDownComponent(
               value: valBrand,
               onChanged: onChanged,
-              hint: 'Select Brand',
+              hint: hintBrand ?? 'Select Brand',
               items: brands
                   .map(
                     (String item) => DropdownMenuItem<String>(

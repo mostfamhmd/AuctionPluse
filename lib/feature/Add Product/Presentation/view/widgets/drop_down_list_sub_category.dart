@@ -14,9 +14,9 @@ class DropDownListSubCategory extends StatefulWidget {
     this.selectedItems,
     this.onChanged,
   });
-  final ValueNotifier<List<String>> subCategoryName;
+  final List<String> subCategoryName;
   final List<String>? selectedItems;
-  final void Function(String?)? onChanged;
+  final void Function(dynamic)? onChanged;
   @override
   State<DropDownListSubCategory> createState() =>
       _DropDownListSubCategoryState();
@@ -26,7 +26,7 @@ class _DropDownListSubCategoryState extends State<DropDownListSubCategory> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
+      child: DropdownButton2<dynamic>(
         isExpanded: true,
         hint: Text(
           'Select Sub Category',
@@ -35,7 +35,7 @@ class _DropDownListSubCategoryState extends State<DropDownListSubCategory> {
             color: Colors.black,
           ),
         ),
-        items: widget.subCategoryName.value.map((item) {
+        items: widget.subCategoryName.map((item) {
           return DropdownMenuItem(
             value: item,
             enabled: false,
@@ -67,7 +67,7 @@ class _DropDownListSubCategoryState extends State<DropDownListSubCategory> {
             widget.selectedItems!.isEmpty ? null : widget.selectedItems!.last,
         onChanged: widget.onChanged,
         selectedItemBuilder: (context) {
-          return widget.subCategoryName.value.map(
+          return widget.selectedItems!.map(
             (item) {
               return Container(
                 width: MediaQuery.sizeOf(context).width,
