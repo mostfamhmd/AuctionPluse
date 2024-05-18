@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/utils/styles.dart';
-import 'package:smart_auction/feature/Auction%204/presentation/view/auction_4.dart';
-import 'package:smart_auction/feature/Auction%205/presentation/view/auction_5.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/view/schedule_live_view.dart';
+import 'package:smart_auction/feature/Streaming%20Now%20View/presentation/view/streaming_now_view.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/name_page_dialog.dart';
 
 class AuctionButton extends StatelessWidget {
@@ -55,7 +55,8 @@ class AuctionButton extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Auction4(),
+                                  builder: (context) =>
+                                      const StreamingNowView(),
                                 ),
                               );
                             },
@@ -74,7 +75,8 @@ class AuctionButton extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Auction5(),
+                                  builder: (context) =>
+                                      const ScheduleLiveView(),
                                 ),
                               );
                             },

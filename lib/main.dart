@@ -31,6 +31,7 @@ class SmartAuction extends StatelessWidget {
         designSize: const Size(430, 932),
         splitScreenMode: true,
         child: MaterialApp(
+          title: "Smart Auction Plus",
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.kWhite,

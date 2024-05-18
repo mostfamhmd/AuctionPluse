@@ -342,7 +342,7 @@ class _ProductBodyState extends State<ProductBody> {
     if (subCategoryName.value.isEmpty) {
       subCategoryName = ValueNotifier(["create new sub category first"]);
     }
-    print("selecteeeeeeeeeeeeeeeeeeeed $selectedItems");
+    //print("selecteeeeeeeeeeeeeeeeeeeed $selectedItems");
   }
 
   getSubCategoriesList() {
@@ -354,7 +354,7 @@ class _ProductBodyState extends State<ProductBody> {
         }
       }
     }
-    print("selecteeeeeeeeeeeeeeeeeeeed $selectedItems");
+    //print("selecteeeeeeeeeeeeeeeeeeeed $selectedItems");
   }
 
   getIdBrand() {

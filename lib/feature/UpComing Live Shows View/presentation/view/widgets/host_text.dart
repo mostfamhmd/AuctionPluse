@@ -3,20 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/fonts.dart';
 
-class CustomTitle extends StatelessWidget {
-  const CustomTitle({super.key, required this.title, this.fontSize});
-
-  final String title;
-  final double? fontSize;
+class HostText extends StatelessWidget {
+  const HostText({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      title,
+      'Host',
       style: TextStyle(
-        fontSize: fontSize ?? 14.sp,
-        fontFamily: AppFonts.kPoppins700,
-        color: AppColors.kDarkBlue,
+        color: AppColors.kGray,
+        fontFamily: AppFonts.kPoppins400,
+        fontSize: 13.sp,
       ),
     );
   }

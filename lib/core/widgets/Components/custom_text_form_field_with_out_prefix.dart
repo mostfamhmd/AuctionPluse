@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 
-TextFormField customTextFormField({
-  TextEditingController? controller,
-  required TextInputType keyboardType,
-  IconData? prefixIcon,
-  String? lableText,
-  String? hintText,
-  Widget? suffixIcon,
-  bool obscureText = false,
-}) {
+TextFormField customTextFormFieldWithoutPrefix(
+    {TextEditingController? controller,
+    required TextInputType keyboardType,
+    IconData? prefixIcon,
+    String? lableText,
+    String? hintText,
+    Widget? suffixIcon,
+    bool obscureText = false,
+    bool readOnly = false,
+    void Function()? onTap}) {
   return TextFormField(
+    onTap: onTap,
     controller: controller,
+    readOnly: readOnly,
     keyboardType: keyboardType,
     obscureText: obscureText,
     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -27,7 +30,7 @@ TextFormField customTextFormField({
       border: outlineInputBorder(),
       enabledBorder: outlineInputBorder(),
       focusedBorder: outlineInputBorder(),
-      prefixIcon: Icon(prefixIcon),
+      //prefixIcon: Icon(prefixIcon),
       suffixIcon: suffixIcon,
       labelText: lableText,
       labelStyle: const TextStyle(color: AppColors.kGray),
