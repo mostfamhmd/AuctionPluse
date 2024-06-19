@@ -22,6 +22,5 @@ PreferredSizeWidget backAppBar(BuildContext context, String nameView) {
       nameView,
       style: AppStyles.kPoppins700.copyWith(fontSize: 16.sp),
     ),
-
   );
 }

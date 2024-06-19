@@ -8,7 +8,7 @@ class MyBigBTN extends StatelessWidget {
   const MyBigBTN({super.key, this.onTap, required this.nameBTN});
 
   final void Function()? onTap;
-final String nameBTN;
+  final String nameBTN;
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -9,13 +9,13 @@ OutlinedButton customOutlinedButton(
 }) {
   return OutlinedButton(
     style: ButtonStyle(
-      fixedSize: MaterialStatePropertyAll(
+      fixedSize: WidgetStatePropertyAll(
         Size(181.w, 57.h),
       ),
-      foregroundColor: const MaterialStatePropertyAll(
+      foregroundColor: const WidgetStatePropertyAll(
         AppColors.kWhite,
       ),
-      shape: MaterialStatePropertyAll(
+      shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: const BorderSide(

@@ -1,5 +1,5 @@
 class ItemLocation {
-   String itemLocation;
+  String itemLocation;
   bool isSelected;
   ItemLocation({required this.itemLocation, this.isSelected = false});
 }

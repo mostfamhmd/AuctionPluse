@@ -9,7 +9,8 @@ class LiveAuctionOffersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: backAppBar(context, 'Live auction offers'),
-        body: const BodyLiveAuctionOffersView());
+      appBar: backAppBar(context, 'Live auction offers'),
+      body: const BodyLiveAuctionOffersView(),
+    );
   }
 }

@@ -25,9 +25,6 @@ class UserDataWhoMakeHost extends StatelessWidget {
       child: Row(
         children: [
           // user avatar
-          const CircleAvatar(
-            backgroundColor: AppColors.kBlack,
-          ),
           SizedBox(width: 10.w),
           // user name
           NameAndHost(

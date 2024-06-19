@@ -70,4 +70,3 @@ class BodySortPage extends StatelessWidget {
     );
   }
 }
-

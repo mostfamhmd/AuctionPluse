@@ -1,6 +1,6 @@
 class ShowOnly {
-   String showOnly;
-   bool isSelected;
+  String showOnly;
+  bool isSelected;
   ShowOnly({required this.showOnly, this.isSelected = false});
 }
 

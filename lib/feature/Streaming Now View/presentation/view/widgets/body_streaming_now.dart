@@ -17,6 +17,7 @@ class BodyStreamingNow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ValueNotifier<bool> allowedChat = ValueNotifier(false);
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 25.w,
@@ -43,8 +44,14 @@ class BodyStreamingNow extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             // Text chat
-            TextChat(
-              onChanged: (value) {},
+            ValueListenableBuilder(
+              valueListenable: allowedChat,
+              builder: (BuildContext context, value, Widget? child) => TextChat(
+                onChanged: (value) {
+                  allowedChat.value = value;
+                },
+                caseSwitch: value,
+              ),
             ),
             SizedBox(height: 15.h),
             // Can the audience send messages in a live Tok broadcast?

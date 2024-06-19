@@ -1,6 +1,6 @@
 class Condition {
-   String condition;
-   bool isSelected;
+  String condition;
+  bool isSelected;
 
   Condition({required this.condition, this.isSelected = false});
 }

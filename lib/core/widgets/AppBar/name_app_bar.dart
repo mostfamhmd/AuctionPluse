@@ -14,7 +14,6 @@ PreferredSizeWidget nameAppBar(
     elevation: 3,
     toolbarHeight: 80.h,
     backgroundColor: AppColors.kWhite,
-
     title: Padding(
       padding: EdgeInsets.only(
         left: 10.w,

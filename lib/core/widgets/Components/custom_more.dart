@@ -4,7 +4,8 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 
 class CustomMore extends StatelessWidget {
-  const CustomMore({super.key, required this.type, required this.typeMore, this.onTap});
+  const CustomMore(
+      {super.key, required this.type, required this.typeMore, this.onTap});
   final String type;
   final String typeMore;
   final void Function()? onTap;

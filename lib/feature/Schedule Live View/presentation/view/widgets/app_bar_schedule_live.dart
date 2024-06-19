@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
-import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/widgets/Components/custom_title.dart';
 
 class AppBarScheduleLive extends StatelessWidget {
   const AppBarScheduleLive({
     super.key,
-    this.onPressed,
   });
-  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,17 +34,6 @@ class AppBarScheduleLive extends StatelessWidget {
             ),
             const Spacer(
               flex: 5,
-            ),
-            TextButton(
-              onPressed: onPressed,
-              child: Text(
-                'Save',
-                style: TextStyle(
-                  fontFamily: AppFonts.kInter700,
-                  color: AppColors.kLightBlue,
-                  fontSize: 16.sp,
-                ),
-              ),
             ),
           ],
         ),

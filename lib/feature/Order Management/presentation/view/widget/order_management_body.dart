@@ -9,7 +9,7 @@ class OrderManagementBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(top: 5.h,bottom: 5.h),
+        padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
         child: const Column(
           children: [
             Expanded(

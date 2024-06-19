@@ -21,21 +21,31 @@ class BodyPaymentSuccessPage extends StatelessWidget {
           SvgPicture.asset(
             AppIcons.kSuccessPayment,
           ),
-          SizedBox(height: 20.h,),
-          Text('Success',
-          style: TextStyle(
-            color: AppColors.kDarkBlue,
-            fontFamily: AppFonts.kPoppins700,
-            fontSize: 24.sp,
-          ),),
-          SizedBox(height: 20.h,),
-          Text('thank you for shopping using lafyuu',
+          SizedBox(
+            height: 20.h,
+          ),
+          Text(
+            'Success',
+            style: TextStyle(
+              color: AppColors.kDarkBlue,
+              fontFamily: AppFonts.kPoppins700,
+              fontSize: 24.sp,
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Text(
+            'thank you for shopping using lafyuu',
             style: TextStyle(
               color: AppColors.kGray,
               fontFamily: AppFonts.kPoppins400,
               fontSize: 12.sp,
-            ),),
-          SizedBox(height: 20.h,),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
           MyBigBTN(
             nameBTN: "Back To Order",
             onTap: () {

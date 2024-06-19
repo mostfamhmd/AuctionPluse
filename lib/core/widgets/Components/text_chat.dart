@@ -8,8 +8,10 @@ class TextChat extends StatelessWidget {
   const TextChat({
     super.key,
     this.onChanged,
+    required this.caseSwitch,
   });
   final void Function(bool)? onChanged;
+  final bool caseSwitch;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,7 +24,10 @@ class TextChat extends StatelessWidget {
             fontSize: 20.sp,
           ),
         ),
-        SwitchButton(onChanged: onChanged),
+        SwitchButton(
+          onChanged: onChanged,
+          caseSwitch: caseSwitch,
+        ),
       ],
     );
   }

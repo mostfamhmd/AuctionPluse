@@ -12,13 +12,13 @@ ElevatedButton customElevatedButton(
 }) {
   return ElevatedButton(
     style: ButtonStyle(
-      fixedSize: MaterialStatePropertyAll(
+      fixedSize: WidgetStatePropertyAll(
         Size(181.w, 57.h),
       ),
-      backgroundColor: MaterialStatePropertyAll(
+      backgroundColor: WidgetStatePropertyAll(
         backgroundColor,
       ),
-      foregroundColor: const MaterialStatePropertyAll(
+      foregroundColor: const WidgetStatePropertyAll(
         AppColors.kBlack,
       ),
     ),

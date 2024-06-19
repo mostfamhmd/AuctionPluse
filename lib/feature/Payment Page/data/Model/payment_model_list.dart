@@ -5,8 +5,6 @@ import '../../../../core/utils/icons.dart';
 List<PaymentMethodModel> paymentMethodModel = [
   PaymentMethodModel(
       paymentName: "Credit Card Or Debit", paymentIcon: AppIcons.kCreditCard),
-  PaymentMethodModel(
-      paymentName: "Paypal", paymentIcon: AppIcons.kPaypal),
-  PaymentMethodModel(
-      paymentName: "Bank Transfer", paymentIcon: AppIcons.kBank),
+  PaymentMethodModel(paymentName: "Paypal", paymentIcon: AppIcons.kPaypal),
+  PaymentMethodModel(paymentName: "Bank Transfer", paymentIcon: AppIcons.kBank),
 ];

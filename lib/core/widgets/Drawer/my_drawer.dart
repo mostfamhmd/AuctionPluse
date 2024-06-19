@@ -16,7 +16,11 @@ class MyDrawer extends StatelessWidget {
       ),
       width: 340.w,
       child: Padding(
-        padding: EdgeInsets.only(top: 30.h, left: 20.w, right: 20.w,),
+        padding: EdgeInsets.only(
+          top: 30.h,
+          left: 20.w,
+          right: 20.w,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

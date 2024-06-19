@@ -5,9 +5,12 @@ import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/rating_best_seller.dart';
 
 class PriceAndRatingBestSeller extends StatelessWidget {
-  const PriceAndRatingBestSeller({super.key, required this.productOfferPrice, required this.productRating});
-final String productOfferPrice;
-final String productRating;
+  const PriceAndRatingBestSeller(
+      {super.key,
+      required this.productOfferPrice,
+      required this.productRating});
+  final String productOfferPrice;
+  final String productRating;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,7 +23,9 @@ final String productRating;
             color: AppColors.kBlue,
           ),
         ),
-        RatingBestSeller(productRating: productRating,),
+        RatingBestSeller(
+          productRating: productRating,
+        ),
       ],
     );
   }
