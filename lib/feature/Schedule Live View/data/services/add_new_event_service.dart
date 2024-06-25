@@ -16,6 +16,8 @@ class CreateNewEventService {
     required List<AllUsers> users,
     required List<ProductInfo> products,
     required int timeStamp,
+    required String evenToken,
+    String? rtmtoken,
   }) async {
     String token = await AppConsts.getData(AppConsts.kUserToken);
     String userId = await AppConsts.getData(AppConsts.kUserId);
@@ -29,6 +31,8 @@ class CreateNewEventService {
           "title": address,
           "userIds": users.map((e) => e.sId).toList(),
           "productIds": products.map((e) => e.sId).toList(),
+          "token": evenToken,
+          "RtmToken": rtmtoken,
         },
         token: token,
       );

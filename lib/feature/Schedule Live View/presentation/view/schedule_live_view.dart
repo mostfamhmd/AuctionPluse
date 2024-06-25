@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/cubit/all_users_cubit.dart';
-import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/view/manager/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Get%20All%20Users%20Cubit/all_users_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Generate%20Agora%20RTM%20Tokens%20Cubit/generate_agora_token_cubit.dart';
 
 import 'widgets/body_schedule_live_view.dart';
 
@@ -17,6 +18,12 @@ class ScheduleLiveView extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CreateRoomCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GenerateAgoraTokenCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GenerateRTMTokenCubit(),
         ),
       ],
       child: const Scaffold(

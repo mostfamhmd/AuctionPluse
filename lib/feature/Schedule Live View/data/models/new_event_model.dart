@@ -42,36 +42,43 @@ class NewRoom {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  String? agoraToken;
+  String? rtmToken;
 
-  NewRoom(
-      {this.ownerId,
-      this.productIds,
-      this.hostIds,
-      this.userIds,
-      this.title,
-      this.allUsers,
-      this.event,
-      this.eventDate,
-      this.status,
-      this.discount,
-      this.productPrice,
-      this.description,
-      this.resourceId,
-      this.recordingUid,
-      this.recordingsid,
-      this.roomType,
-      this.activeTime,
-      this.ended,
-      this.allowrecording,
-      this.allowchat,
-      this.sId,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+  NewRoom({
+    this.ownerId,
+    this.productIds,
+    this.hostIds,
+    this.userIds,
+    this.title,
+    this.allUsers,
+    this.event,
+    this.eventDate,
+    this.status,
+    this.discount,
+    this.productPrice,
+    this.description,
+    this.resourceId,
+    this.recordingUid,
+    this.recordingsid,
+    this.roomType,
+    this.activeTime,
+    this.ended,
+    this.allowrecording,
+    this.allowchat,
+    this.sId,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+    this.agoraToken,
+    this.rtmToken,
+  });
 
   NewRoom.fromJson(Map<String, dynamic> json) {
     ownerId = json['ownerId'];
     productIds = json['productIds'].cast<String>();
+    agoraToken = json['token'];
+    rtmToken = json['RtmToken'];
     hostIds = json['hostIds'].cast<String>();
     userIds = json['userIds'].cast<String>();
     title = json['title'];
@@ -99,6 +106,8 @@ class NewRoom {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['ownerId'] = ownerId;
+    data['token'] = agoraToken;
+    data['RtmToken'] = rtmToken;
     data['productIds'] = productIds;
     data['hostIds'] = hostIds;
     data['userIds'] = userIds;

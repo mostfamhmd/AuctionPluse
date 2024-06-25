@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
-import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/cubit/all_users_cubit.dart';
-import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/view/manager/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Get%20All%20Users%20Cubit/all_users_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
 
 import 'app_bar_schedule_live.dart';
 import 'info_schedule_live.dart';
@@ -50,9 +50,9 @@ class _BodyScheduleLiveViewState extends State<BodyScheduleLiveView> {
                             mySuccessSnackBar(context,
                                 "created ${state.newEventModel.newRoom!.title} room successfully");
                             Navigator.pop(context);
-                            Navigator.pop(context);
                           } else if (state is CreateRoomLoading) {
-                            myLoadingSnackBar(context, "Loading");
+                            myLoadingSnackBar(
+                                context, "Loading to create your new room");
                           } else if (state is CreateRoomError) {
                             myErrorSnackBar(context, state.error);
                           }

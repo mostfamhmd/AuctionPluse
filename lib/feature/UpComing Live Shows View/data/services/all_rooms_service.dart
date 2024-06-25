@@ -1,38 +1,32 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:smart_auction/core/errors/server_failure.dart';
-import 'package:smart_auction/core/helpers/dio_helper.dart';
 import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/all_rooms_models.dart';
 
 class AllRoomsService {
-  DioHelper dioHelper = DioHelper();
+  Dio dioHelper = Dio();
 
-  Stream<Either<ServerFailure, AllRoomsModel>> getRooms() async* {
-    try {
-      String token = await AppConsts.getData(AppConsts.kUserToken);
-      String userID = await AppConsts.getData(AppConsts.kUserId);
-      Map<String, dynamic> data = await dioHelper.getRequest(
-        endPoint: "rooms/allrooms/paginated?",
-        queryParameters: {
-          "users": [userID],
-        },
-        token: token,
-      );
-      AllRoomsModel allRoomsModel = AllRoomsModel.fromJsonToDart(data);
-      yield right(allRoomsModel);
-    } on DioException catch (dioError) {
-      yield left(
-        ServerFailure.fromDioException(
-          dioException: dioError,
-        ),
-      );
-    } catch (error) {
-      yield left(
-        ServerFailure(
-          errMessage: error.toString(),
-        ),
-      );
+  Stream getRooms() async* {
+    while (true) {
+      try {
+        String token = await AppConsts.getData(AppConsts.kUserToken);
+        Map<String, dynamic>? headers = {'Authorization': 'Bearer $token'};
+        final response = await dioHelper.get(
+          "${AppConsts.kBaseurl}rooms/allrooms/paginated?",
+          options: Options(
+            headers: headers,
+          ),
+        );
+        if (response.statusCode == 200) {
+          AllRoomsModel allRoomsModel =
+              AllRoomsModel.fromJsonToDart(response.data);
+          yield allRoomsModel;
+        }
+      } on DioException catch (error) {
+        yield error;
+      } catch (e) {
+        yield e;
+      }
+      await Future.delayed(const Duration(seconds: 30));
     }
   }
 }

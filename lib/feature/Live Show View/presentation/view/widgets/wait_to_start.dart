@@ -5,12 +5,13 @@ import 'package:smart_auction/core/utils/fonts.dart';
 class WaitToStart extends StatelessWidget {
   const WaitToStart({
     super.key,
+    required this.statement,
   });
-
+  final String statement;
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Wait for the host to start the show',
+      statement,
       style: TextStyle(
         fontFamily: AppFonts.kInter500,
         fontSize: 20.sp,

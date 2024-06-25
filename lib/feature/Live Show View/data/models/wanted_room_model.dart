@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'host_id.dart';
-import 'invited_id.dart';
-import 'owner_id.dart';
-import 'raised_hand.dart';
-import 'speaker_id.dart';
-import 'user_id.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/host_id.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/invited_id.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/raised_hand.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/speaker_id.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/user_id.dart';
 
-class Room {
+class WantedRoomModel {
   String? id;
-  OwnerId? ownerId;
+  String? ownerId;
   dynamic productIds;
   dynamic streamOptions;
   List<HostId>? hostIds;
@@ -45,7 +44,7 @@ class Room {
   DateTime? updatedAt;
   int? v;
 
-  Room({
+  WantedRoomModel({
     this.id,
     this.ownerId,
     this.productIds,
@@ -84,14 +83,12 @@ class Room {
     this.v,
   });
 
-  factory Room.fromJsonToRoom(Map<String, dynamic> data) {
-    return Room(
+  factory WantedRoomModel.fromJsonToRoom(Map<String, dynamic> data) {
+    return WantedRoomModel(
       id: data['_id'] as String?,
       agoraToken: data['token'] as String?,
       rtmToken: data['RtmToken'] as String?,
-      ownerId: data['ownerId'] == null
-          ? null
-          : OwnerId.fromJsonToOwnerID(data['ownerId'] as Map<String, dynamic>),
+      ownerId: data['ownerId'] as String?,
       productIds: data['productIds'],
       streamOptions: data['streamOptions'],
       hostIds: (data['hostIds'] as List<dynamic>?)
@@ -145,7 +142,7 @@ class Room {
       '_id': id,
       'token': agoraToken,
       'RtmToken': rtmToken,
-      'ownerId': ownerId?.toOwnerID(),
+      'ownerId': ownerId,
       'productIds': productIds,
       'streamOptions': streamOptions,
       'hostIds': hostIds?.map((e) => e.toHostID()).toList(),
@@ -184,8 +181,9 @@ class Room {
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [Room].
-  factory Room.fromJson(String data) {
-    return Room.fromJsonToRoom(json.decode(data) as Map<String, dynamic>);
+  factory WantedRoomModel.fromJson(String data) {
+    return WantedRoomModel.fromJsonToRoom(
+        json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`

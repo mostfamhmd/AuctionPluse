@@ -17,6 +17,8 @@ class CreateRoomCubit extends Cubit<CreateRoomState> {
     required List<AllUsers> users,
     required List<ProductInfo> products,
     required int timeStamp,
+    required String evenToken,
+    String? rtmtoken,
   }) async {
     emit(CreateRoomLoading());
     Either<ServerFailure, NewEventModel> result =
@@ -26,6 +28,8 @@ class CreateRoomCubit extends Cubit<CreateRoomState> {
       products: products,
       timeStamp: timeStamp,
       users: users,
+      evenToken: evenToken,
+      rtmtoken: rtmtoken,
     );
     result.fold((failure) {
       emit(CreateRoomError(error: failure.errMessage));

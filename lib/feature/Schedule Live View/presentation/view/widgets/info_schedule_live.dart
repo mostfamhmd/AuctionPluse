@@ -13,7 +13,8 @@ import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/core/widgets/Components/sentances_of_streaming_now.dart';
 import 'package:smart_auction/core/widgets/Components/text_chat.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/data/models/all_users_model.dart';
-import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/view/manager/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Generate%20Agora%20RTM%20Tokens%20Cubit/generate_agora_token_cubit.dart';
 
 import '../../../../../core/widgets/Components/address_field.dart';
 import '../../../../../core/widgets/Components/products_field.dart';
@@ -43,157 +44,201 @@ class _InfoScheduleLiveState extends State<InfoScheduleLive> {
   List<AllUsers> users = [];
   List<ProductInfo> products = [];
   int? timestamp;
+  String rtmtoken = "";
+  String evenToken = "";
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // the address
-        addressField(contAddress: contAddress),
-        SizedBox(height: 15.h),
-        // add users
-        usersField(
-          context,
-          contUsers: contUsers,
-          onTap: () {
-            for (int i = 0; i < users.length; i++) {
-              for (int j = 0; j < widget.allUsers.length; j++) {
-                if (users[i].sId == widget.allUsers[j].sId) {
-                  widget.allUsers.remove(widget.allUsers[j]);
-                }
-              }
-            }
-            usersDialog(context);
-            setState(() {});
-          },
-        ),
-        SizedBox(height: 15.h),
-        // selected users
-        Wrap(
-          children: List.generate(
-            users.length,
-            (index) => InkWell(
-              onTap: () {
-                widget.allUsers.add(users[index]);
-                users.remove(users[index]);
-                contUsers.clear();
-                for (int i = 0; i < users.length; i++) {
-                  if (i == users.length - 1) {
-                    contUsers.text += users[i].name!;
-                  } else {
-                    contUsers.text += "${users[i].name!}, ";
-                  }
-                }
-                setState(() {});
-              },
-              child: SelectedNameProductContainer(name: users[index].name!),
-            ),
-          ),
-        ),
-        SizedBox(height: 15.h),
-        // add product
-        productsField(
-          contProducts: contProducts,
-          onTap: () {
-            for (int i = 0; i < products.length; i++) {
-              for (int j = 0; j < widget.allProducts.length; j++) {
-                if (products[i].sId == widget.allProducts[j].sId) {
-                  widget.allProducts.remove(widget.allProducts[j]);
-                }
-              }
-            }
-            productsDialog(context);
-            setState(() {});
-          },
-        ),
-        SizedBox(height: 15.h),
-        // selected products
-        Wrap(
-          children: List.generate(
-            products.length,
-            (index) => InkWell(
-              onTap: () {
-                widget.allProducts.add(products[index]);
-                products.remove(products[index]);
-                contProducts.clear();
-                for (int i = 0; i < products.length; i++) {
-                  if (i == products.length - 1) {
-                    contProducts.text += products[i].name!;
-                  } else {
-                    contProducts.text += "${products[i].name!}, ";
-                  }
-                }
-                setState(() {});
-              },
-              child: SelectedNameProductContainer(
-                name: products[index].name!,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 15.h),
-        // when do you want to live broadcasting?
-        timeStartingField(
-          contTime: contTime,
-          onTap: () async {
-            selectDateAndTime(context).then((selectedDate) {
-              if (selectedDate != null) {
-                showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                ).then((selectedTime) {
-                  if (selectedTime != null) {
-                    DateTime selectedDateTime = DateTime(
-                      selectedDate.year,
-                      selectedDate.month,
-                      selectedDate.day,
-                      selectedTime.hour,
-                      selectedTime.minute,
-                    );
-                    timestamp = selectedDateTime.millisecondsSinceEpoch;
-                    contTime.text =
-                        "${selectedDateTime.day}/${selectedDateTime.month}/${selectedDateTime.year} ${selectedDateTime.hour}:${selectedDateTime.minute}";
-                  }
-                });
-              }
-            });
-          },
-        ),
-        SizedBox(height: 30.h),
-        // text chat with switch for toggle
-        ValueListenableBuilder(
-          valueListenable: allowedChat,
-          builder: (BuildContext context, value, Widget? child) => TextChat(
-            onChanged: (value) {
-              allowedChat.value = value;
-            },
-            caseSwitch: value,
-          ),
-        ),
-        SizedBox(height: 10.h),
-        const SendingMessage(),
-        SizedBox(height: 30.h),
-        MySmallBTN(
-          onTap: () {
-            if (users.isEmpty ||
-                products.isEmpty ||
-                contTime.text.isEmpty ||
-                contAddress.text.isEmpty ||
-                timestamp == null) {
-              myErrorSnackBar(context, "all Data required to send");
-            } else {
+    return BlocListener<GenerateAgoraTokenCubit, GenerateAgoraTokenState>(
+      listener: (context, agoraToken) {
+        if (agoraToken is GenerateAgoraTokenSuccess) {
+          evenToken = agoraToken.generatedToken.token!;
+          if (allowedChat.value == false) {
+            context.read<CreateRoomCubit>().createRoom(
+                  evenToken: agoraToken.generatedToken.token!,
+                  allowedChat: allowedChat.value,
+                  address: contAddress.text,
+                  users: users,
+                  products: products,
+                  timeStamp: timestamp!,
+                );
+          }
+          setState(() {});
+        } else if (agoraToken is GenerateAgoraTokenLoading) {
+          myLoadingSnackBar(context, "Loading to generate agora token");
+        } else if (agoraToken is GenerateAgoraTokenError) {
+          myErrorSnackBar(context, agoraToken.errorMessage);
+        }
+      },
+      child: BlocListener<GenerateRTMTokenCubit, GenerateRTMTokenState>(
+        listener: (context, rtmToken) {
+          if (rtmToken is GenerateRTMTokenSuccess) {
+            if (evenToken != "") {
               context.read<CreateRoomCubit>().createRoom(
+                    evenToken: evenToken,
                     allowedChat: allowedChat.value,
                     address: contAddress.text,
                     users: users,
                     products: products,
                     timeStamp: timestamp!,
+                    rtmtoken: rtmToken.generatedToken.token!,
                   );
             }
-          },
-          nameButton: "Save",
+          } else if (rtmToken is GenerateRTMTokenError) {
+            myErrorSnackBar(context, rtmToken.errorMessage);
+          } else if (rtmToken is GenerateRTMTokenLoading) {
+            myLoadingSnackBar(context, "Loading to generate agora token");
+          }
+        },
+        child: Column(
+          children: [
+            // the address
+            addressField(contAddress: contAddress),
+            SizedBox(height: 15.h),
+            // add users
+            usersField(
+              context,
+              contUsers: contUsers,
+              onTap: () {
+                for (int i = 0; i < users.length; i++) {
+                  for (int j = 0; j < widget.allUsers.length; j++) {
+                    if (users[i].sId == widget.allUsers[j].sId) {
+                      widget.allUsers.remove(widget.allUsers[j]);
+                    }
+                  }
+                }
+                usersDialog(context);
+                setState(() {});
+              },
+            ),
+            SizedBox(height: 15.h),
+            // selected users
+            Wrap(
+              children: List.generate(
+                users.length,
+                (index) => InkWell(
+                  onTap: () {
+                    widget.allUsers.add(users[index]);
+                    users.remove(users[index]);
+                    contUsers.clear();
+                    for (int i = 0; i < users.length; i++) {
+                      if (i == users.length - 1) {
+                        contUsers.text += users[i].name!;
+                      } else {
+                        contUsers.text += "${users[i].name!}, ";
+                      }
+                    }
+                    setState(() {});
+                  },
+                  child: SelectedNameProductContainer(name: users[index].name!),
+                ),
+              ),
+            ),
+            SizedBox(height: 15.h),
+            // add product
+            productsField(
+              contProducts: contProducts,
+              onTap: () {
+                for (int i = 0; i < products.length; i++) {
+                  for (int j = 0; j < widget.allProducts.length; j++) {
+                    if (products[i].sId == widget.allProducts[j].sId) {
+                      widget.allProducts.remove(widget.allProducts[j]);
+                    }
+                  }
+                }
+                productsDialog(context);
+                setState(() {});
+              },
+            ),
+            SizedBox(height: 15.h),
+            // selected products
+            Wrap(
+              children: List.generate(
+                products.length,
+                (index) => InkWell(
+                  onTap: () {
+                    widget.allProducts.add(products[index]);
+                    products.remove(products[index]);
+                    contProducts.clear();
+                    for (int i = 0; i < products.length; i++) {
+                      if (i == products.length - 1) {
+                        contProducts.text += products[i].name!;
+                      } else {
+                        contProducts.text += "${products[i].name!}, ";
+                      }
+                    }
+                    setState(() {});
+                  },
+                  child: SelectedNameProductContainer(
+                    name: products[index].name!,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 15.h),
+            // when do you want to live broadcasting?
+            timeStartingField(
+              contTime: contTime,
+              onTap: () async {
+                selectDateAndTime(context).then((selectedDate) {
+                  if (selectedDate != null) {
+                    showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    ).then((selectedTime) {
+                      if (selectedTime != null) {
+                        DateTime selectedDateTime = DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                        timestamp = selectedDateTime.millisecondsSinceEpoch;
+                        contTime.text =
+                            "${selectedDateTime.day}/${selectedDateTime.month}/${selectedDateTime.year} ${selectedDateTime.hour}:${selectedDateTime.minute}";
+                      }
+                    });
+                  }
+                });
+              },
+            ),
+            SizedBox(height: 30.h),
+            // text chat with switch for toggle
+            ValueListenableBuilder(
+              valueListenable: allowedChat,
+              builder: (BuildContext context, value, Widget? child) => TextChat(
+                onChanged: (value) {
+                  allowedChat.value = value;
+                },
+                caseSwitch: value,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            const SendingMessage(),
+            SizedBox(height: 30.h),
+            MySmallBTN(
+              onTap: () {
+                if (users.isEmpty ||
+                    products.isEmpty ||
+                    contTime.text.isEmpty ||
+                    contAddress.text.isEmpty ||
+                    timestamp == null) {
+                  myErrorSnackBar(context, "all Data required to send");
+                } else {
+                  context
+                      .read<GenerateAgoraTokenCubit>()
+                      .generateAgoraToken(channelName: contAddress.text);
+                  if (allowedChat.value == true) {
+                    context.read<GenerateRTMTokenCubit>().generateRTMToken();
+                  }
+                }
+              },
+              nameButton: "Save",
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
