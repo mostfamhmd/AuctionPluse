@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/consts.dart';
@@ -107,7 +108,14 @@ class _CardDataRoomContainerState extends State<CardDataRoomContainer> {
               setState(() {});
             },
             onLetKnowTap: () {},
-            onInviteFriendsTap: () {},
+            onInviteFriendsTap: () {
+              Clipboard.setData(ClipboardData(
+                      text: "${AppConsts.kBaseurl}${widget.room.id}"))
+                  .then((_) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Copied to your clipboard !')));
+              });
+            },
           ),
         ],
       ),

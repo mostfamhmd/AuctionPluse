@@ -22,11 +22,11 @@ class AllRoomsService {
           yield allRoomsModel;
         }
       } on DioException catch (error) {
-        yield error;
+        throw error.message!;
       } catch (e) {
-        yield e;
+        throw e.toString();
       }
-      await Future.delayed(const Duration(seconds: 30));
+      await Future.delayed(const Duration(seconds: 60));
     }
   }
 }

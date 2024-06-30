@@ -20,7 +20,8 @@ class _LiveShowViewState extends State<LiveShowView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: backAppBar(context, widget.room.title!),
+      resizeToAvoidBottomInset: false,
+      appBar: backAppBar(context, "Waiting Room"),
       body: BodyLiveShow(
         room: widget.room,
         isBroad: widget.isBroad,

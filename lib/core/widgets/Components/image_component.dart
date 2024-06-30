@@ -9,11 +9,13 @@ class ImageComponent extends StatelessWidget {
       required this.urlImage,
       required this.height,
       required this.width,
-      required this.radius});
+      required this.radius,
+      this.fit});
   final String urlImage;
   final double height;
   final double width;
   final double radius;
+  final BoxFit? fit;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -25,7 +27,7 @@ class ImageComponent extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.fill,
+            fit: fit ?? BoxFit.fill,
             filterQuality: FilterQuality.high,
           ),
         ),

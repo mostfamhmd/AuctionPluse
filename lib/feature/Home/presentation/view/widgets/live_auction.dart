@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/view_shows_btn.dart';
 
 import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/fonts.dart';
 import '../../../../../core/utils/icons.dart';
 import '../../../../../core/widgets/Components/custom_more.dart';
+import 'real_time_live_auction.dart';
 
 class LiveAuction extends StatelessWidget {
   const LiveAuction({super.key, this.seeAll, this.viewShows});
@@ -46,25 +46,7 @@ class LiveAuction extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        Text(
-          "There are no live shows at the moment",
-          style: TextStyle(
-            color: AppColors.kGray,
-            fontFamily: AppFonts.kPoppins500,
-            fontSize: 12.sp,
-          ),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        Text(
-          "Start live streaming now",
-          style: TextStyle(
-            color: Colors.red,
-            fontFamily: AppFonts.kPoppins700,
-            fontSize: 14.sp,
-          ),
-        ),
+        const RealTimeLiveAuction(),
         SizedBox(
           height: 20.h,
         ),

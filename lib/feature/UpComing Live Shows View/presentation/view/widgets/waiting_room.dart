@@ -13,6 +13,7 @@ class WaitingRoom extends StatelessWidget {
     required this.usersWaitingForRoom,
   });
   final List<UserId> usersWaitingForRoom;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,11 +33,26 @@ class WaitingRoom extends StatelessWidget {
                 stream: getUserData,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    return NameHost(
-                      name: index == usersWaitingForRoom.length - 1
-                          ? snapshot.data!.data!.name!
-                          : "${snapshot.data!.data!.name!}, ",
-                    );
+                    try {
+                      final userData = snapshot.data;
+                      final userName = userData?.data?.name ?? 'Unknown';
+                      return NameHost(
+                        name: index == usersWaitingForRoom.length - 1
+                            ? userName
+                            : "$userName, ",
+                      );
+                    } on DioException catch (e) {
+                      ServerFailure serverFailure =
+                          ServerFailure.fromDioException(
+                        dioException: e,
+                      );
+                      return FailureState(error: serverFailure.errMessage);
+                    } catch (e) {
+                      ServerFailure serverFailure = ServerFailure(
+                        errMessage: e.toString(),
+                      );
+                      return FailureState(error: serverFailure.errMessage);
+                    }
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     return const LoadingState();
@@ -44,7 +60,8 @@ class WaitingRoom extends StatelessWidget {
                     if (snapshot.error is DioException) {
                       ServerFailure serverFailure =
                           ServerFailure.fromDioException(
-                              dioException: snapshot.error as DioException);
+                        dioException: snapshot.error as DioException,
+                      );
                       return FailureState(error: serverFailure.errMessage);
                     } else {
                       ServerFailure serverFailure = ServerFailure(
@@ -57,7 +74,7 @@ class WaitingRoom extends StatelessWidget {
               );
             },
           ),
-        )
+        ),
       ],
     );
   }

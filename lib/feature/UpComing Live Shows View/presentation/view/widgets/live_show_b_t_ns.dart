@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/presentation/view/widgets/invite_friends_b_t_n.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/presentation/view/widgets/join_now_b_t_n.dart';
 
 class LiveShowBTNs extends StatelessWidget {
@@ -24,9 +25,9 @@ class LiveShowBTNs extends StatelessWidget {
           onPressed: onLetKnowTap,
         ),*/
         const Spacer(),
-        /*InviteFriendsBTN(
+        InviteFriendsBTN(
           onPressed: onInviteFriendsTap,
-        ),*/
+        ),
       ],
     );
   }

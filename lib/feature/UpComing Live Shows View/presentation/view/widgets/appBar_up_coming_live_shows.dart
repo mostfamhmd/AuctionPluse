@@ -6,8 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smart_auction/core/utils/icons.dart';
 import 'package:smart_auction/core/widgets/Components/custom_title.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/view/schedule_live_view.dart';
+import 'package:smart_auction/feature/Streaming%20Now%20View/presentation/view/streaming_now_view.dart';
 
-AppBar appBarUpComingLiveShows(BuildContext context) {
+AppBar appBarUpComingLiveShows(BuildContext context, bool isUpcoming) {
   return AppBar(
     toolbarHeight: 80.h,
     elevation: 3,
@@ -21,7 +22,7 @@ AppBar appBarUpComingLiveShows(BuildContext context) {
       ),
     ),
     title: CustomTitle(
-      title: 'Upcoming live shows',
+      title: isUpcoming ? 'Upcoming live shows' : 'Live auction offers',
       fontSize: 16.sp,
     ),
     actions: [
@@ -29,10 +30,13 @@ AppBar appBarUpComingLiveShows(BuildContext context) {
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ScheduleLiveView(),
+            builder: (context) => isUpcoming
+                ? const ScheduleLiveView()
+                : const StreamingNowView(),
           ),
         ),
-        icon: SvgPicture.asset(AppIcons.kSchedule),
+        icon: SvgPicture.asset(
+            isUpcoming ? AppIcons.kSchedule : AppIcons.kLiveAuction),
       ),
     ],
   );

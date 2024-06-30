@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
 import 'package:smart_auction/core/helpers/dio_helper.dart';
 import 'package:smart_auction/core/utils/consts.dart';
+import 'package:smart_auction/feature/Live%20Show%20View/data/models/wanted_event_model.dart';
 import 'package:smart_auction/feature/Live%20Show%20View/data/models/wanted_room_model.dart';
 
 class GetWantedRoomService {
@@ -35,26 +36,26 @@ class GetWantedRoomService {
 
   final Dio _dio = Dio();
   //WantedRoomModel? wantedRoomNull;
-  Stream<WantedRoomModel> getWantedRoom22({required String roomID}) async* {
+  Stream<WantedEventModel> getWantedRoom22({required String roomID}) async* {
     while (true) {
       try {
         String token = await AppConsts.getData(AppConsts.kUserToken);
         Map<String, dynamic>? headers = {'Authorization': 'Bearer $token'};
         final response = await _dio.get(
-          "${AppConsts.kBaseurl}rooms/$roomID",
+          "${AppConsts.kBaseurl}rooms/event/$roomID",
           options: Options(
             headers: headers,
           ),
         );
         if (response.statusCode == 200) {
-          WantedRoomModel wantedRoom =
-              WantedRoomModel.fromJsonToRoom(response.data);
+          WantedEventModel wantedRoom =
+              WantedEventModel.fromJson(response.data);
           yield wantedRoom;
         }
       } catch (error) {
         throw error.toString();
       }
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 30));
     }
   }
 }

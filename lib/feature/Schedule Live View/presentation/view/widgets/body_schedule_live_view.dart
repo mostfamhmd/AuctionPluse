@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Live%20Show%20View/data/models/wanted_event_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Get%20All%20Users%20Cubit/all_users_cubit.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Update%20Room%20Cubit/update_room_cubit.dart';
 
 import 'app_bar_schedule_live.dart';
 import 'info_schedule_live.dart';
@@ -13,8 +15,9 @@ import 'info_schedule_live.dart';
 class BodyScheduleLiveView extends StatefulWidget {
   const BodyScheduleLiveView({
     super.key,
+    this.wantedRoom,
   });
-
+  final WantedEventModel? wantedRoom;
   @override
   State<BodyScheduleLiveView> createState() => _BodyScheduleLiveViewState();
 }
@@ -44,22 +47,39 @@ class _BodyScheduleLiveViewState extends State<BodyScheduleLiveView> {
                   builder: (context, allUsers) {
                     if (allProducts is GetProductsSuccess &&
                         allUsers is AllUsersSuccess) {
-                      return BlocListener<CreateRoomCubit, CreateRoomState>(
+                      return BlocListener<UpdateRoomCubit, UpdateRoomState>(
                         listener: (context, state) {
-                          if (state is CreateRoomSuccess) {
-                            mySuccessSnackBar(context,
-                                "created ${state.newEventModel.newRoom!.title} room successfully");
+                          if (state is UpdateRoomSuccess) {
+                            mySuccessSnackBar(context, "Successfully Updated");
                             Navigator.pop(context);
-                          } else if (state is CreateRoomLoading) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          } else if (state is UpdateRoomLoading) {
                             myLoadingSnackBar(
-                                context, "Loading to create your new room");
-                          } else if (state is CreateRoomError) {
-                            myErrorSnackBar(context, state.error);
+                                context, "Loading to update your room");
+                          } else if (state is UpdateRoomError) {
+                            myErrorSnackBar(context, state.errorMessage);
                           }
                         },
-                        child: InfoScheduleLive(
-                            allProducts: allProducts.productsModel.data!,
-                            allUsers: allUsers.users.data!),
+                        child: BlocListener<CreateRoomCubit, CreateRoomState>(
+                          listener: (context, state) {
+                            if (state is CreateRoomSuccess) {
+                              mySuccessSnackBar(context,
+                                  "created ${state.newEventModel.newRoom!.title} room successfully");
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            } else if (state is CreateRoomLoading) {
+                              myLoadingSnackBar(
+                                  context, "Loading to create your new room");
+                            } else if (state is CreateRoomError) {
+                              myErrorSnackBar(context, state.error);
+                            }
+                          },
+                          child: InfoScheduleLive(
+                              wantedRoom: widget.wantedRoom,
+                              allProducts: allProducts.productsModel.data!,
+                              allUsers: allUsers.users.data!),
+                        ),
                       );
                     } else if (allProducts is GetProductsLoading ||
                         allUsers is AllUsersLoading) {

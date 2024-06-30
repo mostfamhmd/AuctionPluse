@@ -9,14 +9,23 @@ class UpdateWantedRoomService {
   DioHelper dioHelper = DioHelper();
 
   Future<Either<ServerFailure, Room>> updateWantedRoom(
-      {required String roomID, bool? event}) async {
+      {required String roomID,
+      required bool event,
+      List<String>? users,
+      String? name}) async {
     try {
       String token = await AppConsts.getData(AppConsts.kUserToken);
+      Object obj;
+      if (users != null) {
+        obj = {"event": event, "userIds": users};
+      } else if (name != null) {
+        obj = {"event": event, "title": name};
+      } else {
+        obj = {"event": event};
+      }
       Map<String, dynamic> data = await dioHelper.putRequest(
         endPoint: "rooms/$roomID",
-        body: {
-          "event": event,
-        },
+        body: obj,
         token: token,
       );
       Room wantedRoom = Room.fromJsonToRoom(data);

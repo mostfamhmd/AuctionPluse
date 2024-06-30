@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/room.dart';
 
-import 'body_host_state.dart';
-import 'body_user_state.dart';
+import 'host_state.dart';
+import 'user_state.dart';
 
 class BodyLiveShow extends StatelessWidget {
   const BodyLiveShow({
@@ -26,12 +26,12 @@ class BodyLiveShow extends StatelessWidget {
           children: [
             const Spacer(),
             isBroad
-                ? BodyHostState(
+                ? HostState(
                     isBroad: isBroad,
                     room: room,
                     userID: userID,
                   )
-                : BodyUserState(
+                : UserState(
                     isBroad: isBroad,
                     room: room,
                     userID: userID,

@@ -17,14 +17,13 @@ class GetUserService {
           ),
         );
         if (response.statusCode == 200) {
-          UserDataModel allRoomsModel =
-              UserDataModel.fromJsonToDart(response.data);
+          UserDataModel allRoomsModel = UserDataModel.fromJson(response.data);
           yield allRoomsModel;
         }
       } on DioException catch (error) {
-        yield error;
+        yield error.message;
       } catch (e) {
-        yield e;
+        throw e.toString();
       }
       await Future.delayed(const Duration(seconds: 30));
     }

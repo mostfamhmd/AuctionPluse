@@ -1,104 +1,87 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/widgets/Components/custom_text_form_field_with_out_prefix.dart';
-import 'package:smart_auction/core/widgets/Components/my_small_btn.dart';
-import 'package:smart_auction/core/widgets/Components/sentances_of_streaming_now.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_auction/core/globals/glopals.dart';
+import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
+import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/feature/Agora%20Live%20Page/presentation/view/agora_live_page.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Get%20All%20Users%20Cubit/all_users_cubit.dart';
+import 'info_live_stream.dart';
 
-import 'select_channel.dart';
-import 'select_time.dart';
-import 'tag_products.dart';
-import '../../../../../core/widgets/Components/text_chat.dart';
-
-class BodyStreamingNow extends StatelessWidget {
+class BodyStreamingNow extends StatefulWidget {
   const BodyStreamingNow({
     super.key,
   });
 
   @override
+  State<BodyStreamingNow> createState() => _BodyStreamingNowState();
+}
+
+class _BodyStreamingNowState extends State<BodyStreamingNow> {
+  @override
+  void initState() {
+    context.read<AllUsersCubit>().getAllUsers();
+    context.read<GetProductsCubit>().getAllProducts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    ValueNotifier<bool> allowedChat = ValueNotifier(false);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 25.w,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20.h),
-            // direct talk name
-            const DirectTalkName(),
-            // What do you want to talk about?
-            const TalkAbout(),
-            SizedBox(height: 30.h),
-            //live name
-            customTextFormFieldWithoutPrefix(keyboardType: TextInputType.text),
-            SizedBox(height: 20.h),
-            // tag product
-            const TagProducts(),
-            SizedBox(height: 20.h),
-            // channel selection
-            SelectChannel(
-              onTap: () {},
-            ),
-            SizedBox(height: 20.h),
-            // Text chat
-            ValueListenableBuilder(
-              valueListenable: allowedChat,
-              builder: (BuildContext context, value, Widget? child) => TextChat(
-                onChanged: (value) {
-                  allowedChat.value = value;
-                },
-                caseSwitch: value,
-              ),
-            ),
-            SizedBox(height: 15.h),
-            // Can the audience send messages in a live Tok broadcast?
-            const SendingMessage(),
-            SizedBox(height: 20.h),
-            // start time
-            SelectTime(
-              hintText: 'Start time',
-              onTap: () async {
-                final TimeOfDay? picked = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (picked != null) {
-                  if (kDebugMode) {
-                    print({'${picked.hour}:${picked.minute}'});
-                  }
+    return BlocBuilder<GetProductsCubit, GetProductsState>(
+        builder: (context, allProducts) {
+      return BlocBuilder<AllUsersCubit, AllUsersState>(
+        builder: (context, allUsers) {
+          if (allProducts is GetProductsSuccess &&
+              allUsers is AllUsersSuccess) {
+            return BlocListener<CreateRoomCubit, CreateRoomState>(
+              listener: (context, state) {
+                if (state is CreateRoomSuccess) {
+                  mySuccessSnackBar(context,
+                      "created ${state.newEventModel.newRoom!.title} live successfully");
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AgoraLivePage(
+                        isBroad: true,
+                        userID: userId!,
+                        agoraToken: state.newEventModel.newRoom!.agoraToken!,
+                        title: state.newEventModel.newRoom!.title!,
+                        rtmToken: state.newEventModel.newRoom!.rtmToken,
+                      ),
+                    ),
+                  );
+                } else if (state is CreateRoomLoading) {
+                  myLoadingSnackBar(context, "Loading to create your new live");
+                } else if (state is CreateRoomError) {
+                  myErrorSnackBar(context, state.error);
                 }
               },
-            ),
-            SizedBox(height: 30.h),
-            // end time
-            SelectTime(
-              hintText: 'End time',
-              onTap: () async {
-                final TimeOfDay? picked = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (picked != null) {
-                  if (kDebugMode) {
-                    print({'${picked.hour}:${picked.minute}'});
-                  }
-                }
-              },
-            ),
-            SizedBox(height: 30.h),
-            // live broadcast
-            Center(
-              child: MySmallBTN(
-                nameButton: 'Live Broadcast',
-                onTap: () {},
+              child: InfoLiveStream(
+                allProducts: allProducts.productsModel.data!,
+                allUsers: allUsers.users.data!,
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          } else if (allProducts is GetProductsLoading ||
+              allUsers is AllUsersLoading) {
+            return const LoadingState();
+          } else if (allUsers is AllUsersError ||
+              allProducts is GetProductsFailure) {
+            if (allUsers is AllUsersError) {
+              myErrorSnackBar(context, allUsers.error);
+              return FailureState(error: allUsers.error);
+            } else if (allProducts is GetProductsFailure) {
+              myErrorSnackBar(context, allProducts.error);
+              return FailureState(error: allProducts.error);
+            } else {
+              return const FailureState(
+                  error: "Something is wrong in Error state");
+            }
+          } else {
+            return const Center();
+          }
+        },
+      );
+    });
   }
 }

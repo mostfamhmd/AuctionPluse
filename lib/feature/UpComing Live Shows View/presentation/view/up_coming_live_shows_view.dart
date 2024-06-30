@@ -9,7 +9,7 @@ class UpComingLiveShowsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarUpComingLiveShows(context),
+      appBar: appBarUpComingLiveShows(context, true),
       body: const BodyUpComingLiveShows(),
     );
   }

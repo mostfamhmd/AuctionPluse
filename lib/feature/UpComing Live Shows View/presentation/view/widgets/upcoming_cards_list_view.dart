@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/core/widgets/Components/shimmer_loading.dart';
-import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/all_rooms_models.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/room.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/services/get_user_service.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/presentation/view/widgets/card_data_room_container.dart';
 
@@ -13,14 +13,14 @@ class UpcomingCardsListView extends StatelessWidget {
     super.key,
     required this.rooms,
   });
-  final AllRoomsModel rooms;
+  final List<Room> rooms;
   @override
   Widget build(BuildContext context) {
     return SliverList.builder(
-      itemCount: rooms.rooms!.length,
+      itemCount: rooms.length,
       itemBuilder: (context, index) {
         final Stream getUserData =
-            GetUserService().getUser(userID: rooms.rooms![index].ownerId!.id!);
+            GetUserService().getUser(userID: rooms[index].ownerId!.id!);
         return StreamBuilder(
           stream: getUserData,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -29,14 +29,14 @@ class UpcomingCardsListView extends StatelessWidget {
             } else if (snapshot.hasData) {
               try {
                 return CardDataRoomContainer(
-                  room: rooms.rooms![index],
-                  hostsID: rooms.rooms![index].hostIds!,
+                  room: rooms[index],
+                  hostsID: rooms[index].hostIds!,
                   name: snapshot.data!.data!.name!,
-                  titleRoom: rooms.rooms![index].title!,
+                  titleRoom: rooms[index].title!,
                   timeStartingRoom: DateFormat('yyyy-MM-dd      HH:mm').format(
                       DateTime.fromMillisecondsSinceEpoch(
-                          rooms.rooms![index].eventDate!)),
-                  usersWaitingForRoom: rooms.rooms![index].userIds!,
+                          rooms[index].eventDate!)),
+                  usersWaitingForRoom: rooms[index].userIds!,
                 );
               } on DioException catch (e) {
                 ServerFailure serverFailure =

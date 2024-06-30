@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
 import 'package:smart_auction/core/helpers/dio_helper.dart';
 import 'package:smart_auction/core/models/product%20model/product_model.dart';
@@ -7,7 +8,7 @@ import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/data/models/all_users_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/data/models/new_event_model.dart';
 
-class CreateNewEventService {
+class EventServices {
   DioHelper dioHelper = DioHelper();
 
   Future<Either<ServerFailure, NewEventModel>> createNewEvent({
@@ -18,6 +19,7 @@ class CreateNewEventService {
     required int timeStamp,
     required String evenToken,
     String? rtmtoken,
+    bool? event,
   }) async {
     String token = await AppConsts.getData(AppConsts.kUserToken);
     String userId = await AppConsts.getData(AppConsts.kUserId);
@@ -32,7 +34,8 @@ class CreateNewEventService {
           "userIds": users.map((e) => e.sId).toList(),
           "productIds": products.map((e) => e.sId).toList(),
           "token": evenToken,
-          "RtmToken": rtmtoken,
+          if (rtmtoken != null) "RtmToken": rtmtoken,
+          if (event != null) "event": event
         },
         token: token,
       );
@@ -41,6 +44,43 @@ class CreateNewEventService {
     } on DioException catch (dioException) {
       return left(ServerFailure.fromDioException(dioException: dioException));
     } catch (error) {
+      return left(ServerFailure(errMessage: error.toString()));
+    }
+  }
+
+  Future<Either<ServerFailure, dynamic>> updateEvent({
+    bool? allowedChat,
+    required String eventId,
+    String? address,
+    List<AllUsers>? users,
+    List<ProductInfo>? products,
+    int? timeStamp,
+    String? rtmtoken,
+  }) async {
+    String token = await AppConsts.getData(AppConsts.kUserToken);
+    try {
+      Map<String, dynamic> data = await dioHelper.putRequest(
+        endPoint: "rooms/$eventId",
+        body: {
+          if (timeStamp != null) "eventDate": timeStamp,
+          if (allowedChat != null) "allowchat": allowedChat,
+          if (rtmtoken != null) "eventDate": timeStamp.toString(),
+          if (address != null) "title": address,
+          if (users != null) "userIds": users.map((e) => e.sId).toList(),
+          if (products != null)
+            "productIds": products.map((e) => e.sId).toList(),
+          if (rtmtoken != null) "RtmToken": rtmtoken,
+        },
+        token: token,
+      );
+      if (kDebugMode) {
+        print("Successfully Updated");
+      }
+      return right(data);
+    } on DioException catch (dioException) {
+      return left(ServerFailure.fromDioException(dioException: dioException));
+    } catch (error) {
+      print(error.toString());
       return left(ServerFailure(errMessage: error.toString()));
     }
   }

@@ -19,7 +19,7 @@ class BodyViewProduct extends StatelessWidget {
       required this.productPrice,
       required this.percentageOver,
       required this.rating,
-      required this.isDelete,
+      this.isDelete,
       this.onTap});
 
   final String imageUrl;
@@ -28,7 +28,7 @@ class BodyViewProduct extends StatelessWidget {
   final String productPrice;
   final String percentageOver;
   final dynamic rating;
-  final bool isDelete;
+  final bool? isDelete;
   final void Function()? onTap;
 
   @override

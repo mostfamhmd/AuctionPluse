@@ -1,48 +1,66 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'custom_tap_bar.dart';
-import 'view_tab_bar.dart';
+import 'package:smart_auction/core/errors/server_failure.dart';
+import 'package:smart_auction/core/widgets/Components/my_states.dart';
+import 'package:smart_auction/core/widgets/Components/shimmer_loading.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/room.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/services/all_rooms_service.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/presentation/view/widgets/upcoming_cards_list_view.dart';
 
 class BodyLiveAuctionOffersView extends StatelessWidget {
   const BodyLiveAuctionOffersView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<String> lists = ["Electronics", "Mobiles", "TVs", "Cars"];
-    ValueNotifier<int> curent = ValueNotifier(0);
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(
-            left: 10.w,
-          ),
-          height: 75.h,
-          width: double.infinity,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: lists.length,
-            itemBuilder: ((context, index) => CustomTapBar(
-                  onTap: () {
-                    curent.value = index;
-                  },
-                  curent: curent,
-                  index: index,
-                  title: lists[index],
-                )),
-          ),
-        ),
-        SizedBox(
-          height: 30.h,
-        ),
-        ValueListenableBuilder(
-          valueListenable: curent,
-          builder: (BuildContext context, value, Widget? child) => ViewTabBar(
-            title: lists[value],
-          ),
-        ),
-      ],
+    final Stream streamAllRooms = AllRoomsService().getRooms();
+
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+      child: StreamBuilder(
+        stream: streamAllRooms,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const ShimmerLoading();
+          } else if (snapshot.hasData) {
+            try {
+              List<Room> scheduleLive = [];
+              for (int i = 0; i < snapshot.data!.rooms!.length; i++) {
+                if (snapshot.data!.rooms![i].event! == true &&
+                    snapshot.data!.rooms![i].ended! == false) {
+                  scheduleLive.add(snapshot.data!.rooms![i]);
+                }
+              }
+              return CustomScrollView(
+                slivers: [
+                  UpcomingCardsListView(rooms: scheduleLive),
+                ],
+              );
+            } on DioException catch (e) {
+              ServerFailure serverFailure =
+                  ServerFailure.fromDioException(dioException: e);
+              return FailureState(error: serverFailure.errMessage);
+            } catch (e) {
+              ServerFailure serverFailure =
+                  ServerFailure(errMessage: e.toString());
+              return FailureState(error: serverFailure.errMessage);
+            }
+          } else if (snapshot.hasError) {
+            if (snapshot.error is DioException) {
+              ServerFailure serverFailure = ServerFailure.fromDioException(
+                  dioException: snapshot.error as DioException);
+              return FailureState(error: serverFailure.errMessage);
+            } else {
+              ServerFailure serverFailure =
+                  ServerFailure(errMessage: snapshot.error.toString());
+              return FailureState(error: serverFailure.errMessage);
+            }
+          } else {
+            return const Center();
+          }
+        },
+      ),
     );
   }
 }

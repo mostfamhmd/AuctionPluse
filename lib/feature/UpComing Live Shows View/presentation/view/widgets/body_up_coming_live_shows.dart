@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/errors/server_failure.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/core/widgets/Components/shimmer_loading.dart';
+import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/room.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/services/all_rooms_service.dart';
 
 import 'upcoming_cards_list_view.dart';
@@ -24,9 +25,16 @@ class BodyUpComingLiveShows extends StatelessWidget {
             return const ShimmerLoading();
           } else if (snapshot.hasData) {
             try {
+              List<Room> scheduleLive = [];
+              for (int i = 0; i < snapshot.data!.rooms!.length; i++) {
+                if (snapshot.data!.rooms![i].event! == false &&
+                    snapshot.data!.rooms![i].ended! == false) {
+                  scheduleLive.add(snapshot.data!.rooms![i]);
+                }
+              }
               return CustomScrollView(
                 slivers: [
-                  UpcomingCardsListView(rooms: snapshot.data!),
+                  UpcomingCardsListView(rooms: scheduleLive),
                 ],
               );
             } on DioException catch (e) {
