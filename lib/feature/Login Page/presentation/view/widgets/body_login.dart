@@ -47,6 +47,7 @@ class _BodyLoginState extends State<BodyLogin> {
               .setData(AppConsts.kUserName, state.loginData.data!.name!);
           CacheHelper()
               .setData(AppConsts.kUserRole, state.loginData.data!.role!);
+          CacheHelper().setData(AppConsts.kUserOnBording, "true");
           CacheHelper().setListData(
               AppConsts.kUserWhichlist, state.loginData.data!.wishlist ?? []);
         }

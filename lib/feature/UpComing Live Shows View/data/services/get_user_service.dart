@@ -6,26 +6,23 @@ class GetUserService {
   Dio dioHelper = Dio();
 
   Stream getUser({required String userID}) async* {
-    while (true) {
-      try {
-        String token = await AppConsts.getData(AppConsts.kUserToken);
-        Map<String, dynamic>? headers = {'Authorization': 'Bearer $token'};
-        final response = await dioHelper.get(
-          "${AppConsts.kBaseurl}users/$userID",
-          options: Options(
-            headers: headers,
-          ),
-        );
-        if (response.statusCode == 200) {
-          UserDataModel allRoomsModel = UserDataModel.fromJson(response.data);
-          yield allRoomsModel;
-        }
-      } on DioException catch (error) {
-        yield error.message;
-      } catch (e) {
-        throw e.toString();
+    try {
+      String token = await AppConsts.getData(AppConsts.kUserToken);
+      Map<String, dynamic>? headers = {'Authorization': 'Bearer $token'};
+      final response = await dioHelper.get(
+        "${AppConsts.kBaseurl}users/$userID",
+        options: Options(
+          headers: headers,
+        ),
+      );
+      if (response.statusCode == 200) {
+        UserDataModel allRoomsModel = UserDataModel.fromJson(response.data);
+        yield allRoomsModel;
       }
-      await Future.delayed(const Duration(seconds: 30));
+    } on DioException catch (error) {
+      yield error.message;
+    } catch (e) {
+      yield e.toString();
     }
   }
 }

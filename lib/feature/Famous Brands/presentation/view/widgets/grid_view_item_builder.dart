@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
 
 import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/styles.dart';
 
-class GridViewItemsBuilder extends StatelessWidget {
+class GridViewItemsBuilder extends StatefulWidget {
   const GridViewItemsBuilder(
       {super.key,
       required this.rank,
@@ -23,6 +24,26 @@ class GridViewItemsBuilder extends StatelessWidget {
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
   final String role;
+
+  @override
+  State<GridViewItemsBuilder> createState() => _GridViewItemsBuilderState();
+}
+
+class _GridViewItemsBuilderState extends State<GridViewItemsBuilder> {
+  String userRole = "";
+
+  Future<String> getUserRole() async {
+    userRole = await AppConsts.getData(AppConsts.kUserRole);
+    setState(() {});
+    return userRole;
+  }
+
+  @override
+  void initState() {
+    getUserRole();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +54,7 @@ class GridViewItemsBuilder extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                rank.toString(),
+                widget.rank.toString(),
                 style: AppStyles.kPoppins700.copyWith(
                   fontSize: 20.sp,
                   color: AppColors.kBlack,
@@ -43,7 +64,7 @@ class GridViewItemsBuilder extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(top: 5.h),
                   child: ImageComponent(
-                      urlImage: brand.image!,
+                      urlImage: widget.brand.image!,
                       height: 65.h,
                       width: 65.w,
                       radius: 5.r)),
@@ -55,19 +76,20 @@ class GridViewItemsBuilder extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        brand.name!,
+                        widget.brand.name!,
+                        overflow: TextOverflow.ellipsis,
                         style: AppStyles.kPoppins700.copyWith(
                           fontSize: 14.sp,
                           color: AppColors.kBlack,
                         ),
                       ),
                       SizedBox(height: 20.h),
-                      role == "user"
+                      userRole == "admin"
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: onPressedEdit,
+                                  onTap: widget.onPressedEdit,
                                   child: Icon(
                                     Icons.edit,
                                     size: 20.sp,
@@ -78,7 +100,7 @@ class GridViewItemsBuilder extends StatelessWidget {
                                   width: 20.w,
                                 ),
                                 InkWell(
-                                  onTap: onPressedDelete,
+                                  onTap: widget.onPressedDelete,
                                   child: Icon(
                                     Icons.delete,
                                     size: 20.sp,

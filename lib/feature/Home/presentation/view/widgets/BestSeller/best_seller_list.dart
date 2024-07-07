@@ -29,7 +29,7 @@ class BestSellerList extends StatelessWidget {
             index: index,
             productName: "${products[index].name}",
             productOfferPrice:
-                "${products[index].price! - products[index].discountedPrice!}",
+                "${products[index].price!}", // - products[index].discountedPrice!
             productRealPrice: "${products[index].price}",
             productRating:
                 "${products[index].ratingsAverage?.toStringAsFixed(1)}",

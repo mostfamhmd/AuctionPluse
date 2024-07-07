@@ -13,15 +13,19 @@ class MyCustomField extends StatelessWidget {
     required this.hintText,
     this.maxLines = 1,
     this.keyboardType,
+    this.readOnly,
   });
   final TextEditingController myController;
   final TextAlign textAlign;
   final String hintText;
   int? maxLines;
   final TextInputType? keyboardType;
+  final bool? readOnly;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly ?? false,
       maxLines: maxLines,
       controller: myController,
       textAlign: textAlign,

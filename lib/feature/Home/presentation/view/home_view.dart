@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/AppBar/home_app_bar.dart';
 import 'package:smart_auction/core/widgets/Drawer/my_drawer.dart';
 import 'package:smart_auction/feature/Account%20Page/presentation/view/widgets/app_bar_account_page.dart';
@@ -24,13 +25,30 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  String userRole = '';
+
+  Future<String> getUserRole() async {
+    userRole = await AppConsts.getData(AppConsts.kUserRole);
+    setState(() {});
+
+    return userRole;
+  }
+
+  @override
+  void initState() {
+    getUserRole();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> body = const [
-      HomeBody(),
-      BodyCartPage(),
-      BodySuperFlashSalePage(),
-      BodyAccount(),
+    List<Widget> body = [
+      const HomeBody(),
+      const BodyCartPage(),
+      const BodySuperFlashSalePage(),
+      BodyAccount(
+        userRole: userRole,
+      ),
     ];
     List<PreferredSizeWidget> appBar = [
       homeAppBar(context),

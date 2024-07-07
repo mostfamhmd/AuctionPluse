@@ -5,11 +5,14 @@ import 'package:smart_auction/core/widgets/Components/my_big_btn.dart';
 import 'package:smart_auction/core/widgets/Components/my_custom_suffix_field.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/feature/Cart%20Page/data/model/get_products_cart_model.dart';
+import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Cart%20Product%20Cubit/get_cart_product_cubit.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Specific%20Coupon%20Cubit/get_specific_coupon_cubit.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/apply_btn.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/swipe_to_delete.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/view/widgets/total_price.dart';
-import 'package:smart_auction/feature/Payment%20Page/presentation/view/payment_page.dart';
+import 'package:smart_auction/feature/CheckOut%20Page/presentations/view/check_out_page.dart';
+import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
+import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_state.dart';
 
 class CubitBody extends StatefulWidget {
   const CubitBody({
@@ -50,6 +53,7 @@ class _CubitBodyState extends State<CubitBody> {
                     .toString();
             mySuccessSnackBar(context, "Applied Successfully");
             applyCoupon.value = true;
+            context.read<GetCartProductCubit>().getCartProduct();
           }
         } else if (state is GetSpecificCouponLoading) {
           myLoadingSnackBar(context, "Loading ...");
@@ -104,6 +108,8 @@ class _CubitBodyState extends State<CubitBody> {
                 valueListenable: totalPrice,
                 builder: (BuildContext context, value, Widget? child) =>
                     TotalPrice(
+                  totalPriceAfterDiscount:
+                      widget.getCartModel.data?.totalPriceAfterDiscount,
                   totalPrice: totalPrice.value,
                   cartNumbers: widget.getCartModel.numOfCartItems!,
                 ),
@@ -111,16 +117,29 @@ class _CubitBodyState extends State<CubitBody> {
               SizedBox(
                 height: 40.h,
               ),
-              MyBigBTN(
-                nameBTN: "Check Out",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PaymentPage(),
-                    ),
-                  );
+              BlocListener<AppCubit, AppStates>(
+                listener: (BuildContext context, AppStates state) {
+                  if (state is CheckOutLoading) {
+                    const CircularProgressIndicator();
+                  }
+                  if (state is CheckOutSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CheckOutPage(
+                          id: state.checkOutModel.session!.id!,
+                          cartId: widget.getCartModel.data!.sId!,
+                        ),
+                      ),
+                    );
+                  }
                 },
+                child: MyBigBTN(
+                  nameBTN: "Check Out",
+                  onTap: () async => context
+                      .read<AppCubit>()
+                      .checkOut(cartId: widget.getCartModel.data!.sId!),
+                ),
               ),
               SizedBox(
                 height: 30.h,

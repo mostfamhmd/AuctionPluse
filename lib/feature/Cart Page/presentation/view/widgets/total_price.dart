@@ -6,13 +6,17 @@ import 'custom_price.dart';
 
 class TotalPrice extends StatelessWidget {
   const TotalPrice(
-      {super.key, required this.totalPrice, required this.cartNumbers});
+      {super.key,
+      required this.totalPrice,
+      required this.cartNumbers,
+      this.totalPriceAfterDiscount});
   final String totalPrice;
+  final int? totalPriceAfterDiscount;
   final int cartNumbers;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170.h,
+      height: 100.h,
       width: MediaQuery.sizeOf(context).width,
       padding: EdgeInsets.symmetric(
         horizontal: 20.w,
@@ -34,18 +38,6 @@ class TotalPrice extends StatelessWidget {
             typePrice: "Items ($cartNumbers)",
           ),
           const Spacer(),
-          const CustomPrice(
-            isTotal: false,
-            price: r"$40.00",
-            typePrice: "Shipping",
-          ),
-          const Spacer(),
-          const CustomPrice(
-            isTotal: false,
-            price: r"$128.00",
-            typePrice: "Import charges",
-          ),
-          const Spacer(),
           Divider(
             indent: 0,
             endIndent: 0,
@@ -55,7 +47,10 @@ class TotalPrice extends StatelessWidget {
           const Spacer(),
           CustomPrice(
             isTotal: true,
-            price: r"$" + totalPrice,
+            price: r"$" +
+                (totalPriceAfterDiscount != null
+                    ? totalPriceAfterDiscount.toString()
+                    : totalPrice),
             typePrice: "Total Price",
           ),
         ],

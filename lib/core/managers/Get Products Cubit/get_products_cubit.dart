@@ -11,14 +11,13 @@ part 'get_products_state.dart';
 class GetProductsCubit extends Cubit<GetProductsState> {
   GetProductsCubit() : super(GetProductsInitial());
   Future<void> getAllProducts({
-    String? sort,
-    String? limit,
+    bool? isAuction = false,
   }) async {
     emit(
       GetProductsLoading(),
     );
     Either<ServerFailure, ProductsModel> result =
-        await ProductServices().getProduct();
+        await ProductServices().getProduct(isAuction: isAuction);
 
     result.fold(
       (serverFailureMessage) => emit(

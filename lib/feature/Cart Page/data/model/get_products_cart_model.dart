@@ -30,6 +30,7 @@ class CartData {
   String? updatedAt;
   int? iV;
   int? totalCartPrice;
+  int? totalPriceAfterDiscount;
 
   CartData(
       {this.sId,
@@ -38,6 +39,7 @@ class CartData {
       this.createdAt,
       this.updatedAt,
       this.iV,
+      this.totalPriceAfterDiscount,
       this.totalCartPrice});
 
   CartData.fromJson(Map<String, dynamic> json) {
@@ -53,6 +55,7 @@ class CartData {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     totalCartPrice = json['totalCartPrice'];
+    totalPriceAfterDiscount = json['totalPriceAfterDiscount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +69,7 @@ class CartData {
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;
     data['totalCartPrice'] = totalCartPrice;
+    data['totalPriceAfterDiscount'] = totalPriceAfterDiscount;
     return data;
   }
 }

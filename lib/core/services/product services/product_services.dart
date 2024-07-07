@@ -7,18 +7,18 @@ import 'package:smart_auction/core/utils/consts.dart';
 
 class ProductServices {
   DioHelper dioHelper = DioHelper();
-  Future<Either<ServerFailure, ProductsModel>> getProduct({
-    String? limit,
-    String? sort,
-  }) async {
+  Future<Either<ServerFailure, ProductsModel>> getProduct(
+      {String? limit, String? sort, bool? isAuction = false}) async {
     ProductsModel productsModel = ProductsModel();
     String token = await AppConsts.getData(AppConsts.kUserToken);
+    String userID = await AppConsts.getData(AppConsts.kUserId);
     try {
       Map<String, dynamic> data = await dioHelper.getRequest(
           endPoint: "products",
           queryParameters: {
             "limit": limit,
             "sort": sort,
+            if (isAuction == true) "ownerId": userID
           },
           token: token);
       productsModel = ProductsModel.fromJson(data);

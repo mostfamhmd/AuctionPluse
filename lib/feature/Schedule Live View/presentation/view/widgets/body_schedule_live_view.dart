@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/managers/Get%20Products%20Cubit/get_products_cubit.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
-import 'package:smart_auction/feature/Live%20Show%20View/data/models/wanted_event_model.dart';
+import 'package:smart_auction/feature/Waiting%20Room/data/models/wanted_event_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Get%20All%20Users%20Cubit/all_users_cubit.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Update%20Room%20Cubit/update_room_cubit.dart';
@@ -26,7 +26,7 @@ class _BodyScheduleLiveViewState extends State<BodyScheduleLiveView> {
   @override
   void initState() {
     context.read<AllUsersCubit>().getAllUsers();
-    context.read<GetProductsCubit>().getAllProducts();
+    context.read<GetProductsCubit>().getAllProducts(isAuction: true);
     super.initState();
   }
 

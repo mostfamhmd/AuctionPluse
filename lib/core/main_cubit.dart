@@ -10,6 +10,7 @@ import 'package:smart_auction/core/managers/SubCategories%20Cubits/Update%20SubC
 import 'package:smart_auction/core/managers/UpdateProductCubit/update_product_cubit.dart';
 import 'package:smart_auction/feature/Add%20Brand/presentation/manager/Add%20Brand%20Cubit/add_brand_cubit.dart';
 import 'package:smart_auction/feature/Add%20Product/Presentation/manager/AddProductCubit/add_product_cubit.dart';
+import 'package:smart_auction/feature/Agora%20Live%20Page/presentation/managers/Auction%20Cubit/create_auction_cubit.dart';
 import 'package:smart_auction/feature/Coupons%20Management/presentation/manager/Delete%20Coupon%20Cubit/delete_coupon_cubit.dart';
 import 'package:smart_auction/feature/Coupons%20Management/presentation/manager/Get%20All%20Coupons%20Cubit/get_all_coupons_cubit.dart';
 import 'package:smart_auction/feature/Cart%20Page/presentation/manager/Get%20Specific%20Coupon%20Cubit/get_specific_coupon_cubit.dart';
@@ -28,11 +29,13 @@ import 'package:smart_auction/feature/Details%20Product/presentation/manager/Sel
 import 'package:smart_auction/feature/Famous%20Brands/presentation/manager/Get%20Brands%20Cubit/get_brands_cubit.dart';
 import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/Delete%20Product%20WhichListCubit/delete_favorite_product_cubit.dart';
 import 'package:smart_auction/feature/Favorite%20Page/presentation/manager/WhichList%20Cubit/which_list_cubit.dart';
+import 'package:smart_auction/feature/Waiting%20Room/presentation/manager/RemoveHandCubit/remove_user_from_raised_hand_cubit.dart';
 import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Delete%20Specific%20Product%20Cubit/delete_specific_product_cubit.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Get%20Admin%20Products%20Cubit/get_admin_products_cubit.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/DeleteReviewCubit/delete_review_cubit.dart';
 import 'package:smart_auction/feature/Reviews%20Of%20Products/presentation/manager/EditReviewCubit/edit_review_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Update%20Room%20Cubit/update_room_cubit.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/manager/Fetch%20Sub%20Categories/fetch_sub_categories_cubit.dart';
 import 'package:smart_auction/feature/Write%20Comments/presentation/manager/Add%20Comment%20Cubit/add_comment_cubit.dart';
 
@@ -103,6 +106,12 @@ class MainCubit extends StatelessWidget {
           create: (context) => UpdateProductCartCubit(),
         ),
         BlocProvider(
+          create: (context) => RemoveUserFromRaisedHandCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UpdateRoomCubit(),
+        ),
+        BlocProvider(
           create: (context) => AddCategoryCubit(),
         ),
         BlocProvider(
@@ -155,6 +164,21 @@ class MainCubit extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GetSpecificBrandCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RemoveUserFromSpeakersCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RemoveLiveCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RemoveUserFromLiveCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CreateAuctionCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UpdateAuctionCubit(),
         ),
       ],
       child: child,

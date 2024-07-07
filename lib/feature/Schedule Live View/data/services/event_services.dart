@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -48,14 +50,18 @@ class EventServices {
     }
   }
 
-  Future<Either<ServerFailure, dynamic>> updateEvent({
+  Future<Either<ServerFailure, String>> updateEvent({
     bool? allowedChat,
     required String eventId,
     String? address,
     List<AllUsers>? users,
+    List<String>? usersID,
     List<ProductInfo>? products,
     int? timeStamp,
     String? rtmtoken,
+    bool? event,
+    String? idRaisedHand,
+    List<Map<String, String>>? idSpeaker,
   }) async {
     String token = await AppConsts.getData(AppConsts.kUserToken);
     try {
@@ -67,20 +73,26 @@ class EventServices {
           if (rtmtoken != null) "eventDate": timeStamp.toString(),
           if (address != null) "title": address,
           if (users != null) "userIds": users.map((e) => e.sId).toList(),
+          if (usersID != null) "userIds": usersID,
           if (products != null)
             "productIds": products.map((e) => e.sId).toList(),
           if (rtmtoken != null) "RtmToken": rtmtoken,
+          if (event != null) "event": event,
+          if (idRaisedHand != null) "raisedHands": {"_id": idRaisedHand},
+          if (idSpeaker != null) "speakerIds": idSpeaker
         },
         token: token,
       );
       if (kDebugMode) {
         print("Successfully Updated");
       }
-      return right(data);
+      return right("Successfully Updated");
     } on DioException catch (dioException) {
       return left(ServerFailure.fromDioException(dioException: dioException));
     } catch (error) {
-      print(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+      }
       return left(ServerFailure(errMessage: error.toString()));
     }
   }

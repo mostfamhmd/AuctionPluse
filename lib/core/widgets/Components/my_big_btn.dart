@@ -5,10 +5,16 @@ import '../../utils/colors.dart';
 import '../../utils/fonts.dart';
 
 class MyBigBTN extends StatelessWidget {
-  const MyBigBTN({super.key, this.onTap, required this.nameBTN});
+  const MyBigBTN({
+    super.key,
+    this.onTap,
+    required this.nameBTN,
+    this.color,
+  });
 
   final void Function()? onTap;
   final String nameBTN;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -16,7 +22,7 @@ class MyBigBTN extends StatelessWidget {
       child: Container(
         height: 60.h,
         width: MediaQuery.sizeOf(context).width,
-        color: AppColors.kLightBlue,
+        color: color ?? AppColors.kLightBlue,
         child: Center(
           child: Text(
             nameBTN,

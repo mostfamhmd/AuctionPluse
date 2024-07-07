@@ -87,15 +87,15 @@ class _AddBrandBodyState extends State<AddBrandBody> {
                           )
                         : InkWell(
                             onTap: () => showImagePickerOption(context),
-                            child: widget.brand!.image != null
-                                ? ImageComponent(
+                            child: widget.brand?.image == null
+                                ? SvgPicture.asset(
+                                    AppImages.kDefualt,
+                                  )
+                                : ImageComponent(
                                     urlImage: widget.brand!.image!,
                                     height: 150.h,
                                     width: 150.w,
                                     radius: 0,
-                                  )
-                                : SvgPicture.asset(
-                                    AppImages.kDefualt,
                                   ),
                           ),
               ),

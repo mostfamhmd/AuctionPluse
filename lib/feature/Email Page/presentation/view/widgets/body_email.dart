@@ -4,14 +4,21 @@ import 'package:smart_auction/core/utils/fonts.dart';
 import 'package:smart_auction/core/widgets/Components/custom_text_form_field.dart';
 import 'package:smart_auction/core/widgets/Components/custom_title.dart';
 import 'package:smart_auction/core/widgets/Components/elevated_button.dart';
+import 'package:smart_auction/feature/Login%20Page/data/login_model.dart';
+import 'package:smart_auction/feature/Login%20Page/presentation/manager/cubit/app_cubit_cubit.dart';
 
 class BodyEmail extends StatelessWidget {
   const BodyEmail({
     super.key,
+    required this.userData,
   });
+
+  final LoginData userData;
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController email = TextEditingController();
+
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -30,6 +37,8 @@ class BodyEmail extends StatelessWidget {
               customTextFormField(
                 keyboardType: TextInputType.emailAddress,
                 prefixIcon: Icons.email_outlined,
+                lableText: userData.data?.email,
+                controller: email,
               ),
 
               SizedBox(height: size.height * 0.01),
@@ -52,7 +61,14 @@ class BodyEmail extends StatelessWidget {
                 child: customElevatedButton(
                   context,
                   title: 'Change email',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (email.text.isNotEmpty) {
+                      AppCubit.get(context).updateEmail(
+                        context,
+                        email.text.trim(),
+                      );
+                    }
+                  },
                 ),
               ),
             ],

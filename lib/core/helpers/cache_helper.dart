@@ -13,6 +13,11 @@ class CacheHelper {
     await prefs.setStringList(key, value);
   }
 
+  Future<void> removeValue(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
+  }
+
   static dynamic getData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.get(key);

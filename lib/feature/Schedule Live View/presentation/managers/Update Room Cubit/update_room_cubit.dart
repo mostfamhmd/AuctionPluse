@@ -18,9 +18,13 @@ class UpdateRoomCubit extends Cubit<UpdateRoomState> {
     int? timeStamp,
     String? rtmtoken,
     bool? allowedChat,
+    bool? event,
+    String? idRaisedHand,
+    List<Map<String, String>>? idSpeaker,
+    List<String>? usersID,
   }) async {
     emit(UpdateRoomLoading());
-    Either<ServerFailure, dynamic> result = await EventServices().updateEvent(
+    Either<ServerFailure, String> result = await EventServices().updateEvent(
       eventId: roomId,
       address: address,
       products: products,
@@ -28,6 +32,10 @@ class UpdateRoomCubit extends Cubit<UpdateRoomState> {
       users: users,
       allowedChat: allowedChat,
       rtmtoken: rtmtoken,
+      event: event,
+      idRaisedHand: idRaisedHand,
+      usersID: usersID,
+      idSpeaker: idSpeaker,
     );
     result.fold(
       (serverFailure) => emit(

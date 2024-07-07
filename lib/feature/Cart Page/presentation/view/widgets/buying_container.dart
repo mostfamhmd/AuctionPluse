@@ -52,14 +52,13 @@ class _BuyingContainerState extends State<BuyingContainer> {
       listener: (context, state) {
         if (state is UpdateProductCartSuccess) {
           Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                  pageBuilder: (BuildContext context,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation) =>
-                      HomeView(
-                        currentIndex: 1,
-                      )));
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => HomeView(
+                currentIndex: 1,
+              ),
+            ),
+          );
         } else if (state is UpdateProductCartError) {
           myErrorSnackBar(context, state.errorMessage);
         }
@@ -83,10 +82,11 @@ class _BuyingContainerState extends State<BuyingContainer> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ImageComponent(
-                urlImage: widget.productInfo.imageCover!,
-                height: 100.h,
-                width: 70.w,
-                radius: 0),
+              urlImage: widget.productInfo.imageCover!,
+              height: 100.h,
+              width: 70.w,
+              radius: 0,
+            ),
             SizedBox(
               width: 20.w,
             ),
@@ -109,10 +109,13 @@ class _BuyingContainerState extends State<BuyingContainer> {
                 const Spacer(
                   flex: 2,
                 ),
+
+                // ===================================================
+                // ---------------------------------------------------
                 Text(
                   r"$" +
-                      (widget.productInfo.price! -
-                              widget.productInfo.discountedPrice!)
+                      (widget.productInfo
+                              .price!) // - widget.productInfo.discountedPrice!
                           .toString(),
                   style: TextStyle(
                     color: AppColors.kBlue,
@@ -120,6 +123,8 @@ class _BuyingContainerState extends State<BuyingContainer> {
                     fontSize: 12.sp,
                   ),
                 ),
+                // ---------------------------------------------------
+                // ===================================================
               ],
             ),
             const Spacer(
@@ -141,13 +146,15 @@ class _BuyingContainerState extends State<BuyingContainer> {
                   ),
                   InkWell(
                     onTap: () {
-                      if (counter.value == 1) {
-                      } else {
+                      if (counter.value > 1) {
                         context
                             .read<UpdateProductCartCubit>()
                             .updateProductCart(
-                                productCartId: widget.cartItem!.sId!,
-                                quantity: counter.value - 1);
+                              productCartId: widget.cartItem!.sId!,
+                              quantity: counter.value - 1,
+                            );
+                      } else {
+                        myErrorSnackBar(context, 'Value cannot be less than 1');
                       }
                     },
                     child: const PlusMinusBTN(
@@ -181,7 +188,7 @@ class _BuyingContainerState extends State<BuyingContainer> {
                                 productCartId: widget.cartItem!.sId!,
                                 quantity: counter.value + 1);
                       } else {
-                        myLoadingSnackBar(context,
+                        myErrorSnackBar(context,
                             "There is no more than ${widget.productInfo.quantity!} of this product");
                       }
                     },

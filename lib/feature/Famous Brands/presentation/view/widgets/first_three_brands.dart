@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
 import 'package:smart_auction/feature/Famous%20Brands/presentation/view/widgets/position_card_number.dart';
@@ -8,7 +9,7 @@ import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/Components/edit_and_delete.dart';
 
-class FirstThreeBrands extends StatelessWidget {
+class FirstThreeBrands extends StatefulWidget {
   const FirstThreeBrands({
     super.key,
     required this.rankColor,
@@ -27,6 +28,25 @@ class FirstThreeBrands extends StatelessWidget {
   final String role;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
+
+  @override
+  State<FirstThreeBrands> createState() => _FirstThreeBrandsState();
+}
+
+class _FirstThreeBrandsState extends State<FirstThreeBrands> {
+  @override
+  void initState() {
+    getUserRole();
+    super.initState();
+  }
+
+  String userRole = "";
+
+  Future<String> getUserRole() async {
+    userRole = await AppConsts.getData(AppConsts.kUserRole);
+    setState(() {});
+    return userRole;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +76,7 @@ class FirstThreeBrands extends StatelessWidget {
           ),
           child: Row(children: [
             ImageComponent(
-              urlImage: brand.image!,
+              urlImage: widget.brand.image!,
               height: 100.h,
               width: 100.w,
               radius: 10.r,
@@ -69,7 +89,7 @@ class FirstThreeBrands extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    brand.name!,
+                    widget.brand.name!,
                     style: AppStyles.kPoppins700
                         .copyWith(fontSize: 18.sp, color: AppColors.kBlack),
                   ),
@@ -79,15 +99,18 @@ class FirstThreeBrands extends StatelessWidget {
                 ],
               ),
             ),
-            role == "user"
+            userRole == "admin"
                 ? EditAndDelete(
-                    onPressedEdit: onPressedEdit,
-                    onPressedDelete: onPressedDelete,
+                    onPressedEdit: widget.onPressedEdit,
+                    onPressedDelete: widget.onPressedDelete,
                   )
                 : const Center()
           ]),
         ),
-        PositionCardRank(color: rankColor, rankNum: rankNum, top: topCard),
+        PositionCardRank(
+            color: widget.rankColor,
+            rankNum: widget.rankNum,
+            top: widget.topCard),
       ],
     );
   }

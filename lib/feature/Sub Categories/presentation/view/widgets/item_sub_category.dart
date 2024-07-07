@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_auction/core/globals/glopals.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/utils/styles.dart';
 import 'package:smart_auction/core/widgets/Components/edit_and_delete.dart';
 import 'package:smart_auction/feature/Specific%20Products/presentation/view/specific_products_view.dart';
@@ -26,7 +26,16 @@ class ItemSubCategory extends StatefulWidget {
 class _ItemSubCategoryState extends State<ItemSubCategory> {
   @override
   void initState() {
+    getUserRole();
     super.initState();
+  }
+
+  String userRole = "";
+
+  Future<String> getUserRole() async {
+    userRole = await AppConsts.getData(AppConsts.kUserRole);
+    setState(() {});
+    return userRole;
   }
 
   @override
@@ -51,7 +60,7 @@ class _ItemSubCategoryState extends State<ItemSubCategory> {
             style: AppStyles.kInter700.copyWith(fontSize: 16.sp),
           ),
           const Spacer(),
-          role == "user"
+          userRole == "admin"
               ? EditAndDelete(
                   onPressedEdit: widget.onPressedEdit,
                   onPressedDelete: widget.onPressedDelete)

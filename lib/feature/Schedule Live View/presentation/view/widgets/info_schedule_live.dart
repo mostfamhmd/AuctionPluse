@@ -12,7 +12,7 @@ import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
 import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/core/widgets/Components/sentances_of_streaming_now.dart';
 import 'package:smart_auction/core/widgets/Components/text_chat.dart';
-import 'package:smart_auction/feature/Live%20Show%20View/data/models/wanted_event_model.dart';
+import 'package:smart_auction/feature/Waiting%20Room/data/models/wanted_event_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/data/models/all_users_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Generate%20Agora%20RTM%20Tokens%20Cubit/generate_agora_token_cubit.dart';

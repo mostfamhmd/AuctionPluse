@@ -32,7 +32,13 @@ class _BodyCartPageState extends State<BodyCartPage> {
             getCartModel: state.getCartModel,
           );
         } else if (state is GetCartProductFailure) {
-          return FailureState(error: state.serverFailure);
+          if (state.serverFailure
+              .contains("There is no cart for this user id : ")) {
+            return const FailureState(
+                error: "You do not have products in your cart");
+          } else {
+            return FailureState(error: state.serverFailure);
+          }
         } else {
           return const FailureState(error: "Nothing to show");
         }

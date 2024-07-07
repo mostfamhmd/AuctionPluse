@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_auction/core/utils/consts.dart';
 import 'package:smart_auction/core/widgets/Components/edit_and_delete.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Sub%20Categories/presentation/view/sub_category_page.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../data/Model/category_model.dart';
 
-class CategoryItem extends StatelessWidget {
+class CategoryItem extends StatefulWidget {
   const CategoryItem({
     super.key,
     required this.category,
@@ -18,6 +19,26 @@ class CategoryItem extends StatelessWidget {
   final String role;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
+
+  @override
+  State<CategoryItem> createState() => _CategoryItemState();
+}
+
+class _CategoryItemState extends State<CategoryItem> {
+  String userRole = "";
+
+  Future<String> getUserRole() async {
+    userRole = await AppConsts.getData(AppConsts.kUserRole);
+    setState(() {});
+    return userRole;
+  }
+
+  @override
+  void initState() {
+    getUserRole();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -26,8 +47,8 @@ class CategoryItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => SubCategoryPage(
-              categoryName: category.name!,
-              categoryId: category.sId!,
+              categoryName: widget.category.name!,
+              categoryId: widget.category.sId!,
             ),
           ),
         );
@@ -38,7 +59,7 @@ class CategoryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ImageComponent(
-                urlImage: category.image!,
+                urlImage: widget.category.image!,
                 height: 70.h,
                 width: 70.w,
                 radius: 5.r),
@@ -46,14 +67,14 @@ class CategoryItem extends StatelessWidget {
               width: 50.w,
             ),
             Text(
-              category.name!,
+              widget.category.name!,
               style: AppStyles.kInter700.copyWith(fontSize: 16.sp),
             ),
             const Spacer(),
-            role == "user"
+            userRole == "admin"
                 ? EditAndDelete(
-                    onPressedEdit: onPressedEdit,
-                    onPressedDelete: onPressedDelete)
+                    onPressedEdit: widget.onPressedEdit,
+                    onPressedDelete: widget.onPressedDelete)
                 : const Center(),
           ],
         ),

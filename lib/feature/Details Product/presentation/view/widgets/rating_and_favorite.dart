@@ -13,12 +13,12 @@ class RatingAndFavorite extends StatefulWidget {
     super.key,
     required this.rating,
     required this.productId,
-    required this.isFavorite,
+    this.isFavorite,
   });
 
   final num? rating;
   final String productId;
-  final ValueNotifier<bool> isFavorite;
+  final ValueNotifier<bool>? isFavorite;
 
   @override
   State<RatingAndFavorite> createState() => _RatingAndFavoriteState();
@@ -27,60 +27,69 @@ class RatingAndFavorite extends StatefulWidget {
 class _RatingAndFavoriteState extends State<RatingAndFavorite> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<IsFavoriteCubit, IsFavoriteState>(
-      listener: (context, state) {
-        if (state is IsFavoriteSuccess) {
-          widget.isFavorite.value = true;
-        } else if (state is IsFavoriteFailure) {
-          myErrorSnackBar(context, state.serverFailure);
-        }
-      },
-      child:
-          BlocListener<DeleteFavoriteProductCubit, DeleteFavoriteProductState>(
-        listener: (context, state) {
-          if (state is DeleteProductWhichListSuccess) {
-            widget.isFavorite.value = false;
-          } else if (state is DeleteProductWhichListError) {
-            myErrorSnackBar(context, state.error);
-          }
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            RatingWidget(
-              rating: widget.rating ?? 0,
+    return widget.isFavorite?.value == null
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RatingWidget(
+                rating: widget.rating ?? 0,
+              ),
+            ],
+          )
+        : BlocListener<IsFavoriteCubit, IsFavoriteState>(
+            listener: (context, state) {
+              if (state is IsFavoriteSuccess) {
+                widget.isFavorite!.value = true;
+              } else if (state is IsFavoriteFailure) {
+                myErrorSnackBar(context, state.serverFailure);
+              }
+            },
+            child: BlocListener<DeleteFavoriteProductCubit,
+                DeleteFavoriteProductState>(
+              listener: (context, state) {
+                if (state is DeleteProductWhichListSuccess) {
+                  widget.isFavorite!.value = false;
+                } else if (state is DeleteProductWhichListError) {
+                  myErrorSnackBar(context, state.error);
+                }
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RatingWidget(
+                    rating: widget.rating ?? 0,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: widget.isFavorite!,
+                    builder: (BuildContext context, value, Widget? child) =>
+                        value == false
+                            ? GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<IsFavoriteCubit>()
+                                      .addProduct(productId: widget.productId);
+                                },
+                                child: const Icon(
+                                  Icons.favorite,
+                                  color: AppColors.kGray,
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<DeleteFavoriteProductCubit>()
+                                      .deleteProductWhichList(
+                                          productId: widget.productId);
+                                },
+                                child: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                ),
+                              ),
+                  ),
+                ],
+              ),
             ),
-            ValueListenableBuilder(
-              valueListenable: widget.isFavorite,
-              builder: (BuildContext context, value, Widget? child) =>
-                  value == false
-                      ? GestureDetector(
-                          onTap: () {
-                            context
-                                .read<IsFavoriteCubit>()
-                                .addProduct(productId: widget.productId);
-                          },
-                          child: const Icon(
-                            Icons.favorite,
-                            color: AppColors.kGray,
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            context
-                                .read<DeleteFavoriteProductCubit>()
-                                .deleteProductWhichList(
-                                    productId: widget.productId);
-                          },
-                          child: const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          ),
-                        ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

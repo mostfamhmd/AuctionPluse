@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/utils/consts.dart';
-import 'package:smart_auction/feature/Live%20Show%20View/presentation/view/live_show_view.dart';
+import 'package:smart_auction/feature/Waiting%20Room/presentation/view/waiting_room_page.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/host_id.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/room.dart';
 import 'package:smart_auction/feature/UpComing%20Live%20Shows%20View/data/models/all_rooms_models/user_id.dart';
@@ -97,7 +97,7 @@ class _CardDataRoomContainerState extends State<CardDataRoomContainer> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LiveShowView(
+                    builder: (context) => WaitingRoomPage(
                       isBroad: isBroad!,
                       room: widget.room,
                       userID: userID!,

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_auction/core/models/product%20model/product_model.dart';
 import 'package:smart_auction/core/widgets/Components/manage_order_or_product.dart';
 import 'package:smart_auction/core/widgets/Components/my_snack_bar.dart';
-import 'package:smart_auction/feature/Add%20Product/Presentation/view/add_product_view.dart';
 import 'package:smart_auction/feature/Famous%20Brands/data/model/get_brands_model.dart';
 import 'package:smart_auction/feature/Product%20Mangement/presentation/manager/Delete%20Specific%20Product%20Cubit/delete_specific_product_cubit.dart';
 import 'package:smart_auction/feature/Product%20mangement/presentation/view/product_mangement_view.dart';
 import 'package:smart_auction/feature/Sub%20Categories/data/model/sub_category_model.dart';
+import 'package:smart_auction/feature/Update%20Product/presentation/view/update_product_view.dart';
 
 class ListOfOrdersOrProducts extends StatefulWidget {
   const ListOfOrdersOrProducts(
@@ -94,11 +94,24 @@ class _ListOfOrdersOrProductsState extends State<ListOfOrdersOrProducts> {
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        AddProductsView(
-                      productInfo: widget.adminProduct![index],
-                    ),
-                  ),
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          UpdateProductsView(
+                            productId: widget.adminProduct![index].id!,
+                            productName: TextEditingController(
+                                text: widget.adminProduct![index].name),
+                            productDescription: TextEditingController(
+                                text: widget.adminProduct![index].description),
+                            productPriceBeforeDiscount: TextEditingController(
+                                text: widget
+                                    .adminProduct![index].discountedPrice
+                                    .toString()),
+                            productPrice: TextEditingController(
+                                text: widget.adminProduct![index].price
+                                    .toString()),
+                            productQuantaty: TextEditingController(
+                                text: widget.adminProduct![index].quantity
+                                    .toString()),
+                          )),
                 );
               },
               onPressedRemove: () {

@@ -12,9 +12,11 @@ import 'package:smart_auction/core/widgets/Components/my_states.dart';
 import 'package:smart_auction/core/widgets/Components/selected_name_product_container.dart';
 import 'package:smart_auction/core/widgets/Components/sentances_of_streaming_now.dart';
 import 'package:smart_auction/core/widgets/Components/text_chat.dart';
+import 'package:smart_auction/feature/Waiting%20Room/data/models/wanted_event_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/data/models/all_users_model.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Create%20Room%20Cubit/create_room_cubit.dart';
 import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Generate%20Agora%20RTM%20Tokens%20Cubit/generate_agora_token_cubit.dart';
+import 'package:smart_auction/feature/Schedule%20Live%20View/presentation/managers/Update%20Room%20Cubit/update_room_cubit.dart';
 import 'package:smart_auction/feature/Streaming%20Now%20View/presentation/view/widgets/tag_users_products.dart';
 
 class InfoLiveStream extends StatefulWidget {
@@ -22,9 +24,11 @@ class InfoLiveStream extends StatefulWidget {
     super.key,
     required this.allProducts,
     required this.allUsers,
+    this.liveModel,
   });
   final List<ProductInfo> allProducts;
   final List<AllUsers> allUsers;
+  final WantedEventModel? liveModel;
   @override
   State<InfoLiveStream> createState() => _InfoLiveStreamState();
 }
@@ -36,10 +40,60 @@ class _InfoLiveStreamState extends State<InfoLiveStream> {
   TextEditingController contTime = TextEditingController();
   ValueNotifier<bool> allowedChat = ValueNotifier(false);
   List<AllUsers> users = [];
+  List<AllUsers> allUsers = [];
   List<ProductInfo> products = [];
+  List<ProductInfo> allProducts = [];
   int? timestamp;
   String rtmtoken = "";
   String? evenToken;
+  @override
+  void initState() {
+    if (widget.liveModel != null) {
+      //old title
+      contAddress.text = widget.liveModel!.title!;
+      //for loop to check existed users
+      for (int i = 0; i < widget.liveModel!.userIds!.length; i++) {
+        for (int j = 0; j < widget.allUsers.length; j++) {
+          if (widget.liveModel!.userIds![i].sId == widget.allUsers[j].sId) {
+            users.add(widget.allUsers[j]);
+          } else {
+            allUsers.add(widget.allUsers[j]);
+          }
+        }
+      }
+      contProducts.text = widget.liveModel!.productIds![0].name!;
+      //for loop to check existed products
+      for (int i = 0; i < widget.allProducts.length; i++) {
+        if (widget.allProducts[i].name ==
+                widget.liveModel!.productIds![0].name &&
+            products.isEmpty) {
+          products.add(widget.allProducts[i]);
+        } else {
+          allProducts.add(widget.allProducts[i]);
+        }
+      }
+      //old bool for chating or not in room
+      allowedChat.value = widget.liveModel!.allowchat!;
+    }
+    //do clearing for new list for users and use one list
+    if (allUsers.isNotEmpty) {
+      widget.allUsers.clear();
+      for (int i = 0; i < allUsers.length; i++) {
+        widget.allUsers.add(allUsers[i]);
+      }
+      allUsers.clear();
+    }
+    //do clearing for new list for products and use one list
+    if (allProducts.isNotEmpty) {
+      widget.allProducts.clear();
+      for (int i = 0; i < allProducts.length; i++) {
+        widget.allProducts.add(allProducts[i]);
+      }
+      allProducts.clear();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<GenerateAgoraTokenCubit, GenerateAgoraTokenState>(
@@ -54,6 +108,7 @@ class _InfoLiveStreamState extends State<InfoLiveStream> {
                   users: users,
                   products: products,
                   timeStamp: timestamp!,
+                  event: true,
                 );
           }
           setState(() {});
@@ -66,18 +121,25 @@ class _InfoLiveStreamState extends State<InfoLiveStream> {
       child: BlocListener<GenerateRTMTokenCubit, GenerateRTMTokenState>(
         listener: (context, rtmToken) {
           if (rtmToken is GenerateRTMTokenSuccess) {
-            if (evenToken != null && evenToken != "") {
-              context.read<CreateRoomCubit>().createRoom(
-                    evenToken: evenToken!,
-                    allowedChat: allowedChat.value,
-                    address: contAddress.text,
-                    users: users,
-                    products: products,
-                    timeStamp: DateTime.now().microsecondsSinceEpoch,
-                    rtmtoken: rtmToken.generatedToken.token!,
-                    event: true,
-                  );
-            }
+            evenToken != null && evenToken != ""
+                ? context.read<CreateRoomCubit>().createRoom(
+                      evenToken: evenToken!,
+                      allowedChat: allowedChat.value,
+                      address: contAddress.text,
+                      users: users,
+                      products: products,
+                      timeStamp: DateTime.now().microsecondsSinceEpoch,
+                      rtmtoken: rtmToken.generatedToken.token!,
+                      event: true,
+                    )
+                : context.read<UpdateRoomCubit>().updateRoom(
+                      roomId: widget.liveModel!.sId!,
+                      allowedChat: allowedChat.value,
+                      address: contAddress.text,
+                      users: users,
+                      products: products,
+                      event: true,
+                    );
           } else if (rtmToken is GenerateRTMTokenError) {
             myErrorSnackBar(context, rtmToken.errorMessage);
           } else if (rtmToken is GenerateRTMTokenLoading) {
@@ -210,18 +272,37 @@ class _InfoLiveStreamState extends State<InfoLiveStream> {
                   child: MySmallBTN(
                     nameButton: 'Live Broadcast',
                     onTap: () {
-                      if (users.isEmpty ||
-                          products.isEmpty ||
-                          contAddress.text.isEmpty) {
-                        myErrorSnackBar(context, "all Data required to send");
-                      } else {
-                        context
-                            .read<GenerateAgoraTokenCubit>()
-                            .generateAgoraToken(channelName: contAddress.text);
-                        if (allowedChat.value == true) {
+                      if (widget.liveModel != null) {
+                        if (users.isEmpty ||
+                            products.isEmpty ||
+                            contAddress.text.isEmpty) {
+                          myErrorSnackBar(context, "all Data required to send");
+                        } else {
                           context
-                              .read<GenerateRTMTokenCubit>()
-                              .generateRTMToken();
+                              .read<GenerateAgoraTokenCubit>()
+                              .generateAgoraToken(
+                                  channelName: contAddress.text);
+                          if (allowedChat.value == true) {
+                            context
+                                .read<GenerateRTMTokenCubit>()
+                                .generateRTMToken();
+                          }
+                        }
+                      } else {
+                        if (allowedChat.value == true) {
+                          if (allowedChat.value == true) {
+                            context
+                                .read<GenerateRTMTokenCubit>()
+                                .generateRTMToken();
+                          }
+                        } else {
+                          context.read<UpdateRoomCubit>().updateRoom(
+                                roomId: widget.liveModel!.sId!,
+                                allowedChat: allowedChat.value,
+                                address: contAddress.text,
+                                users: users,
+                                products: products,
+                              );
                         }
                       }
                     },

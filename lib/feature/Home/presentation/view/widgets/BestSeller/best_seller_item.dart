@@ -4,19 +4,19 @@ import 'package:smart_auction/core/utils/colors.dart';
 import 'package:smart_auction/core/widgets/Components/image_component.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/name_best_seller.dart';
 import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/price_rating_best_seller.dart';
-import 'package:smart_auction/feature/Home/presentation/view/widgets/BestSeller/sale_best_seller.dart';
 
 class BestSellerItem extends StatelessWidget {
-  const BestSellerItem(
-      {super.key,
-      required this.index,
-      required this.urlLinkImage,
-      required this.productName,
-      required this.productRating,
-      required this.productRealPrice,
-      required this.productOfferPrice,
-      required this.productOfferPercentage,
-      required this.length});
+  const BestSellerItem({
+    super.key,
+    required this.index,
+    required this.urlLinkImage,
+    required this.productName,
+    required this.productRating,
+    required this.productRealPrice,
+    required this.productOfferPrice,
+    required this.productOfferPercentage,
+    required this.length,
+  });
 
   final int index;
   final String urlLinkImage;
@@ -52,12 +52,13 @@ class BestSellerItem extends StatelessWidget {
               height: 10.h,
             ),
             Center(
-                child: ImageComponent(
-              urlImage: urlLinkImage,
-              height: 120.h,
-              width: 150.w,
-              radius: 5.r,
-            )),
+              child: ImageComponent(
+                urlImage: urlLinkImage,
+                height: 120.h,
+                width: 150.w,
+                radius: 5.r,
+              ),
+            ),
             const Spacer(),
             NameBestSeller(
               productName: productName,
@@ -67,11 +68,11 @@ class BestSellerItem extends StatelessWidget {
               productOfferPrice: productOfferPrice,
               productRating: productRating == "null" ? "0.0" : productRating,
             ),
-            const Spacer(),
-            SaleBestSeller(
-              productRealPrice: productRealPrice,
-              productOfferPercentage: productOfferPercentage,
-            ),
+            // const Spacer(),
+            // SaleBestSeller(
+            //   productRealPrice: productRealPrice,
+            //   productOfferPercentage: productOfferPercentage,
+            // ),
             const Spacer(),
           ],
         ),
