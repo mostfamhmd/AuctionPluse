@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "359104392455",
+    "project_id": "smart-trade-auction-pluse",
+    "storage_bucket": "smart-trade-auction-pluse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359104392455:android:fa858b185bda1c5059a9a2",
+        "android_client_info": {
+          "package_name": "com.example.smart_auction"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4U61F7hFWQ89TRqlz4GNLWKuRaFQoFWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
